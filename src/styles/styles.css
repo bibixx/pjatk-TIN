@@ -298,6 +298,7 @@ body {
 
 .table__cell,
 .table__cell-link {
+  white-space: nowrap;
   font: var(--font-regular-16);
   color: var(--text-default);
 }
@@ -332,6 +333,11 @@ body {
 .table__actions-container {
   display: flex;
   gap: 0.5rem;
+}
+
+.table-wrapper {
+  overflow: auto;
+  width: 100%;
 }
 
 /* DELETE CONFIRMATION */
@@ -485,4 +491,37 @@ body {
 .hotel-stars--stars-4 .hotel-stars__icon:nth-child(4) ~ .hotel-stars__icon,
 .hotel-stars--stars-5 .hotel-stars__icon:nth-child(5) ~ .hotel-stars__icon {
   display: none;
+}
+
+/* MOBILE */
+@media (max-width: 764px) {
+  .main-header {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .main-nav {
+    justify-self: unset;
+  }
+
+  .main-nav__list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .content-card__header-container {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  .input__element {
+    width: 100%;
+  }
+
+  body {
+    padding: 0 0.5rem;
+  }
 }
