@@ -1,0 +1,36 @@
+<%
+  const tripPayments = [
+    { name: "Arkadiusz", surname: "Kaczmarczyk", date: "02.06.2021", discount: "10%" }
+  ];
+%>
+
+
+<table class="table table--non-interactive">
+  <thead>
+    <tr class="table__header">
+      <th class="table__cell table__header-cell">Imię</th>
+      <th class="table__cell table__header-cell">Nazwisko</th>
+      <th class="table__cell table__header-cell">Data Płatności</th>
+      <th class="table__cell table__header-cell">Zniżka</th>
+    </tr>
+  </thead>
+  <tbody class="table__tbody">
+    <% for (let i = 0; i < tripPayments.length; i++) { %>
+      <% const tripPayment = tripPayments[i] %>
+      <tr class="table__row">
+        <td class="table__cell">
+          <%= tripPayment.name %>
+        </td>
+        <td class="table__cell">
+          <%= tripPayment.surname %>
+        </td>
+        <td class="table__cell">
+          <%= tripPayment.date %>
+        </td>
+        <td class="table__cell">
+          <%= tripPayment.discount %>
+        </td>
+      </tr>
+    <% } %>
+  </tbody>
+</table>

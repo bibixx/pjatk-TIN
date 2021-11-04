@@ -1,0 +1,53 @@
+<%
+  const inputs = [
+    {
+      name: 'name',
+      label: 'Imię',
+      value: 'Arkadiusz',
+      required: true,
+      type: 'text',
+      error: 'Pole wymagane'
+    },
+    {
+      name: 'surname',
+      label: 'Nazwisko',
+      value: 'Kaczmarczyk',
+      required: true,
+      type: 'text',
+      error: 'Pole wymagane'
+    },
+    {
+      name: 'dob',
+      label: 'Data Urodzenia',
+      value: '1990-10-10',
+      required: true,
+      type: 'date',
+      error: 'Pole wymagane'
+    },
+    {
+      name: 'email',
+      label: 'Email',
+      value: 'arkadiusz.kaczmarczyk@gmail.com',
+      required: true,
+      type: 'email',
+      error: 'Pole wymagane'
+    },
+    {
+      name: 'phone',
+      label: 'Numer Telefonu',
+      value: '456 456 456',
+      required: false,
+      type: 'tel',
+      info: form.disabled ? undefined : 'Format: 555 555 555',
+      error: 'Błędny format'
+    },
+  ]
+%>
+
+<%- include('../../../partials/inputs.ejs', { inputs }); %>
+
+<% if (form.hasError) { %>
+  <div class="form__global-error-message">
+    Formularz zawiera błędy
+  </div>
+<% } %>

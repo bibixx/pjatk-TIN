@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../../partials/head.ejs', { isHome: false, page: 'Wycieczki' }); %>
+<body>
+  <div class="page-wrapper">
+    <%- include('partials/page-header.ejs'); %>
+    <div class="content-wrapper">
+      <main class="content-card">
+        <%- include('partials/list-header.ejs'); %>
+        <%- include('../../partials/success-message.ejs', { message: "Pomyślnie zedytowano wycieczkę" }); %>
+        <%- include('partials/table.ejs'); %>
+      </main>
+    </div>
+    <%- include('../../partials/footer.ejs'); %>
+  </div>
+</body>
+</html>

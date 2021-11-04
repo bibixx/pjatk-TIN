@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../../partials/head.ejs', { isHome: false, page: 'Uczestnicy' }); %>
+<body>
+  <div class="page-wrapper">
+    <%- include('partials/page-header.ejs'); %>
+    <div class="content-wrapper">
+      <main class="content-card">
+        <%-
+          include(
+            '../../partials/empty.ejs',
+            {
+              info: 'Brak uczestników',
+              button: 'Dodaj Pierwszego Uczestnika'
+            }
+          );
+        %>
+      </main>
+    </div>
+    <%- include('../../partials/footer.ejs'); %>
+  </div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../../partials/head.ejs', { isHome: false, page: 'Wycieczki' }); %>
+<body>
+  <div class="page-wrapper">
+    <%- include('partials/page-header.ejs'); %>
+    <div class="content-wrapper">
+      <main class="content-card">
+        <form method="GET" action="./list-edit-success.html" class="form">
+          <header class="content-card__header-container">
+            <h1 class="content-card__heading">Edytuj Wycieczkę</h1>
+          </header>
+          <%-
+            include('partials/form.ejs', {
+              form: {
+                withValue: true,
+              }
+            })
+          %>
+          <div class="form__buttons-container">
+            <button type="submit" class="button">Zapisz</button>
+            <a href="./list.html" class="button button--muted">Anuluj</a>
+          </div>
+        </form>
+      </main>
+    </div>
+    <%- include('../../partials/footer.ejs'); %>
+  </div>
+</body>
+</html>

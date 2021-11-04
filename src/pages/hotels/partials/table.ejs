@@ -1,0 +1,54 @@
+<%
+  const hotels = [
+    { name: "Sunrise Mountain Hotel", stars: "5" },
+    { name: "Parallel Gorge Resort & Spa", stars: "4" },
+    { name: "Soft Sierra Hotel", stars: "3" },
+    { name: "Antique Horizon Motel", stars: "2" },
+    { name: "Atlantis Residence Hotel", stars: "1" },
+    { name: "Illustrious Grotto Hotel", stars: "5" },
+    { name: "Elysium Hotel & Spa", stars: "4" },
+  ];
+%>
+
+<table class="table">
+  <thead>
+    <tr class="table__header">
+      <th class="table__cell table__header-cell">Nazwa Hotelu</th>
+      <th class="table__cell table__header-cell">Gwiazdki</th>
+      <th class="table__cell table__header-cell"></th>
+    </tr>
+  </thead>
+  <tbody class="table__tbody">
+    <% for (let i = 0; i < hotels.length; i++) { %>
+      <% const hotel = hotels[i] %>
+      <tr class="table__row">
+        <td class="table__cell">
+          <a href="./details.html" class="table__cell-link">
+            <%= hotel.name %>
+          </a>
+        </td>
+        <td class="table__cell">
+          <a href="./details.html" class="table__cell-link">
+            <div class="hotel-stars hotel-stars--stars-<%= hotel.stars %>">
+              <span class="material-icons hotel-stars__icon">star</span>
+              <span class="material-icons hotel-stars__icon">star</span>
+              <span class="material-icons hotel-stars__icon">star</span>
+              <span class="material-icons hotel-stars__icon">star</span>
+              <span class="material-icons hotel-stars__icon">star</span>
+            </div>
+          </a>
+        </td>
+        <td class="table__cell table__cell--actions">
+          <div class="table__actions-container">
+            <a href="./edit.html" class="action-button">
+              <span class="material-icons">edit</span>
+            </a>
+            <a href="./delete.html" class="action-button action-button--danger">
+              <span class="material-icons">delete</span>
+            </a>
+          </div>
+        </td>
+      </tr>
+    <% } %>
+  </tbody>
+</table>

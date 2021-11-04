@@ -1,0 +1,54 @@
+<%
+  const participants = [
+    { firstName: "Arkadiusz", lastName: "Kaczmarczyk", email: "arkadiusz.kaczmarczyk@gmail.com" },
+    { firstName: "Edward", lastName: "Chmielewski", email: "edward.chmielewski@wp.pl" },
+    { firstName: "Franciszek", lastName: "Mazurek", email: "franciszek.mazurek@onet.pl" },
+    { firstName: "Rafał", lastName: "Szymański", email: "rafał.szymański@o2.pl" },
+    { firstName: "Jędrzej", lastName: "Nowak", email: "jędrzej.nowak@interia.pl" },
+    { firstName: "Hubert", lastName: "Sokołowski", email: "hubert.sokołowski@gmail.com" },
+    { firstName: "Maurycy", lastName: "Malinowski", email: "maurycy.malinowski@yahoo.com" },
+  ];
+%>
+
+<table class="table">
+  <thead>
+    <tr class="table__header">
+      <th class="table__cell table__header-cell">Imię</th>
+      <th class="table__cell table__header-cell">Nazwisko</th>
+      <th class="table__cell table__header-cell">Email</th>
+      <th class="table__cell table__header-cell"></th>
+    </tr>
+  </thead>
+  <tbody class="table__tbody">
+    <% for (let i = 0; i < participants.length; i++) { %>
+      <% const participant = participants[i] %>
+      <tr class="table__row">
+        <td class="table__cell">
+          <a href="./details.html" class="table__cell-link">
+            <%= participant.firstName %>
+          </a>
+        </td>
+        <td class="table__cell">
+          <a href="./details.html" class="table__cell-link">
+            <%= participant.lastName %>
+          </a>
+        </td>
+        <td class="table__cell">
+          <a href="./details.html" class="table__cell-link">
+            <%= participant.email %>
+          </a>
+        </td>
+        <td class="table__cell table__cell--actions">
+          <div class="table__actions-container">
+            <a href="./edit.html" class="action-button">
+              <span class="material-icons">edit</span>
+            </a>
+            <a href="./delete.html" class="action-button action-button--danger">
+              <span class="material-icons">delete</span>
+            </a>
+          </div>
+        </td>
+      </tr>
+    <% } %>
+  </tbody>
+</table>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../../partials/head.ejs', { isHome: false, page: 'Wycieczki' }); %>
+<body>
+  <div class="page-wrapper">
+    <%- include('partials/page-header.ejs'); %>
+    <div class="content-wrapper content-wrapper--delete-confirmation">
+      <main class="content-card delete-confirmation">
+        <h1 class="delete-confirmation__heading">Czy na pewno chcesz usunąć tę wycieczkę?</h1>
+        <p class="delete-confirmation__subject">Egipt</p>
+        <p class="delete-confirmation__subtext">
+          Zostanie ona usunięta natychmiastowo. Akcja ta jest nieodwracalna.
+        </p>
+        <div class="delete-confirmation__buttons">
+          <a class="button button--muted" href="./list.html">Anuluj</a>
+          <a class="button button--danger" href="./list-delete-success.html">
+            Usuń Wycieczkę
+            <span class="material-icons">delete</span>
+          </a>
+        </div>
+      </main>
+    </div>
+    <%- include('../../partials/footer.ejs'); %>
+  </div>
+</body>
+</html>

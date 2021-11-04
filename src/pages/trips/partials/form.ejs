@@ -1,0 +1,63 @@
+<%
+  const inputs = [
+    {
+      name: 'name',
+      label: 'Nazwa Wycieczki',
+      value: 'Egipt',
+      required: true,
+      type: 'text',
+      error: 'Pole wymagane'
+    },
+    {
+      name: 'price',
+      label: 'Cena',
+      value: '2029',
+      required: true,
+      type: 'number',
+      error: 'Pole wymagane'
+    },
+    {
+      name: 'startOfTripDate',
+      label: 'Data Startu Wycieczki',
+      value: '2021-07-05',
+      required: true,
+      type: 'date',
+      error: 'Pole wymagane'
+    },
+  ]
+%>
+
+<%- include('../../../partials/inputs.ejs', { inputs }); %>
+<% if (!form.hideHotel) { %>
+  <div class="input<% if (form.hasError) { %> input--has-error<% } %>">
+    <label class="input__label<% if (form.disabled) {%> input__label--disabled<%}%>">
+      Hotel
+    </label>
+    <select
+      name="hotel"
+      id="hotel"
+      class="input__element"
+      <% if (form.disabled) {%>disabled<%}%>
+    >
+      <option value="default">-- Wybierz Hotel --</option>
+      <option value="1"<% if (form.withValue) {%> selected="selected"<%}%>>Sunrise Mountain Hotel</option>
+      <option value="2">Parallel Gorge Resort & Spa</option>
+      <option value="3">Soft Sierra Hotel</option>
+      <option value="4">Antique Horizon Motel</option>
+      <option value="5">Atlantis Residence Hotel</option>
+      <option value="6">Illustrious Grotto Hotel</option>
+      <option value="7">Elysium Hotel & Spa</option>
+    </select>
+    <% if (form.hasError) { %>
+      <div class="input__info input__info--danger">
+        Pole wymagane
+      </div>
+    <% } %>
+  </div>
+<% } %>
+
+<% if (form.hasError) { %>
+  <div class="form__global-error-message">
+    Formularz zawiera błędy
+  </div>
+<% } %>

@@ -1,0 +1,48 @@
+<%
+  const trips = [
+    { name: 'Egipt', price: '2 029,00 PLN' },
+    { name: 'Zanzibar', price: '3 132,00 PLN' },
+    { name: 'Turcja', price: '4 867,00 PLN' },
+    { name: 'Chorwacja', price: '4 750,00 PLN' },
+    { name: 'Włochy', price: '4 013,00 PLN' },
+    { name: 'Hiszpania', price: '4 366,00 PLN' },
+    { name: 'Wyspy Kanaryjskie', price: '4 310,00 PLN' },
+  ];
+%>
+
+<table class="table">
+  <thead>
+    <tr class="table__header">
+      <th class="table__cell table__header-cell">Nazwa</th>
+      <th class="table__cell table__header-cell">Cena</th>
+      <th class="table__cell table__header-cell"></th>
+    </tr>
+  </thead>
+  <tbody class="table__tbody">
+    <% for (let i = 0; i < trips.length; i++) { %>
+      <% const trip = trips[i] %>
+      <tr class="table__row">
+        <td class="table__cell">
+          <a href="./details.html" class="table__cell-link">
+            <%= trip.name %>
+          </a>
+        </td>
+        <td class="table__cell">
+          <a href="./details.html" class="table__cell-link">
+            <%= trip.price %>
+          </a>
+        </td>
+        <td class="table__cell table__cell--actions">
+          <div class="table__actions-container">
+            <a href="./edit.html" class="action-button">
+              <span class="material-icons">edit</span>
+            </a>
+            <a href="./delete.html" class="action-button action-button--danger">
+              <span class="material-icons">delete</span>
+            </a>
+          </div>
+        </td>
+      </tr>
+    <% } %>
+  </tbody>
+</table>

@@ -1,0 +1,48 @@
+{
+  "name": "mp1",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "build": "rm -rf public && npm run build:ejs && npm run build:static && npm run prettify && npm run zip-public",
+    "prettify": "prettier public/**/*.html -w --print-width=160 --html-whitespace-sensitivity=ignore",
+    "build:ejs": "rm -rf dest/pages && ejs-cli --base-dir src/ 'pages/!(partials)/*.ejs' index.ejs --out public/ && ejs-cli --base-dir src/ index.ejs --out public/",
+    "build:static": "rm -rf public/{images,styles} && cp -R src/{images,styles,scripts} public/",
+    "watch:ejs": "npm-watch build:ejs",
+    "watch:static": "npm-watch build:static",
+    "serve": "browser-sync start --server 'public' --files 'public' --watch --directory --single",
+    "zip-public": "zip tin_zaoczne_14c_s19129_mp1.zip ./public/**/*"
+  },
+  "watch": {
+    "build:ejs": {
+      "patterns": [
+        "src"
+      ],
+      "extensions": "ejs"
+    },
+    "build:static": {
+      "patterns": [
+        "src/images",
+        "src/styles",
+        "src/scripts"
+      ],
+      "extensions": [
+        "css",
+        "png",
+        "js"
+      ]
+    }
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs-cli": "^2.2.1"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.27.7",
+    "concurrently": "^6.3.0",
+    "npm-watch": "^0.11.0",
+    "prettier": "^2.4.1"
+  }
+}
