@@ -1,0 +1,31 @@
+<%
+  const listItems = [
+    { id: 'participants', name: 'Uczestnicy' },
+    { id: 'trip-payments', name: 'Płatności za Wycieczki' },
+    { id: 'trips', name: 'Wycieczki' },
+    { id: 'hotels', name: 'Hotele' },
+  ]
+
+  const path = isHome ? '.' : '../..'
+  const navPath = isHome ? 'pages' : '..'
+-%>
+
+<header class="main-header">
+  <a href="/" class="main-header__logo-link">
+    <img src="/images/logo.png" alt="Happy Holidays" class="main-header__logo">
+  </a>
+  <nav class="main-nav">
+    <ul class="main-nav__list">
+      <%
+        listItems.forEach(listItem => {
+          const currentPageClassName = listItem.id === selected ? ' main-nav__list-link--current-page' : ''
+      -%>
+        <li>
+          <a class="main-nav__list-link<%= currentPageClassName %>" href="/<%= listItem.id %>/"><%= listItem.name %></a>
+        </li>
+      <%
+        })
+      -%>
+    </ul>
+  </nav>
+</header>

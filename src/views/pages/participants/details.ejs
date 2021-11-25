@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../../partials/head.ejs', { isHome: false, page: 'Uczestnicy' }); %>
+<body>
+  <div class="page-wrapper">
+    <%- include('partials/page-header.ejs'); %>
+    <div class="content-wrapper">
+      <main class="content-card">
+        <section>
+          <header class="content-card__header-container">
+            <h1 class="content-card__heading">Szczegóły Uczestnika</h1>
+          </header>
+          <%-
+            include('partials/form.ejs', {
+              participant,
+              errors: undefined,
+              form: {
+                disabled: true
+              }
+            })
+          %>
+          <div class="form__buttons-container">
+            <a href="./update" class="button">
+              Edytuj
+              <span class="material-icons">edit</span>
+            </a>
+            <a href="../" class="button button--muted">Anuluj</a>
+          </div>
+        </section>
+        <% if (tripParticipants.length > 0) { %>
+          <section>
+            <h2 class="details__subheader">Płatności za Wycieczkę</h2>
+            <%- include('partials/trip-payments-table.ejs', { tripParticipants }); %>
+          </section>
+        <% } %>
+      </main>
+    </div>
+    <%- include('../../partials/footer.ejs'); %>
+  </div>
+</body>
+</html>

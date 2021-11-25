@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../../partials/head.ejs', { isHome: false, page: 'Uczestnicy' }); %>
+<body>
+  <div class="page-wrapper">
+    <%- include('partials/page-header.ejs'); %>
+    <div class="content-wrapper">
+      <main class="content-card">
+        <% if (participants.length > 0) { %>
+          <header class="content-card__header-container">
+            <h1 class="content-card__heading">Lista Uczestników</h1>
+            <a href="./create" class="button">
+              Nowy Uczestnik
+              <span class="material-icons">add</span>
+            </a>
+          </header>
+
+          <% if (hasSuccess) { %>
+            <%- include('../../partials/success-message.ejs', { message: "Pomyślnie zedytowano uczestnika" }); %>
+          <% } %>
+
+          <% if (hasDeleted) { %>
+            <%- include('../../partials/success-message.ejs', { message: "Pomyślnie usunięto uczestnika" }); %>
+          <% } %>
+
+          <% if (hasAdded) { %>
+            <%- include('../../partials/success-message.ejs', { message: "Pomyślnie dodano uczestnika" }); %>
+          <% } %>
+
+          <% if (hasError) { %>
+            <%- include('../../partials/error-message.ejs', { message: "Wystąpił błąd" }); %>
+          <% } %>
+
+          <%- include('partials/table.ejs', { participants }); %>
+        <% } else { %>
+          <%-
+          include(
+            '../../partials/empty.ejs',
+              {
+                info: 'Brak uczestników',
+                button: 'Dodaj Pierwszego Uczestnika'
+              }
+            );
+          %>
+        <% } %>
+      </main>
+    </div>
+    <%- include('../../partials/footer.ejs'); %>
+  </div>
+</body>
+</html>

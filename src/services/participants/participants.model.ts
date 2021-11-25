@@ -3,7 +3,7 @@ import { Participant } from 'types/tables';
 import { NewParticipant } from './participants.types';
 
 export const getAllParticipants = () => {
-  return db.select('*').from<Participant>('participant');
+  return db.select('*').from<Participant>('participant').orderBy('id');
 };
 
 export const getParticipantById = (id: number) => {

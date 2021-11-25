@@ -1,0 +1,35 @@
+<div class="table-wrapper">
+  <table class="table">
+    <thead>
+      <tr class="table__header">
+        <th class="table__cell table__header-cell">Nazwa Wycieczki</th>
+        <th class="table__cell table__header-cell">Data Płatności</th>
+        <th class="table__cell table__header-cell">Zniżka</th>
+      </tr>
+    </thead>
+    <tbody class="table__tbody">
+      <% for (let i = 0; i < tripParticipants.length; i++) { %>
+        <% const tripParticipant = tripParticipants[i] %>
+        <tr class="table__row">
+          <td class="table__cell">
+            <a href="/trip-payments/<%= tripParticipant.id %>/" class="table__cell-link">
+              <%= tripParticipant.trip.name %>
+            </a>
+          </td>
+          <td class="table__cell">
+            <a href="/trip-payments/<%= tripParticipant.id %>/" class="table__cell-link">
+              <%= tripParticipant.dateofpayment %>
+            </a>
+          </td>
+          <td class="table__cell">
+            <a href="/trip-payments/<%= tripParticipant.id %>/" class="table__cell-link">
+              <% if (tripParticipant.discount !== undefined) { %>
+                <%= tripParticipant.discount %>%
+              <% } %>
+            </a>
+          </td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>

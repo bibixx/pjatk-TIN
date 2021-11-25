@@ -1,5 +1,9 @@
 import express from 'express';
-import { participantsRouter } from 'services/participants/participants.route';
+import { homeRouter } from 'services/home/home.route';
+import { participantsRouter } from 'services/participants/participants.routes';
 
-export const appRouter = express.Router();
-appRouter.use('/participants', participantsRouter);
+export const appRouter = express.Router({
+  strict: true,
+});
+appRouter.use('/', homeRouter);
+appRouter.use('/participants/', participantsRouter);

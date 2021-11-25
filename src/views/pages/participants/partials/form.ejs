@@ -1,0 +1,53 @@
+<%
+  const inputs = [
+    {
+      name: 'name',
+      label: 'Imię',
+      value: participant.name,
+      required: true,
+      type: 'text',
+      error: errors?.name,
+    },
+    {
+      name: 'surname',
+      label: 'Nazwisko',
+      value: participant.surname,
+      required: true,
+      type: 'text',
+      error: errors?.surname,
+    },
+    {
+      name: 'dob',
+      label: 'Data Urodzenia',
+      value: participant.dob,
+      required: true,
+      type: 'date',
+      error: errors?.dob,
+    },
+    {
+      name: 'email',
+      label: 'Email',
+      value: participant.email,
+      required: true,
+      type: 'email',
+      error: errors?.email,
+    },
+    {
+      name: 'phonenumber',
+      label: 'Numer Telefonu',
+      value: participant.phonenumber,
+      required: false,
+      type: 'tel',
+      info: form.disabled ? undefined : 'Format: 555 555 555',
+      error: errors?.phonenumber,
+    },
+  ]
+%>
+
+<%- include('../../../partials/inputs.ejs', { inputs }); %>
+
+<% if (errors) { %>
+  <div class="form__global-error-message">
+    Formularz zawiera błędy
+  </div>
+<% } %>

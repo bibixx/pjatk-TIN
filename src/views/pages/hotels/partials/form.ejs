@@ -1,0 +1,29 @@
+<%
+  const inputs = [
+    {
+      name: 'name',
+      label: 'Nazwa Hotelu',
+      value: 'Sunrise Mountain Hotel',
+      required: true,
+      type: 'text',
+      error: 'Pole wymagane'
+    },
+    {
+      name: 'numberOfStars',
+      label: 'Gwiazdki',
+      value: '5',
+      required: true,
+      type: 'number',
+      min: '1',
+      max: '5',
+      error: 'Pole wymagane'
+    }
+  ]
+%>
+
+<%- include('../../../partials/inputs.ejs', { inputs }); %>
+<% if (form.hasError) { %>
+  <div class="form__global-error-message">
+    Formularz zawiera błędy
+  </div>
+<% } %>

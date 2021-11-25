@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../../partials/head.ejs', { isHome: false, page: 'Uczestnicy' }); %>
+<body>
+  <div class="page-wrapper">
+    <%- include('partials/page-header.ejs'); %>
+    <div class="content-wrapper content-wrapper--delete-confirmation">
+      <main class="content-card delete-confirmation">
+        <h1 class="delete-confirmation__heading">Podany uczestnik nie istnieje</h1>
+      </main>
+    </div>
+    <%- include('../../partials/footer.ejs'); %>
+  </div>
+</body>
+</html>
