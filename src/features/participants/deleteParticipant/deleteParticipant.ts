@@ -1,6 +1,6 @@
 import { db } from 'core/db';
 import { Request, Response } from 'express';
-import { deleteTripParticipantByParticipantId } from 'features/tripParticipants/tripParticipants.model';
+import { deleteTripParticipantsByParticipantId } from 'features/tripParticipants/tripParticipants.model';
 import { getNumericId } from 'utils/getNumericId';
 import { withView } from 'utils/views/withView';
 import { deleteParticipantById } from '../participants.model';
@@ -38,7 +38,7 @@ export const deleteParticipant = withView(deleteParticipantView)(
     }
 
     const deletedCount = await db.transaction(async (trx) => {
-      await deleteTripParticipantByParticipantId(id).transacting(trx);
+      await deleteTripParticipantsByParticipantId(id).transacting(trx);
 
       return deleteParticipantById(id).transacting(trx);
     });

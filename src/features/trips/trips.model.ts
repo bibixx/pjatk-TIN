@@ -1,5 +1,6 @@
 import { db } from 'core/db';
 import { TripTable } from 'types/tables';
+import { NewTrip } from './trips.types';
 
 export const getTripById = (id: number) => {
   return db
@@ -13,4 +14,24 @@ export const getTripById = (id: number) => {
 
 export const getTripsByHotelId = (hotelId: number) => {
   return db.from<TripTable>('trip').select('*').where({ idhotel: hotelId });
+};
+
+export const getAllTrips = () => {
+  return db.select('*').from<TripTable>('trip').orderBy('id');
+};
+
+export const createTrip = (trip: NewTrip) => {
+  return db<TripTable>('trip').insert(trip, '*');
+};
+
+export const updateTrip = (tripId: number, trip: Partial<NewTrip>) => {
+  return db<TripTable>('trip').update(trip).where({ id: tripId });
+};
+
+export const deleteTrip = (tripId: number) => {
+  return db<TripTable>('trip')
+    .where({
+      id: tripId,
+    })
+    .delete();
 };

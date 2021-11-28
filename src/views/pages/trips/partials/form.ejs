@@ -3,60 +3,64 @@
     {
       name: 'name',
       label: 'Nazwa Wycieczki',
-      value: 'Egipt',
+      value: trip.name,
       required: true,
       type: 'text',
-      error: 'Pole wymagane'
+      error: errors?.name,
     },
     {
       name: 'price',
       label: 'Cena',
-      value: '2029',
+      value: trip.price,
       required: true,
       type: 'number',
-      error: 'Pole wymagane'
+      error: errors?.price,
     },
     {
-      name: 'startOfTripDate',
+      name: 'startoftripdate',
       label: 'Data Startu Wycieczki',
-      value: '2021-07-05',
+      value: trip.startoftripdate ? utils.formatDate(trip.startoftripdate) : undefined,
       required: true,
       type: 'date',
-      error: 'Pole wymagane'
+      error: errors?.startoftripdate,
     },
   ]
 %>
 
-<%- include('../../../partials/inputs.ejs', { inputs }); %>
+<%- include(utils.root('/partials/inputs.ejs'), { inputs }); %>
+
 <% if (!form.hideHotel) { %>
   <div class="input<% if (form.hasError) { %> input--has-error<% } %>">
     <label class="input__label<% if (form.disabled) {%> input__label--disabled<%}%>">
       Hotel
     </label>
     <select
-      name="hotel"
-      id="hotel"
+      name="idhotel"
+      id="idhotel"
       class="input__element"
       <% if (form.disabled) {%>disabled<%}%>
     >
-      <option value="default">-- Wybierz Hotel --</option>
-      <option value="1"<% if (form.withValue) {%> selected="selected"<%}%>>Sunrise Mountain Hotel</option>
-      <option value="2">Parallel Gorge Resort & Spa</option>
-      <option value="3">Soft Sierra Hotel</option>
-      <option value="4">Antique Horizon Motel</option>
-      <option value="5">Atlantis Residence Hotel</option>
-      <option value="6">Illustrious Grotto Hotel</option>
-      <option value="7">Elysium Hotel & Spa</option>
+      <option value="" disabled selected>-- Wybierz Hotel --</option>
+      <% for (let i = 0; i < hotels.length; i++) { %>
+        <% const hotel = hotels[i] %>
+        <option
+          value="<%= hotel.id %>"
+          <% if (hotel.id === trip.idhotel) { %>selected<% } %>
+        >
+          <%= hotel.name %>
+        </option>
+      <% } %>
     </select>
-    <% if (form.hasError) { %>
+
+    <% if (errors?.idhotel) { %>
       <div class="input__info input__info--danger">
-        Pole wymagane
+        <%= errors?.idhotel %>
       </div>
     <% } %>
   </div>
 <% } %>
 
-<% if (form.hasError) { %>
+<% if (errors) { %>
   <div class="form__global-error-message">
     Formularz zawiera błędy
   </div>

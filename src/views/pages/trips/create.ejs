@@ -6,12 +6,15 @@
     <%- include('partials/page-header.ejs'); %>
     <div class="content-wrapper">
       <main class="content-card">
-        <form method="GET" action="./add-error.html">
+        <form method="POST" action="." novalidate>
           <header class="content-card__header-container">
             <h1 class="content-card__heading">Dodaj Wycieczkę</h1>
           </header>
           <%-
             include('partials/form.ejs', {
+              trip,
+              hotels,
+              errors,
               form: {
                 withValue: false,
               }

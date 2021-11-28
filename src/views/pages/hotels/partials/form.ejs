@@ -22,7 +22,8 @@
 %>
 
 <%- include('../../../partials/inputs.ejs', { inputs }); %>
-<% if (form.hasError) { %>
+
+<% if (errors) { %>
   <div class="form__global-error-message">
     Formularz zawiera błędy
   </div>

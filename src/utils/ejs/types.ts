@@ -29,6 +29,13 @@ export enum ViewNames {
   HOTEL_UPDATE = 'HOTEL_UPDATE',
   HOTEL_NOT_FOUND = 'HOTEL_NOT_FOUND',
   HOTEL_DELETE_TRIP_EXISTS = 'HOTEL_DELETE_TRIP_EXISTS',
+
+  TRIP_LIST = 'TRIP_LIST',
+  TRIP_DETAILS = 'TRIP_DETAILS',
+  TRIP_CREATE = 'TRIP_CREATE',
+  TRIP_DELETE = 'TRIP_DELETE',
+  TRIP_UPDATE = 'TRIP_UPDATE',
+  TRIP_NOT_FOUND = 'TRIP_NOT_FOUND',
 }
 
 export const VIEW_PATHS: Record<ViewNames, string> = {
@@ -52,11 +59,20 @@ export const VIEW_PATHS: Record<ViewNames, string> = {
   [ViewNames.HOTEL_DELETE]: 'pages/hotels/delete',
   [ViewNames.HOTEL_NOT_FOUND]: 'pages/hotels/not-found',
   [ViewNames.HOTEL_DELETE_TRIP_EXISTS]: 'pages/hotels/delete-trip-exists',
+
+  [ViewNames.TRIP_LIST]: 'pages/trips/list',
+  [ViewNames.TRIP_CREATE]: 'pages/trips/create',
+  [ViewNames.TRIP_UPDATE]: 'pages/trips/update',
+  [ViewNames.TRIP_DETAILS]: 'pages/trips/details',
+  [ViewNames.TRIP_DELETE]: 'pages/trips/delete',
+  [ViewNames.TRIP_NOT_FOUND]: 'pages/trips/not-found',
 };
 
 export type ViewArguments = {
   [ViewNames.HOME]: {};
   [ViewNames.ERROR]: {};
+
+  // Participants
   [ViewNames.PARTICIPANTS_LIST]: {
     participants: RenderableParticipant[];
     hasSuccess: boolean;
@@ -81,6 +97,7 @@ export type ViewArguments = {
   };
   [ViewNames.PARTICIPANT_NOT_FOUND]: {};
 
+  // Trip Participants
   [ViewNames.TRIP_PARTICIPANT_LIST]: {
     tripParticipants: TripParticipant[];
   };
@@ -88,6 +105,7 @@ export type ViewArguments = {
     tripParticipant: RenderableTripParticipant;
   };
 
+  // Hotels
   [ViewNames.HOTEL_LIST]: {
     hotels: HotelTable[];
     hasSuccess: boolean;
@@ -114,6 +132,34 @@ export type ViewArguments = {
     hotel: HotelTable;
   };
   [ViewNames.HOTEL_NOT_FOUND]: {};
+
+  // Trips
+  [ViewNames.TRIP_LIST]: {
+    trips: TripTable[];
+    hasSuccess: boolean;
+    hasDeleted: boolean;
+    hasAdded: boolean;
+    hasError: boolean;
+  };
+  [ViewNames.TRIP_DETAILS]: {
+    trip: TripTable;
+    hotel?: HotelTable;
+  };
+  [ViewNames.TRIP_CREATE]: {
+    trip: Partial<TripTable>;
+    hotels: HotelTable[];
+    errors: undefined | Partial<Record<keyof HotelTable, string>>;
+  };
+  [ViewNames.TRIP_UPDATE]: {
+    trip: Partial<TripTable>;
+    hotels: HotelTable[];
+    errors: undefined | Partial<Record<keyof HotelTable, string>>;
+  };
+  [ViewNames.TRIP_DELETE]: {
+    trip: TripTable;
+    tripParticipants: TripParticipant[];
+  };
+  [ViewNames.TRIP_NOT_FOUND]: {};
 };
 
 export type View<T extends ViewNames> = {

@@ -32,7 +32,7 @@
           <% if (trips.length === 0) { %>
             <p>Brak wycieczek</p>
           <% } else { %>
-            <%- include('partials/trips-table.ejs', { trips }); %>
+            <%- include('../trips/partials/table.ejs', { trips }); %>
           <% } %>
         </section>
       </main>

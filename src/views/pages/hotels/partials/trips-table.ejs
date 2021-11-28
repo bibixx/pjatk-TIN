@@ -1,22 +1,3 @@
-<%
-  const formatPrice = (value) => {
-    const padStart = (value) => `000000${value}`.slice(-6);
-
-    const thousands = Math.floor(value / 1000);
-    const rest = value - thousands * 1000;
-
-    if (thousands === 0) {
-      return rest.toFixed(2).replace('.', ',')
-    }
-
-    const restAsString = rest
-      .toFixed(2)
-      .replace('.', ',');
-
-    return `${thousands} ${padStart(restAsString)}`;
-  }
-%>
-
 <div class="table-wrapper">
   <table class="table table--non-interactive">
     <thead>
@@ -33,7 +14,7 @@
             <%= trip.name %>
           </td>
           <td class="table__cell">
-            <%= formatPrice(trip.price) %> PLN
+            <%= utils.formatPrice(trip.price) %> PLN
           </td>
         </tr>
       <% } %>

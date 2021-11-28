@@ -9,26 +9,31 @@ import {
 } from 'types/tables';
 import { TripParticipant } from './tripParticipants.types';
 
+const fetchParticipantsForTrip = async ({
+  idparticipant,
+  idtrip,
+  ...rest
+}: TripParticipantTable): Promise<TripParticipant> => {
+  // TODO: No as
+  const participant = (await getParticipantById(
+    idparticipant,
+  )) as ParticipantTable;
+  const trip = (await getTripById(idtrip)) as TripTable;
+
+  return {
+    ...rest,
+    participant,
+    trip,
+  };
+};
+
 export const getAllTripParticipants = async (): Promise<TripParticipant[]> => {
   const tripParticipants = await db
     .from<TripParticipantTable>('tripparticipant')
     .select('*');
 
   const tripParticipantPromises = tripParticipants.map(
-    async ({ idparticipant, idtrip, ...rest }): Promise<TripParticipant> => {
-      // TODO: No as
-
-      const participant = (await getParticipantById(
-        idparticipant,
-      )) as ParticipantTable;
-      const trip = (await getTripById(idtrip)) as TripTable;
-
-      return {
-        ...rest,
-        participant,
-        trip,
-      };
-    },
+    fetchParticipantsForTrip,
   );
 
   return Promise.all(tripParticipantPromises);
@@ -49,19 +54,7 @@ export const getTripParticipantById = async (
     return undefined;
   }
 
-  const { idparticipant, idtrip, ...rest } = result;
-
-  // TODO: No as
-  const participant = (await getParticipantById(
-    idparticipant,
-  )) as ParticipantTable;
-  const trip = (await getTripById(idtrip)) as TripTable;
-
-  return {
-    ...rest,
-    participant,
-    trip,
-  };
+  return fetchParticipantsForTrip(result);
 };
 
 export const getTripParticipantsByParticipantId = (participantId: number) => {
@@ -74,8 +67,37 @@ export const getTripParticipantsByParticipantId = (participantId: number) => {
     .select<(TripParticipantTable & TripTable)[]>('*');
 };
 
-export const deleteTripParticipantByParticipantId = (participantId: number) => {
-  return db.delete().from<TripParticipantTable>('tripparticipant').where({
-    idparticipant: participantId,
-  });
+export const deleteTripParticipantsByParticipantId = (
+  participantId: number,
+) => {
+  return db
+    .from<TripParticipantTable>('tripparticipant')
+    .where({
+      idparticipant: participantId,
+    })
+    .delete();
+};
+
+export const getTripParticipantsByTripId = async (tripId: number) => {
+  const tripParticipants = await db
+    .from<TripParticipantTable>('tripparticipant')
+    .where({
+      idtrip: tripId,
+    })
+    .select('*');
+
+  const tripParticipantPromises = tripParticipants.map(
+    fetchParticipantsForTrip,
+  );
+
+  return Promise.all(tripParticipantPromises);
+};
+
+export const deleteTripParticipantsByTripId = (tripId: number) => {
+  return db
+    .from<TripParticipantTable>('tripparticipant')
+    .where({
+      idtrip: tripId,
+    })
+    .delete();
 };

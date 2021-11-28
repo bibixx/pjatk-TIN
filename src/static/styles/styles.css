@@ -378,6 +378,16 @@ body {
   padding-top: 0.5rem;
 }
 
+.delete-confirmation__table {
+  margin: 1rem 0;
+}
+
+.delete-confirmation__table__subtext {
+  font: var(--font-regular-16);
+  margin-top: 0;
+  color: var(--text-danger);
+}
+
 /* SUCCESS MESSAGE */
 .success-message, .error-message {
   display: flex;
