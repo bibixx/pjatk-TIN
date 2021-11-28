@@ -1,4 +1,4 @@
-import { trailingSlash } from 'services/middlewares/trailingSlash';
+import { trailingSlash } from 'middlewares/trailingSlash';
 
 import { appRouter } from 'core/routes';
 import { PORT } from 'core/env';

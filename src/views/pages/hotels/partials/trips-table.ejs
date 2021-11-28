@@ -1,13 +1,20 @@
 <%
-  const trips = [
-    { name: 'Egipt', price: '2 029,00 PLN' },
-    { name: 'Zanzibar', price: '3 132,00 PLN' },
-    { name: 'Turcja', price: '4 867,00 PLN' },
-    { name: 'Chorwacja', price: '4 750,00 PLN' },
-    { name: 'Włochy', price: '4 013,00 PLN' },
-    { name: 'Hiszpania', price: '4 366,00 PLN' },
-    { name: 'Wyspy Kanaryjskie', price: '4 310,00 PLN' },
-  ];
+  const formatPrice = (value) => {
+    const padStart = (value) => `000000${value}`.slice(-6);
+
+    const thousands = Math.floor(value / 1000);
+    const rest = value - thousands * 1000;
+
+    if (thousands === 0) {
+      return rest.toFixed(2).replace('.', ',')
+    }
+
+    const restAsString = rest
+      .toFixed(2)
+      .replace('.', ',');
+
+    return `${thousands} ${padStart(restAsString)}`;
+  }
 %>
 
 <div class="table-wrapper">
@@ -26,7 +33,7 @@
             <%= trip.name %>
           </td>
           <td class="table__cell">
-            <%= trip.price %>
+            <%= formatPrice(trip.price) %> PLN
           </td>
         </tr>
       <% } %>

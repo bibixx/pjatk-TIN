@@ -12,23 +12,28 @@
           </header>
           <%-
             include('partials/form.ejs', {
+              hotel,
+              errors: undefined,
               form: {
-                withValue: true,
                 disabled: true
               }
             })
           %>
           <div class="form__buttons-container">
-            <a href="./edit.html" class="button">
+            <a href="./update/" class="button">
               Edytuj
               <span class="material-icons">edit</span>
             </a>
-            <a href="./list.html" class="button button--muted">Wróć</a>
+            <a href="../" class="button button--muted">Wróć</a>
           </div>
         </section>
         <section>
           <h3>Wycieczki</h3>
-          <%- include('partials/trips-table.ejs'); %>
+          <% if (trips.length === 0) { %>
+            <p>Brak wycieczek</p>
+          <% } else { %>
+            <%- include('partials/trips-table.ejs', { trips }); %>
+          <% } %>
         </section>
       </main>
     </div>

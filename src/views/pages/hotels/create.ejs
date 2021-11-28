@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../../partials/head.ejs', { isHome: false, page: 'Hotele' }); %>
+<body>
+  <div class="page-wrapper">
+    <%- include('partials/page-header.ejs'); %>
+    <div class="content-wrapper">
+      <main class="content-card">
+        <form method="POST" action="." novalidate>
+          <header class="content-card__header-container">
+            <h1 class="content-card__heading">Dodaj Hotel</h1>
+          </header>
+          <%-
+            include('partials/form.ejs', {
+              hotel,
+              form: {}
+            })
+          %>
+          <div class="form__buttons-container">
+            <button type="submit" class="button">
+              Dodaj
+              <span class="material-icons">add</span>
+            </button>
+            <a href="../" class="button button--muted">Anuluj</a>
+          </div>
+        </form>
+      </main>
+    </div>
+    <%- include('../../partials/footer.ejs'); %>
+  </div>
+</body>
+</html>

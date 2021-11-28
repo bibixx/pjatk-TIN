@@ -12,28 +12,30 @@
           </header>
           <%-
             include('partials/form.ejs', {
+              tripParticipant,
+              errors: undefined,
               form: {
-                withValue: true,
-                hideForeignFields: true,
                 disabled: true,
+                hideForeignFields: true
               }
             })
           %>
           <div class="form__buttons-container">
-            <a href="./edit.html" class="button">
+            <a href="./edit" class="button">
               Edytuj
               <span class="material-icons">edit</span>
             </a>
-            <a href="./list.html" class="button button--muted">Wróć</a>
+            <a href="../" class="button button--muted">Wróć</a>
           </div>
         </section>
         <section>
           <h2 class="details__subheader">Uczestnik</h2>
           <%-
             include('../participants/partials/form.ejs', {
+              participant: tripParticipant.participant,
+              errors: undefined,
               form: {
-                withValue: true,
-                disabled: true
+                disabled: true,
               }
             })
           %>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head.ejs', { isHome: true, page: 'Błąd' }); %>
+<body>
+  <div class="page-wrapper">
+    <%- include('../partials/header.ejs', { isHome: true, selected: '' }); %>
+    <div class="content-wrapper">
+      <main class="content-card">
+        <header class="content-card__header-container content-card__header-container--error">
+          <h1 class="content-card__heading">Ups... Wystąpił nieoczekiwany błąd.</h1>
+        </header>
+      </main>
+    </div>
+    <%- include('../partials/footer.ejs'); %>
+  </div>
+</body>
+</html>

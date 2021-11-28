@@ -187,6 +187,12 @@ body {
   margin-bottom: 2rem;
 }
 
+.content-card__header-container--error {
+  margin-bottom: 0;
+  justify-content: center;
+  text-align: center;
+}
+
 .content-card__heading {
   margin: 0;
   font: var(--font-bold-36);

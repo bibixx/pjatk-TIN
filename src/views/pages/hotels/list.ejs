@@ -6,8 +6,43 @@
     <%- include('partials/page-header.ejs'); %>
     <div class="content-wrapper">
       <main class="content-card">
-        <%- include('partials/list-header.ejs'); %>
-        <%- include('partials/table.ejs'); %>
+        <% if (hotels.length > 0) { %>
+          <header class="content-card__header-container">
+            <h1 class="content-card__heading">Lista Hoteli</h1>
+            <a href="./create" class="button">
+              Nowy Hotel
+              <span class="material-icons">add</span>
+            </a>
+          </header>
+
+          <% if (hasSuccess) { %>
+            <%- include('../../partials/success-message.ejs', { message: "Pomyślnie zedytowano hotel" }); %>
+          <% } %>
+
+          <% if (hasDeleted) { %>
+            <%- include('../../partials/success-message.ejs', { message: "Pomyślnie usunięto hotel" }); %>
+          <% } %>
+
+          <% if (hasAdded) { %>
+            <%- include('../../partials/success-message.ejs', { message: "Pomyślnie dodano hotel" }); %>
+          <% } %>
+
+          <% if (hasError) { %>
+            <%- include('../../partials/error-message.ejs', { message: "Wystąpił błąd" }); %>
+          <% } %>
+
+          <%- include('partials/table.ejs', { hotels }); %>
+        <% } else { %>
+          <%-
+          include(
+            '../../partials/empty.ejs',
+              {
+                info: 'Brak hoteli',
+                button: 'Dodaj Pierwszy Hotel'
+              }
+            );
+          %>
+        <% } %>
       </main>
     </div>
     <%- include('../../partials/footer.ejs'); %>

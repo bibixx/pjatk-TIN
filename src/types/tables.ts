@@ -1,4 +1,4 @@
-export interface Participant {
+export interface ParticipantTable {
   id: number;
   name: string;
   surname: string;
@@ -7,7 +7,7 @@ export interface Participant {
   phonenumber: string | null;
 }
 
-export interface TripParticipant {
+export interface TripParticipantTable {
   id: number;
   idtrip: number;
   idparticipant: number;
@@ -15,10 +15,16 @@ export interface TripParticipant {
   dateofpayment: Date | null;
 }
 
-export interface Trip {
+export interface TripTable {
   id: number;
   name: string;
   idhotel: number;
   price: number;
   startoftripdate: Date;
+}
+
+export interface HotelTable {
+  id: number;
+  numberofstars: number;
+  name: string;
 }

@@ -1,16 +1,16 @@
 <%
   const inputs = [
     {
-      name: 'name',
+      name: 'dateofpayment',
       label: 'Data Płatności',
-      value: '2021-06-02',
+      value: tripParticipant.dateofpayment,
       required: false,
       type: 'date'
     },
     {
       name: 'discount',
       label: 'Zniżka (%)',
-      value: '10',
+      value: tripParticipant.discount,
       required: false,
       type: 'number'
     }
@@ -18,63 +18,31 @@
 %>
 
 <%- include('../../../partials/inputs.ejs', { inputs }); %>
-<% if (!form.hideForeignFields) { %>
-  <div class="input<% if (form.hasError) { %> input--has-error<% } %>">
-    <label class="input__label<% if (form.disabled) {%> input__label--disabled<%}%>">
-      Uczestnik
-    </label>
-    <select
-      name="participant"
-      id="participant"
-      class="input__element"
-      <% if (form.disabled) {%>disabled<%}%>
-    >
-      <option value="default">-- Wybierz Uczestnika --</option>
-      <option value="1"<% if (form.withValue) {%> selected="selected"<%}%>>Arkadiusz Kaczmarczyk</option>
-      <option value="2">Edward Chmielewski</option>
-      <option value="3">Franciszek Mazurek</option>
-      <option value="4">Rafał Szymański</option>
-      <option value="5">Jędrzej Nowak</option>
-      <option value="6">Hubert Sokołowski</option>
-      <option value="7">Maurycy Malinowski</option>
-    </select>
-    <% if (form.hasError) { %>
-      <div class="input__info input__info--danger">
-        Pole wymagane
-      </div>
-    <% } %>
-  </div>
-<% } %>
-<% if (!form.hideForeignFields) { %>
-  <div class="input<% if (form.hasError) { %> input--has-error<% } %>">
-    <label class="input__label<% if (form.disabled) {%> input__label--disabled<%}%>">
-      Wycieczka
-    </label>
-    <select
-      name="trip"
-      id="trip"
-      class="input__element"
-      <% if (form.disabled) {%>disabled<%}%>
-    >
-      <option value="default">-- Wybierz Wycieczkę --</option>
-      <option value="1"<% if (form.withValue) {%> selected="selected"<%}%>>Egipt</option>
-      <option value="2">Zanzibar</option>
-      <option value="3">Turcja</option>
-      <option value="4">Chorwacja</option>
-      <option value="5">Włochy</option>
-      <option value="6">Hiszpania</option>
-      <option value="7">Wyspy Kanaryjskie</option>
-    </select>
-    <% if (form.hasError) { %>
-      <div class="input__info input__info--danger">
-        Pole wymagane
-      </div>
-    <% } %>
-  </div>
-<% } %>
 
-<% if (form.hasError) { %>
-  <div class="form__global-error-message">
-    Formularz zawiera błędy
-  </div>
+<% if (!form.hideForeignFields) { %>
+<div class="input<% if (form.hasError) { %> input--has-error<% } %>">
+  <label class="input__label<% if (form.disabled) {%> input__label--disabled<%}%>">
+    Uczestnik
+  </label>
+  <select
+    name="participant"
+    id="participant"
+    class="input__element"
+    <% if (form.disabled) {%>disabled<%}%>
+  >
+    <option value="default">-- Wybierz Uczestnika --</option>
+    <option value="1"<% if (form.withValue) {%> selected="selected"<%}%>>Arkadiusz Kaczmarczyk</option>
+    <option value="2">Edward Chmielewski</option>
+    <option value="3">Franciszek Mazurek</option>
+    <option value="4">Rafał Szymański</option>
+    <option value="5">Jędrzej Nowak</option>
+    <option value="6">Hubert Sokołowski</option>
+    <option value="7">Maurycy Malinowski</option>
+  </select>
+  <% if (form.hasError) { %>
+    <div class="input__info input__info--danger">
+      Pole wymagane
+    </div>
+  <% } %>
+</div>
 <% } %>

@@ -6,8 +6,18 @@
     <%- include('partials/page-header.ejs'); %>
     <div class="content-wrapper">
       <main class="content-card">
-        <%- include('partials/list-header.ejs'); %>
-        <%- include('partials/table.ejs'); %>
+        <header class="content-card__header-container">
+          <h1 class="content-card__heading">Lista Płatności za Wycieczki</h1>
+          <a href="./create" class="button">
+            Nowa Płatność za Wycieczkę
+            <span class="material-icons">add</span>
+          </a>
+        </header>
+
+        <%- include(
+          'partials/table.ejs',
+          { tripParticipants }
+        ); %>
       </main>
     </div>
     <%- include('../../partials/footer.ejs'); %>

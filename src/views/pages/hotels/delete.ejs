@@ -7,17 +7,17 @@
     <div class="content-wrapper content-wrapper--delete-confirmation">
       <main class="content-card delete-confirmation">
         <h1 class="delete-confirmation__heading">Czy na pewno chcesz usunąć ten hotel?</h1>
-        <p class="delete-confirmation__subject">Sunrise Mountain Hotel</p>
+        <p class="delete-confirmation__subject"><%= hotel.name %></p>
         <p class="delete-confirmation__subtext">
           Zostanie on usunięty natychmiastowo. Akcja ta jest nieodwracalna.
         </p>
-        <div class="delete-confirmation__buttons">
-          <a class="button button--muted" href="./list.html">Anuluj</a>
-          <a class="button button--danger" href="./list-delete-success.html">
+        <form class="delete-confirmation__buttons" method="POST" action=".">
+          <a class="button button--muted" href="../../">Anuluj</a>
+          <button class="button button--danger" type="submit">
             Usuń Hotel
             <span class="material-icons">delete</span>
-          </a>
-        </div>
+          </button>
+        </form>
       </main>
     </div>
     <%- include('../../partials/footer.ejs'); %>

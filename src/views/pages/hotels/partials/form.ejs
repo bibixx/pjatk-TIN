@@ -3,20 +3,20 @@
     {
       name: 'name',
       label: 'Nazwa Hotelu',
-      value: 'Sunrise Mountain Hotel',
+      value: hotel.name,
       required: true,
       type: 'text',
-      error: 'Pole wymagane'
+      error: errors?.name,
     },
     {
-      name: 'numberOfStars',
+      name: 'numberofstars',
       label: 'Gwiazdki',
-      value: '5',
+      value: hotel.numberofstars,
       required: true,
       type: 'number',
       min: '1',
       max: '5',
-      error: 'Pole wymagane'
+      error: errors?.numberofstars,
     }
   ]
 %>

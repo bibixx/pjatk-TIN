@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../../partials/head.ejs', { isHome: false, page: 'Hotele' }); %>
+<body>
+  <div class="page-wrapper">
+    <%- include('partials/page-header.ejs'); %>
+    <div class="content-wrapper content-wrapper--delete-confirmation">
+      <main class="content-card delete-confirmation">
+        <h1 class="delete-confirmation__heading">Nie można usunąć następującego hotelu</h1>
+        <p class="delete-confirmation__subject"><%= hotel.name %></p>
+        <p class="delete-confirmation__subtext">
+          Podany hotel jest przypisany do jednej z wycieczek.
+        </p>
+        <div class="delete-confirmation__buttons">
+          <a class="button button--muted" href="../../">Wróć</a>
+        </div>
+      </main>
+    </div>
+    <%- include('../../partials/footer.ejs'); %>
+  </div>
+</body>
+</html>

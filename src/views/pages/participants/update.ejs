@@ -12,13 +12,14 @@
           </header>
           <%-
             include('partials/form.ejs', {
+              participant,
               errors,
               form: {}
             })
           %>
           <div class="form__buttons-container">
             <button type="submit" class="button">Zapisz</button>
-            <a href="../" class="button button--muted">Anuluj</a>
+            <a href="../../" class="button button--muted">Anuluj</a>
           </div>
         </form>
       </main>
