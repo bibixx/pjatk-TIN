@@ -14,6 +14,6 @@ export const withView =
     } catch (error) {
       Logger.error(error);
 
-      renderEjs(res, ViewNames.ERROR, {});
+      renderEjs(res, ViewNames.ERROR, {}, 500);
     }
   };

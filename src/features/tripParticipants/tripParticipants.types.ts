@@ -1,18 +1,17 @@
-import { RenderableParticipant } from 'features/participants/participants.types';
-import { ParticipantTable, TripTable } from 'types/tables';
+import {
+  ParticipantTable,
+  TripParticipantTable,
+  TripTable,
+} from 'types/tables';
 
-export interface TripParticipant {
-  id: number;
+type TripParticipantPrePopulated = Omit<
+  Omit<TripParticipantTable, 'idtrip'>,
+  'idparticipant'
+>;
+
+export type TripParticipantPopulated = TripParticipantPrePopulated & {
   trip: TripTable;
   participant: ParticipantTable;
-  discount: number | null;
-  dateofpayment: Date | null;
-}
+};
 
-export interface RenderableTripParticipant {
-  id: number;
-  trip: TripTable;
-  participant: RenderableParticipant;
-  discount: number | undefined;
-  dateofpayment: string | undefined;
-}
+export type NewTripParticipant = Omit<TripParticipantTable, 'id'>;

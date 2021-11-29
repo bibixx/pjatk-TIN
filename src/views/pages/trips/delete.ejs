@@ -16,7 +16,8 @@
             Następujące Płatności za Wycieczki również zostaną usunięte
           </p>
           <%- include(utils.root('/pages/trip-payments/partials/table.ejs'), {
-            tripParticipants
+            tripParticipants,
+            alternateColumns: false,
           }); %>
         </div>
         <form class="delete-confirmation__buttons" method="POST" action=".">

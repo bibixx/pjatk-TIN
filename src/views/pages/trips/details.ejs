@@ -42,7 +42,14 @@
         </section>
         <section>
           <h2 class="details__subheader">Płatności za Wycieczkę</h2>
-          <%- include('./partials/trip-payments-table.ejs'); %>
+          <% if (tripParticipants.length === 0) { %>
+            <p>Brak płatności za wycieczkę</p>
+          <% } else { %>
+            <%- include(utils.root('/pages/trip-payments/partials/table.ejs'), {
+              tripParticipants,
+              alternateColumns: false,
+            }); %>
+          <% } %>
         </section>
       </main>
     </div>

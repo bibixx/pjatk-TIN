@@ -6,20 +6,22 @@
     <%- include('partials/page-header.ejs'); %>
     <div class="content-wrapper">
       <main class="content-card">
-        <form method="GET" action="./list-edit-success.html" class="form">
+        <form method="POST" action=".">
           <header class="content-card__header-container">
             <h1 class="content-card__heading">Edytuj Płatność za Wycieczkę</h1>
           </header>
           <%-
-            include('partials/form.ejs', {
-              form: {
-                withValue: true,
-              }
+            include('./partials/form.ejs', {
+              tripParticipant,
+              errors,
+              participants,
+              trips,
+              form: {}
             })
           %>
           <div class="form__buttons-container">
             <button type="submit" class="button">Zapisz</button>
-            <a href="./list.html" class="button button--muted">Anuluj</a>
+            <a href="/trip-payments/" class="button button--muted">Anuluj</a>
           </div>
         </form>
       </main>

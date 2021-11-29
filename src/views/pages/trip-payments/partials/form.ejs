@@ -3,7 +3,10 @@
     {
       name: 'dateofpayment',
       label: 'Data Płatności',
-      value: tripParticipant.dateofpayment,
+      value: tripParticipant.dateofpayment
+        ? utils.formatDate(tripParticipant.dateofpayment)
+        : undefined,
+      error: errors?.dateofpayment,
       required: false,
       type: 'date'
     },
@@ -11,38 +14,46 @@
       name: 'discount',
       label: 'Zniżka (%)',
       value: tripParticipant.discount,
+      error: errors?.discount,
       required: false,
       type: 'number'
     }
   ]
 %>
 
-<%- include('../../../partials/inputs.ejs', { inputs }); %>
+<%- include(utils.root('/partials/inputs.ejs'), { inputs }); %>
 
 <% if (!form.hideForeignFields) { %>
-<div class="input<% if (form.hasError) { %> input--has-error<% } %>">
-  <label class="input__label<% if (form.disabled) {%> input__label--disabled<%}%>">
-    Uczestnik
-  </label>
-  <select
-    name="participant"
-    id="participant"
-    class="input__element"
-    <% if (form.disabled) {%>disabled<%}%>
-  >
-    <option value="default">-- Wybierz Uczestnika --</option>
-    <option value="1"<% if (form.withValue) {%> selected="selected"<%}%>>Arkadiusz Kaczmarczyk</option>
-    <option value="2">Edward Chmielewski</option>
-    <option value="3">Franciszek Mazurek</option>
-    <option value="4">Rafał Szymański</option>
-    <option value="5">Jędrzej Nowak</option>
-    <option value="6">Hubert Sokołowski</option>
-    <option value="7">Maurycy Malinowski</option>
-  </select>
-  <% if (form.hasError) { %>
-    <div class="input__info input__info--danger">
-      Pole wymagane
-    </div>
-  <% } %>
-</div>
+  <%-
+    include(utils.root('/partials/select.ejs'), {
+      name: 'idparticipant',
+      error: errors?.idparticipant,
+      disabled: form.disabled,
+      label: 'Uczestnik',
+      placeholder: '-- Wybierz Użytkownika --',
+      elements: participants,
+      getValue: (participant) => participant.id,
+      getOptionText: (participant) => `${participant.name} ${participant.surname}`,
+      getIsSelected: (participant) => participant.id === tripParticipant.participant?.id
+    });
+  %>
+  <%-
+    include(utils.root('/partials/select.ejs'), {
+      name: 'idtrip',
+      error: errors?.idtrip,
+      disabled: form.disabled,
+      label: 'Wycieczka',
+      placeholder: '-- Wybierz Wycieczkę --',
+      elements: trips,
+      getValue: (trip) => trip.id,
+      getOptionText: (trip) => trip.name,
+      getIsSelected: (trip) => trip.id === tripParticipant.trip?.id
+    });
+  %>
+<% } %>
+
+<% if (errors) { %>
+  <div class="form__global-error-message">
+    Formularz zawiera błędy
+  </div>
 <% } %>

@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { getHotelById } from 'features/hotels/hotels.model';
+import { getTripParticipantsByTripId } from 'features/tripParticipants/tripParticipants.model';
 import { getTripById } from 'features/trips/trips.model';
 import { renderEjs } from 'utils/ejs/renderEjs';
 import { ViewArguments, ViewNames } from 'utils/ejs/types';
@@ -48,11 +49,13 @@ export const getTrip = withView(getTripView)(async (req: Request) => {
   }
 
   const hotel = await getHotelById(trip.idhotel);
+  const tripParticipants = await getTripParticipantsByTripId(id);
 
   return {
     success: true,
     data: {
       hotel,
+      tripParticipants,
       trip,
     },
   };

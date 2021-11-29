@@ -2,17 +2,19 @@ import {
   RenderableParticipant,
   RenderableParticipantTripParticipant,
 } from 'features/participants/participants.types';
+import { TripParticipantPopulated } from 'features/tripParticipants/tripParticipants.types';
 import {
-  TripParticipant,
-  RenderableTripParticipant,
-} from 'features/tripParticipants/tripParticipants.types';
-import { HotelTable, TripTable } from 'types/tables';
+  HotelTable,
+  ParticipantTable,
+  TripParticipantTable,
+  TripTable,
+} from 'types/tables';
 
 export enum ViewNames {
   HOME = 'HOME',
   ERROR = 'ERROR',
 
-  PARTICIPANTS_LIST = 'PARTICIPANTS_LIST',
+  PARTICIPANT_LIST = 'PARTICIPANTS_LIST',
   PARTICIPANT_DETAILS = 'PARTICIPANT_DETAILS',
   PARTICIPANT_UPDATE = 'PARTICIPANT_UPDATE',
   PARTICIPANT_NOT_FOUND = 'PARTICIPANT_NOT_FOUND',
@@ -21,6 +23,10 @@ export enum ViewNames {
 
   TRIP_PARTICIPANT_LIST = 'TRIP_PARTICIPANT_LIST',
   TRIP_PARTICIPANT_DETAILS = 'TRIP_PARTICIPANT_DETAILS',
+  TRIP_PARTICIPANT_UPDATE = 'TRIP_PARTICIPANT_UPDATE',
+  TRIP_PARTICIPANT_DELETE = 'TRIP_PARTICIPANT_DELETE',
+  TRIP_PARTICIPANT_CREATE = 'TRIP_PARTICIPANT_CREATE',
+  TRIP_PARTICIPANT_NOT_FOUND = 'TRIP_PARTICIPANT_NOT_FOUND',
 
   HOTEL_LIST = 'HOTEL_LIST',
   HOTEL_DETAILS = 'HOTEL_DETAILS',
@@ -42,7 +48,7 @@ export const VIEW_PATHS: Record<ViewNames, string> = {
   [ViewNames.HOME]: 'pages/index',
   [ViewNames.ERROR]: 'pages/error',
 
-  [ViewNames.PARTICIPANTS_LIST]: 'pages/participants/list',
+  [ViewNames.PARTICIPANT_LIST]: 'pages/participants/list',
   [ViewNames.PARTICIPANT_DETAILS]: 'pages/participants/details',
   [ViewNames.PARTICIPANT_UPDATE]: 'pages/participants/update',
   [ViewNames.PARTICIPANT_DELETE]: 'pages/participants/delete',
@@ -51,6 +57,10 @@ export const VIEW_PATHS: Record<ViewNames, string> = {
 
   [ViewNames.TRIP_PARTICIPANT_LIST]: 'pages/trip-payments/list',
   [ViewNames.TRIP_PARTICIPANT_DETAILS]: 'pages/trip-payments/details',
+  [ViewNames.TRIP_PARTICIPANT_UPDATE]: 'pages/trip-payments/update',
+  [ViewNames.TRIP_PARTICIPANT_DELETE]: 'pages/trip-payments/delete',
+  [ViewNames.TRIP_PARTICIPANT_CREATE]: 'pages/trip-payments/create',
+  [ViewNames.TRIP_PARTICIPANT_NOT_FOUND]: 'pages/trip-payments/not-found',
 
   [ViewNames.HOTEL_LIST]: 'pages/hotels/list',
   [ViewNames.HOTEL_CREATE]: 'pages/hotels/create',
@@ -73,7 +83,7 @@ export type ViewArguments = {
   [ViewNames.ERROR]: {};
 
   // Participants
-  [ViewNames.PARTICIPANTS_LIST]: {
+  [ViewNames.PARTICIPANT_LIST]: {
     participants: RenderableParticipant[];
     hasSuccess: boolean;
     hasDeleted: boolean;
@@ -99,11 +109,32 @@ export type ViewArguments = {
 
   // Trip Participants
   [ViewNames.TRIP_PARTICIPANT_LIST]: {
-    tripParticipants: TripParticipant[];
+    tripParticipants: TripParticipantPopulated[];
+    hasSuccess: boolean;
+    hasDeleted: boolean;
+    hasAdded: boolean;
+    hasError: boolean;
   };
   [ViewNames.TRIP_PARTICIPANT_DETAILS]: {
-    tripParticipant: RenderableTripParticipant;
+    tripParticipant: TripParticipantPopulated;
+    hotel: HotelTable;
   };
+  [ViewNames.TRIP_PARTICIPANT_CREATE]: {
+    tripParticipant: Partial<TripParticipantTable>;
+    errors: undefined | Partial<Record<keyof TripParticipantTable, string>>;
+    participants: ParticipantTable[];
+    trips: TripTable[];
+  };
+  [ViewNames.TRIP_PARTICIPANT_UPDATE]: {
+    tripParticipant: Partial<TripParticipantTable>;
+    errors: undefined | Partial<Record<keyof TripParticipantTable, string>>;
+    participants: ParticipantTable[];
+    trips: TripTable[];
+  };
+  [ViewNames.TRIP_PARTICIPANT_DELETE]: {
+    tripParticipant: TripParticipantPopulated;
+  };
+  [ViewNames.TRIP_PARTICIPANT_NOT_FOUND]: {};
 
   // Hotels
   [ViewNames.HOTEL_LIST]: {
@@ -143,7 +174,8 @@ export type ViewArguments = {
   };
   [ViewNames.TRIP_DETAILS]: {
     trip: TripTable;
-    hotel?: HotelTable;
+    hotel: HotelTable | undefined;
+    tripParticipants: TripParticipantPopulated[];
   };
   [ViewNames.TRIP_CREATE]: {
     trip: Partial<TripTable>;
@@ -157,7 +189,7 @@ export type ViewArguments = {
   };
   [ViewNames.TRIP_DELETE]: {
     trip: TripTable;
-    tripParticipants: TripParticipant[];
+    tripParticipants: TripParticipantPopulated[];
   };
   [ViewNames.TRIP_NOT_FOUND]: {};
 };

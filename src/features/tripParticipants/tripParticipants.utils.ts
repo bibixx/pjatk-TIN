@@ -1,18 +1,9 @@
-import { formatParticipant } from 'features/participants/participants.utils';
-import { formatDate } from 'utils/formatDate';
-import {
-  RenderableTripParticipant,
-  TripParticipant,
-} from './tripParticipants.types';
+import { TripParticipantTable } from 'types/tables';
+import { parseDate } from 'utils/parseDate';
 
-export const formatTripParticipant = (
-  tripParticipant: TripParticipant,
-): RenderableTripParticipant => ({
-  id: tripParticipant.id,
-  trip: tripParticipant.trip,
-  participant: formatParticipant(tripParticipant.participant),
-  discount: tripParticipant.discount ?? undefined,
-  dateofpayment: tripParticipant.dateofpayment
-    ? formatDate(tripParticipant.dateofpayment)
-    : undefined,
+export const formatIncomingTripParticipantData = (
+  data: any,
+): Partial<TripParticipantTable> => ({
+  ...data,
+  dateofpayment: parseDate(data.dateofpayment),
 });

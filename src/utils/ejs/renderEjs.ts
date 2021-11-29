@@ -6,10 +6,11 @@ export const renderEjs = <T extends ViewNames>(
   res: Response,
   viewName: T,
   data: ViewArguments[T],
+  status: number = 200,
 ) => {
   const path = VIEW_PATHS[viewName];
 
-  res.render(path, {
+  res.status(status).render(path, {
     ...data,
     utils: templateUtils,
   });

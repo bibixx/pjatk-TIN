@@ -2,17 +2,22 @@ import { Request, Response } from 'express';
 import { getTripParticipantsByParticipantId } from 'features/tripParticipants/tripParticipants.model';
 import { renderEjs } from 'utils/ejs/renderEjs';
 import { ViewArguments, ViewNames } from 'utils/ejs/types';
+import { getNumericId } from 'utils/getNumericId';
 import { withView } from 'utils/views/withView';
+import { getParticipantById } from '../participants.model';
 import {
   formatParticipant,
   formatTripParticipant,
-  getParticipantInfoById,
 } from '../participants.utils';
 
 type ViewData =
   | {
       success: false;
       error: 'NOT_FOUND';
+    }
+  | {
+      success: false;
+      error: 'INVALID_ID';
     }
   | {
       success: true;
@@ -29,24 +34,30 @@ const getParticipantView = (res: Response, data: ViewData) => {
 
 export const getParticipant = withView(getParticipantView)(
   async (req: Request) => {
-    const { id } = req.params;
-    const participantInfo = await getParticipantInfoById(id);
+    const id = getNumericId(req.params.id);
 
-    if (!participantInfo.success) {
+    if (id === null) {
+      return {
+        success: false,
+        error: 'INVALID_ID',
+      };
+    }
+
+    const participant = await getParticipantById(id);
+
+    if (participant === undefined) {
       return {
         success: false,
         error: 'NOT_FOUND',
       };
     }
 
-    const tripParticipants = await getTripParticipantsByParticipantId(
-      id as any,
-    );
+    const tripParticipants = await getTripParticipantsByParticipantId(id);
 
     return {
       success: true,
       data: {
-        participant: formatParticipant(participantInfo.participant),
+        participant: formatParticipant(participant),
         tripParticipants: tripParticipants.map(formatTripParticipant),
       },
     };

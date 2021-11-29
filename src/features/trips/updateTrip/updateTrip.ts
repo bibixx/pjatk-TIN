@@ -6,6 +6,7 @@ import { errorsFromEntries } from 'utils/errorsFromEntries';
 import { getNumericId } from 'utils/getNumericId';
 import { withView } from 'utils/views/withView';
 import { getTripById, updateTrip as updateTripModel } from '../trips.model';
+import { formatIncomingTripData } from '../trips.utils';
 import { tripValidator } from '../trips.validators';
 
 type ViewData =
@@ -72,7 +73,7 @@ export const updateTrip = withView(updateTripView)(async (req: Request) => {
       success: false,
       error: 'INVALID_REQUEST_DATA',
       data: {
-        trip: body,
+        trip: formatIncomingTripData(body),
         hotels,
         errors: errorsFromEntries(validationResult.errors),
       },

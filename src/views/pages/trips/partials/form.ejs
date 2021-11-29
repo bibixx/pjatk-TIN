@@ -30,34 +30,19 @@
 <%- include(utils.root('/partials/inputs.ejs'), { inputs }); %>
 
 <% if (!form.hideHotel) { %>
-  <div class="input<% if (form.hasError) { %> input--has-error<% } %>">
-    <label class="input__label<% if (form.disabled) {%> input__label--disabled<%}%>">
-      Hotel
-    </label>
-    <select
-      name="idhotel"
-      id="idhotel"
-      class="input__element"
-      <% if (form.disabled) {%>disabled<%}%>
-    >
-      <option value="" disabled selected>-- Wybierz Hotel --</option>
-      <% for (let i = 0; i < hotels.length; i++) { %>
-        <% const hotel = hotels[i] %>
-        <option
-          value="<%= hotel.id %>"
-          <% if (hotel.id === trip.idhotel) { %>selected<% } %>
-        >
-          <%= hotel.name %>
-        </option>
-      <% } %>
-    </select>
-
-    <% if (errors?.idhotel) { %>
-      <div class="input__info input__info--danger">
-        <%= errors?.idhotel %>
-      </div>
-    <% } %>
-  </div>
+  <%-
+    include(utils.root('/partials/select.ejs'), {
+      name: 'idhotel',
+      error: errors?.idhotel,
+      disabled: form.disabled,
+      label: 'Hotel',
+      placeholder: '-- Wybierz Hotel --',
+      elements: hotels,
+      getValue: (hotel) => hotel.id,
+      getOptionText: (hotel) => hotel.name,
+      getIsSelected: (hotel) => hotel.id === trip.idhotel
+    });
+  %>
 <% } %>
 
 <% if (errors) { %>

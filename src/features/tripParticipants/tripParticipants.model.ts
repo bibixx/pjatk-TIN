@@ -7,27 +7,29 @@ import {
   TripParticipantTable,
   TripTable,
 } from 'types/tables';
-import { TripParticipant } from './tripParticipants.types';
+import {
+  NewTripParticipant,
+  TripParticipantPopulated,
+} from './tripParticipants.types';
 
 const fetchParticipantsForTrip = async ({
   idparticipant,
   idtrip,
   ...rest
-}: TripParticipantTable): Promise<TripParticipant> => {
-  // TODO: No as
-  const participant = (await getParticipantById(
-    idparticipant,
-  )) as ParticipantTable;
-  const trip = (await getTripById(idtrip)) as TripTable;
+}: TripParticipantTable): Promise<TripParticipantPopulated> => {
+  const participant = await getParticipantById(idparticipant);
+  const trip = await getTripById(idtrip);
 
   return {
     ...rest,
-    participant,
-    trip,
+    trip: trip as TripTable,
+    participant: participant as ParticipantTable,
   };
 };
 
-export const getAllTripParticipants = async (): Promise<TripParticipant[]> => {
+export const getAllTripParticipants = async (): Promise<
+  TripParticipantPopulated[]
+> => {
   const tripParticipants = await db
     .from<TripParticipantTable>('tripparticipant')
     .select('*');
@@ -41,7 +43,7 @@ export const getAllTripParticipants = async (): Promise<TripParticipant[]> => {
 
 export const getTripParticipantById = async (
   tripId: number,
-): Promise<TripParticipant | undefined> => {
+): Promise<TripParticipantPopulated | undefined> => {
   const result = await db
     .where({
       id: tripId,
@@ -67,6 +69,7 @@ export const getTripParticipantsByParticipantId = (participantId: number) => {
     .select<(TripParticipantTable & TripTable)[]>('*');
 };
 
+// TODO: Prevent instead of cascade
 export const deleteTripParticipantsByParticipantId = (
   participantId: number,
 ) => {
@@ -99,5 +102,27 @@ export const deleteTripParticipantsByTripId = (tripId: number) => {
     .where({
       idtrip: tripId,
     })
+    .delete();
+};
+
+export const createTripParticipant = (tripParticipant: NewTripParticipant) => {
+  return db<TripParticipantTable>('tripparticipant').insert(
+    tripParticipant,
+    '*',
+  );
+};
+
+export const updateTripParticipant = (
+  tripParticipantId: number,
+  tripParticipant: Partial<NewTripParticipant>,
+) => {
+  return db<TripParticipantTable>('tripparticipant')
+    .update(tripParticipant)
+    .where({ id: tripParticipantId });
+};
+
+export const deleteTripParticipant = (tripParticipantId: number) => {
+  return db<TripParticipantTable>('tripparticipant')
+    .where({ id: tripParticipantId })
     .delete();
 };
