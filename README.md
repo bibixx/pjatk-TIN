@@ -31,7 +31,7 @@ docker-compose exec web npm run sql:seed
 docker-compose -f docker-compose.development.yml up
 ```
 
-2. Aby włączyć budowanie oraz nasłuchiwanie na zmiany skryptów frontendowych należy wykonać następującą komendę
+2. Aby włączyć budowanie oraz nasłuchiwanie na zmiany skryptów frontendowych należy wykonać następującą komendę w oddzielnym oknie terminala
 ```
 docker-compose -f docker-compose.development.yml exec web npm run dev:frontend
 ```
@@ -78,7 +78,7 @@ npm install
 npm run dev
 ```
 
-2. Aby włączyć budowanie oraz nasłuchiwanie na zmiany skryptów frontendowych należy wykonać następującą komendę
+2. Aby włączyć budowanie oraz nasłuchiwanie na zmiany skryptów frontendowych należy wykonać następującą komendę w oddzielnym oknie terminala
 ```
 npm run dev:frontend
 ```
