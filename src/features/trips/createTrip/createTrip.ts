@@ -4,9 +4,9 @@ import { ViewArguments, ViewNames } from 'utils/ejs/types';
 import { errorsFromEntries } from 'utils/errorsFromEntries';
 import { withView } from 'utils/views/withView';
 import { getAllHotels } from 'features/hotels/hotels.model';
+import { parseNestedDate } from 'utils/parseNestedDate';
 import { tripValidator } from '../trips.validators';
 import { createTrip as createTripModel } from '../trips.model';
-import { formatIncomingTripData } from '../trips.utils';
 
 type ViewData =
   | {
@@ -39,7 +39,7 @@ export const createTrip = withView(createTripView)(async (req: Request) => {
       success: false,
       error: 'INVALID_REQUEST_DATA',
       data: {
-        trip: formatIncomingTripData(body),
+        trip: parseNestedDate(['startoftripdate'], body),
         hotels,
         errors: errorsFromEntries(validationResult.errors),
       },

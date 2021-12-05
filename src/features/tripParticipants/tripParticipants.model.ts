@@ -59,17 +59,19 @@ export const getTripParticipantById = async (
   return fetchParticipantsForTrip(result);
 };
 
-export const getTripParticipantsByParticipantId = (participantId: number) => {
-  return db
+export const getTripParticipantsByParticipantId = async (
+  participantId: number,
+) => {
+  const result = await db
     .from<TripParticipantTable>('tripparticipant')
     .where({
       idparticipant: participantId,
     })
-    .join('trip', 'trip.id', '=', 'tripparticipant.idtrip')
-    .select<(TripParticipantTable & TripTable)[]>('*');
+    .select('*');
+
+  return Promise.all(result.map(fetchParticipantsForTrip));
 };
 
-// TODO: Prevent instead of cascade
 export const deleteTripParticipantsByParticipantId = (
   participantId: number,
 ) => {

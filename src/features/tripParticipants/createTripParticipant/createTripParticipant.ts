@@ -5,9 +5,9 @@ import { errorsFromEntries } from 'utils/errorsFromEntries';
 import { withView } from 'utils/views/withView';
 import { getAllParticipants } from 'features/participants/participants.model';
 import { getAllTrips } from 'features/trips/trips.model';
+import { parseNestedDate } from 'utils/parseNestedDate';
 import { tripParticipantValidator } from '../tripParticipants.validators';
 import { createTripParticipant as createTripParticipantModel } from '../tripParticipants.model';
-import { formatIncomingTripParticipantData } from '../tripParticipants.utils';
 
 type ViewData =
   | {
@@ -44,7 +44,7 @@ export const createTripParticipant = withView(createTripParticipantView)(
         data: {
           participants,
           trips,
-          tripParticipant: formatIncomingTripParticipantData(body),
+          tripParticipant: parseNestedDate(['dateofpayment'], body),
           errors: errorsFromEntries(validationResult.errors),
         },
       };

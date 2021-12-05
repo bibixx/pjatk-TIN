@@ -1,7 +1,3 @@
-import {
-  RenderableParticipant,
-  RenderableParticipantTripParticipant,
-} from 'features/participants/participants.types';
 import { TripParticipantPopulated } from 'features/tripParticipants/tripParticipants.types';
 import {
   HotelTable,
@@ -84,26 +80,27 @@ export type ViewArguments = {
 
   // Participants
   [ViewNames.PARTICIPANT_LIST]: {
-    participants: RenderableParticipant[];
+    participants: ParticipantTable[];
     hasSuccess: boolean;
     hasDeleted: boolean;
     hasAdded: boolean;
     hasError: boolean;
   };
   [ViewNames.PARTICIPANT_DETAILS]: {
-    participant: RenderableParticipant;
-    tripParticipants: RenderableParticipantTripParticipant[];
+    participant: ParticipantTable;
+    tripParticipants: TripParticipantPopulated[];
   };
   [ViewNames.PARTICIPANT_UPDATE]: {
-    participant: RenderableParticipant;
-    errors: undefined | Partial<Record<keyof RenderableParticipant, string>>;
+    participant: Partial<ParticipantTable>;
+    errors: undefined | Partial<Record<keyof ParticipantTable, string>>;
   };
   [ViewNames.PARTICIPANT_DELETE]: {
-    participant: RenderableParticipant;
+    participant: ParticipantTable;
+    tripParticipants: TripParticipantPopulated[];
   };
   [ViewNames.PARTICIPANT_CREATE]: {
-    participant: RenderableParticipant;
-    errors: undefined | Partial<Record<keyof RenderableParticipant, string>>;
+    participant: Partial<ParticipantTable>;
+    errors: undefined | Partial<Record<keyof ParticipantTable, string>>;
   };
   [ViewNames.PARTICIPANT_NOT_FOUND]: {};
 
@@ -161,6 +158,7 @@ export type ViewArguments = {
   };
   [ViewNames.HOTEL_DELETE_TRIP_EXISTS]: {
     hotel: HotelTable;
+    trips: TripTable[];
   };
   [ViewNames.HOTEL_NOT_FOUND]: {};
 
@@ -192,9 +190,4 @@ export type ViewArguments = {
     tripParticipants: TripParticipantPopulated[];
   };
   [ViewNames.TRIP_NOT_FOUND]: {};
-};
-
-export type View<T extends ViewNames> = {
-  path: string;
-  data: ViewArguments[T];
 };

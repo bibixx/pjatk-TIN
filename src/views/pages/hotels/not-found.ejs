@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include('../../partials/head.ejs', { isHome: false, page: 'Hotele' }); %>
+<%- include(utils.root('/partials/head.ejs'), { isHome: false, page: 'Hotele' }); %>
 <body>
   <div class="page-wrapper">
     <%- include('partials/page-header.ejs'); %>
@@ -9,7 +9,7 @@
         <h1 class="delete-confirmation__heading">Podany hotel nie istnieje</h1>
       </main>
     </div>
-    <%- include('../../partials/footer.ejs'); %>
+    <%- include(utils.root('/partials/footer.ejs')); %>
   </div>
 </body>
 </html>

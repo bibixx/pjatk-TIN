@@ -22,7 +22,7 @@ type ViewData =
   | {
       success: false;
       error: 'TRIP_FOR_HOTEL_EXISTS';
-      data: ViewArguments[ViewNames.HOTEL_DELETE];
+      data: ViewArguments[ViewNames.HOTEL_DELETE_TRIP_EXISTS];
     };
 
 const deleteHotelFormView = (res: Response, data: ViewData) => {
@@ -65,6 +65,7 @@ export const deleteHotelForm = withView(deleteHotelFormView)(
         error: 'TRIP_FOR_HOTEL_EXISTS',
         data: {
           hotel,
+          trips: hotelTrips,
         },
       };
     }

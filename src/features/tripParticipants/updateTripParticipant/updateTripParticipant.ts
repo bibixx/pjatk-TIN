@@ -6,7 +6,7 @@ import { getNumericId } from 'utils/getNumericId';
 import { withView } from 'utils/views/withView';
 import { getAllParticipants } from 'features/participants/participants.model';
 import { getAllTrips } from 'features/trips/trips.model';
-import { formatIncomingTripParticipantData } from '../tripParticipants.utils';
+import { parseNestedDate } from 'utils/parseNestedDate';
 import {
   getTripParticipantById,
   updateTripParticipant as updateTripParticipantModel,
@@ -81,7 +81,7 @@ export const updateTripParticipant = withView(updateTripParticipantView)(
         data: {
           participants,
           trips,
-          tripParticipant: formatIncomingTripParticipantData(body),
+          tripParticipant: parseNestedDate(['dateofpayment'], body),
           errors: errorsFromEntries(validationResult.errors),
         },
       };

@@ -19,7 +19,7 @@
     {
       name: 'startoftripdate',
       label: 'Data Startu Wycieczki',
-      value: trip.startoftripdate ? utils.formatDate(trip.startoftripdate) : undefined,
+      value: utils.formatDate(trip.startoftripdate),
       required: true,
       type: 'date',
       error: errors?.startoftripdate,

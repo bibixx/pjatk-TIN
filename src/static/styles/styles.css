@@ -348,6 +348,7 @@ body {
 
 /* DELETE CONFIRMATION */
 .delete-confirmation {
+  width: 100%;
   align-self: center;
   text-align: center;
   display: flex;

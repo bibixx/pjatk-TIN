@@ -11,15 +11,17 @@
         <p class="delete-confirmation__subtext">
           Zostanie ona usunięta natychmiastowo. Akcja ta jest nieodwracalna.
         </p>
-        <div class="delete-confirmation__table">
-          <p class="delete-confirmation__table__subtext">
-            Następujące Płatności za Wycieczki również zostaną usunięte
-          </p>
-          <%- include(utils.root('/pages/trip-payments/partials/table.ejs'), {
-            tripParticipants,
-            alternateColumns: false,
-          }); %>
-        </div>
+        <% if (tripParticipants.length > 0) { %>
+          <div class="delete-confirmation__table">
+            <p class="delete-confirmation__table__subtext">
+              Następujące Płatności za Wycieczki również zostaną usunięte
+            </p>
+            <%- include(utils.root('/pages/trip-payments/partials/table.ejs'), {
+              tripParticipants,
+              alternateColumns: false,
+            }); %>
+          </div>
+        <% } %>
         <form class="delete-confirmation__buttons" method="POST" action=".">
           <a class="button button--muted" href="/trips/">Anuluj</a>
           <button class="button button--danger" type="submit">

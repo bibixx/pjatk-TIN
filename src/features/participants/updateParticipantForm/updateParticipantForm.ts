@@ -1,11 +1,9 @@
 import { Request, Response } from 'express';
 import { renderEjs } from 'utils/ejs/renderEjs';
 import { ViewArguments, ViewNames } from 'utils/ejs/types';
+import { getNumericId } from 'utils/getNumericId';
 import { withView } from 'utils/views/withView';
-import {
-  formatParticipant,
-  getParticipantInfoById,
-} from '../participants.utils';
+import { getParticipantById } from '../participants.model';
 
 type ViewData =
   | {
@@ -15,6 +13,10 @@ type ViewData =
   | {
       success: false;
       error: 'NOT_FOUND';
+    }
+  | {
+      success: false;
+      error: 'INVALID_ID';
     };
 
 const updateParticipantFormView = (res: Response, data: ViewData) => {
@@ -27,9 +29,18 @@ const updateParticipantFormView = (res: Response, data: ViewData) => {
 
 export const updateParticipantForm = withView(updateParticipantFormView)(
   async (req: Request) => {
-    const participantInfo = await getParticipantInfoById(req.params.id);
+    const id = getNumericId(req.params.id);
 
-    if (!participantInfo.success) {
+    if (id === null) {
+      return {
+        success: false,
+        error: 'INVALID_ID',
+      };
+    }
+
+    const participant = await getParticipantById(id);
+
+    if (participant === undefined) {
       return {
         success: false,
         error: 'NOT_FOUND',
@@ -39,7 +50,7 @@ export const updateParticipantForm = withView(updateParticipantFormView)(
     return {
       success: true,
       data: {
-        participant: formatParticipant(participantInfo.participant),
+        participant,
         errors: undefined,
       },
     };

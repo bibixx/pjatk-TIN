@@ -3,7 +3,6 @@ import { renderEjs } from 'utils/ejs/renderEjs';
 import { ViewArguments, ViewNames } from 'utils/ejs/types';
 import { withView } from 'utils/views/withView';
 import { getAllParticipants } from '../participants.model';
-import { formatParticipant } from '../participants.utils';
 
 const getParticipantsView = (
   res: Response,
@@ -21,7 +20,7 @@ export const getParticipants = withView(getParticipantsView)(
     const hasError = req.query.deleteError === 'true';
 
     return {
-      participants: participants.map(formatParticipant),
+      participants,
       hasSuccess,
       hasDeleted,
       hasAdded,

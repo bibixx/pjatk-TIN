@@ -38,7 +38,7 @@
             </td>
             <td class="table__cell">
               <a href="/trip-payments/<%= tripParticipant.id %>/" class="table__cell-link">
-                <%= tripParticipant.dateofpayment ? utils.formatDate(tripParticipant.dateofpayment): 'Brak' %>
+                <%= utils.formatDate(tripParticipant.dateofpayment) ?? 'Brak' %>
               </a>
             </td>
           <% } else { %>
@@ -49,7 +49,7 @@
             </td>
             <td class="table__cell">
               <a href="/trip-payments/<%= tripParticipant.id %>/" class="table__cell-link">
-                <%= tripParticipant.dateofpayment ? utils.formatDate(tripParticipant.dateofpayment): 'Brak' %>
+                <%= utils.formatDate(tripParticipant.dateofpayment) ?? 'Brak' %>
               </a>
             </td>
             <td class="table__cell">

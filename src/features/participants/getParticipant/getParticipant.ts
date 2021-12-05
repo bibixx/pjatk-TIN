@@ -5,10 +5,6 @@ import { ViewArguments, ViewNames } from 'utils/ejs/types';
 import { getNumericId } from 'utils/getNumericId';
 import { withView } from 'utils/views/withView';
 import { getParticipantById } from '../participants.model';
-import {
-  formatParticipant,
-  formatTripParticipant,
-} from '../participants.utils';
 
 type ViewData =
   | {
@@ -57,8 +53,8 @@ export const getParticipant = withView(getParticipantView)(
     return {
       success: true,
       data: {
-        participant: formatParticipant(participant),
-        tripParticipants: tripParticipants.map(formatTripParticipant),
+        participant,
+        tripParticipants,
       },
     };
   },

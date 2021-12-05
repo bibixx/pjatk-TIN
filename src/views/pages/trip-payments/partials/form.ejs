@@ -3,9 +3,7 @@
     {
       name: 'dateofpayment',
       label: 'Data Płatności',
-      value: tripParticipant.dateofpayment
-        ? utils.formatDate(tripParticipant.dateofpayment)
-        : undefined,
+      value: utils.formatDate(tripParticipant.dateofpayment),
       error: errors?.dateofpayment,
       required: false,
       type: 'date'

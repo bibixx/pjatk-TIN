@@ -3,12 +3,13 @@
     "target": "es5",
     "baseUrl": "./src",
     "outDir": "./dist",
-    "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables `allowSyntheticDefaultImports` for type compatibility. */
-    "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
-    "strict": true,                                      /* Enable all strict type-checking options. */
-    "noImplicitAny": true,                            /* Enable error reporting for expressions and declarations with an implied `any` type.. */
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": true,
     "strictNullChecks": true,
     "noImplicitThis": true,
+    "noUncheckedIndexedAccess": true,
     "paths" : {
       "src/*": ["./src/*"]
     }

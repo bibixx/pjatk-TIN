@@ -9,8 +9,13 @@
         <h1 class="delete-confirmation__heading">Nie można usunąć następującego hotelu</h1>
         <p class="delete-confirmation__subject"><%= hotel.name %></p>
         <p class="delete-confirmation__subtext">
-          Podany hotel jest przypisany do jednej z wycieczek.
+          Podany hotel jest przypisany do następujących wycieczek
         </p>
+        <div class="delete-confirmation__table">
+          <%- include(utils.root('/pages/trips/partials/table.ejs'), {
+            trips,
+          }); %>
+        </div>
         <div class="delete-confirmation__buttons">
           <a class="button button--muted" href="../../">Wróć</a>
         </div>
