@@ -1,5 +1,5 @@
 <% inputs.forEach((element) => { %>
-  <div class="input<% if (element.error) { %> input--has-error<% } %>">
+  <div class="input<% if (element.error) { %> input--has-error<% } %>" id="<%= element.name %>-wrapper">
     <label
       for="<%= element.name %>"
       class="input__label<% if (form.disabled) {%> input__label--disabled<%}%>"
@@ -17,11 +17,9 @@
       <% if (element.min !== undefined) { -%>min="<%= element.min -%>"<% } -%>
       <% if (element.max !== undefined) { -%>max="<%= element.max -%>"<% } -%>
     />
-    <% if (element.error) { -%>
-      <div class="input__info input__info--danger">
-        <%= element.error %>
-      </div>
-    <% } -%>
+    <div class="input__info input__info--danger <% if (!element.error) { -%>input__info--hidden<% } -%>">
+      <%= element.error %>
+    </div>
     <% if (element.info) { -%>
       <div class="input__info">
         <%= element.info %>

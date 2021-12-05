@@ -9,7 +9,8 @@
     "type-check": "tsc --noEmit",
     "sql": "ts-node -r tsconfig-paths/register src/scripts/runSql.ts",
     "sql:create": "npm run sql sql/create.sql",
-    "sql:seed": "npm run sql sql/seed.sql"
+    "sql:seed": "npm run sql sql/seed.sql",
+    "build:frontend": "esbuild src/frontend/*.ts --bundle --target=chrome97,firefox94 --outdir=src/static/scripts"
   },
   "keywords": [],
   "author": "",
@@ -33,6 +34,7 @@
     "@types/morgan": "^1.9.3",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
+    "esbuild": "^0.14.2",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-airbnb-typescript": "^14.0.1",

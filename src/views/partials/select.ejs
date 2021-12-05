@@ -1,4 +1,4 @@
-<div class="input<% if (error) { %> input--has-error<% } %>">
+<div class="input<% if (error) { %> input--has-error<% } %>" id="<%= name %>-wrapper">
   <label class="input__label<% if (disabled) {%> input__label--disabled<%}%>">
     <%= label %>
   </label>
@@ -24,9 +24,7 @@
     <% } %>
   </select>
 
-  <% if (error) { %>
-    <div class="input__info input__info--danger">
+  <div class="input__info input__info--danger <% if (!error) { -%>input__info--hidden<% } -%>">
       <%= error %>
     </div>
-  <% } %>
 </div>

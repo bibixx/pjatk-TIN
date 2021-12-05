@@ -5,6 +5,10 @@ export const formatDate = (date: unknown) => {
     return undefined;
   }
 
+  if (Number.isNaN(date.valueOf())) {
+    return undefined;
+  }
+
   const year = date.getFullYear();
   const month = padStart(date.getMonth() + 1);
   const day = padStart(date.getDate());

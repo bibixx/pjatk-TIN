@@ -11,6 +11,7 @@ const runSql = async (path?: string) => {
 
   await db.raw(sqlFileContents);
 
+  // eslint-disable-next-line no-console
   console.log(chalk.green('DONE!'));
 
   db.destroy();
