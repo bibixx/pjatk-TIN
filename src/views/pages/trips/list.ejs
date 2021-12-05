@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%- include('../../partials/head.ejs', { isHome: false, page: 'Wycieczki' }); %>
+<%- include(utils.root('/partials/head.ejs'), { page: 'Wycieczki' }); %>
 <body>
   <div class="page-wrapper">
-    <%- include('partials/page-header.ejs'); %>
+    <%- include('./partials/page-header.ejs'); %>
     <div class="content-wrapper">
       <main class="content-card">
         <% if (trips.length > 0) { %>
@@ -16,26 +16,26 @@
           </header>
 
           <% if (hasSuccess) { %>
-            <%- include('../../partials/success-message.ejs', { message: "Pomyślnie zedytowano wycieczkę" }); %>
+            <%- include(utils.root('/partials/success-message.ejs'), { message: "Pomyślnie zedytowano wycieczkę" }); %>
           <% } %>
 
           <% if (hasDeleted) { %>
-            <%- include('../../partials/success-message.ejs', { message: "Pomyślnie usunięto wycieczkę" }); %>
+            <%- include(utils.root('/partials/success-message.ejs'), { message: "Pomyślnie usunięto wycieczkę" }); %>
           <% } %>
 
           <% if (hasAdded) { %>
-            <%- include('../../partials/success-message.ejs', { message: "Pomyślnie dodano wycieczkę" }); %>
+            <%- include(utils.root('/partials/success-message.ejs'), { message: "Pomyślnie dodano wycieczkę" }); %>
           <% } %>
 
           <% if (hasError) { %>
-            <%- include('../../partials/error-message.ejs', { message: "Wystąpił błąd" }); %>
+            <%- include(utils.root('/partials/error-message.ejs'), { message: "Wystąpił błąd" }); %>
           <% } %>
 
-          <%- include('partials/table.ejs', { trips }); %>
+          <%- include('./partials/table.ejs', { trips }); %>
         <% } else { %>
           <%-
-          include(
-            '../../partials/empty.ejs',
+            include(
+              utils.root('/partials/empty.ejs'),
               {
                 info: 'Brak wycieczek',
                 button: 'Dodaj Pierwszą Wycieczkę'
@@ -45,7 +45,7 @@
         <% } %>
       </main>
     </div>
-    <%- include('../../partials/footer.ejs'); %>
+    <%- include(utils.root('/partials/footer.ejs')); %>
   </div>
 </body>
 </html>

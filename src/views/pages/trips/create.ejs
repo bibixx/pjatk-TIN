@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include('../../partials/head.ejs', { isHome: false, page: 'Wycieczki' }); %>
+<%- include(utils.root('/partials/head.ejs'), { page: 'Wycieczki' }); %>
 <body>
   <div class="page-wrapper">
-    <%- include('partials/page-header.ejs'); %>
+    <%- include('./partials/page-header.ejs'); %>
     <div class="content-wrapper">
       <main class="content-card">
         <form method="POST" action="." novalidate>
@@ -11,7 +11,7 @@
             <h1 class="content-card__heading">Dodaj Wycieczkę</h1>
           </header>
           <%-
-            include('partials/form.ejs', {
+            include('./partials/form.ejs', {
               trip,
               hotels,
               errors,
@@ -28,7 +28,7 @@
         </form>
       </main>
     </div>
-    <%- include('../../partials/footer.ejs'); %>
+    <%- include(utils.root('/partials/footer.ejs')); %>
   </div>
 
   <script src="/scripts/trips.js"></script>

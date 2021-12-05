@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include('../partials/head.ejs', { isHome: true, page: 'Strona Główna' }); %>
+<%- include(utils.root('/partials/head.ejs'), { page: 'Strona Główna' }); %>
 <body>
   <div class="page-wrapper">
-    <%- include('../partials/header.ejs', { isHome: true, selected: '' }); %>
+    <%- include(utils.root('/partials/header.ejs'), { selected: '' }); %>
     <div class="content-wrapper">
       <main class="content-card">
         <header class="content-card__header-container">
@@ -17,7 +17,7 @@
         <p>Rerum voluptas sint aut quaerat fugit est ut reprehenderit a. Omnis aspernatur sit. Harum quia est ducimus. Quod corrupti hic. Maiores et unde adipisci asperiores occaecati.</p>
       </main>
     </div>
-    <%- include('../partials/footer.ejs'); %>
+    <%- include(utils.root('/partials/footer.ejs')); %>
   </div>
 </body>
 </html>

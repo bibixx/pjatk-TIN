@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include('../../partials/head.ejs', { isHome: false, page: 'Hotele' }); %>
+<%- include(utils.root('/partials/head.ejs'), { page: 'Hotele' }); %>
 <body>
   <div class="page-wrapper">
-    <%- include('partials/page-header.ejs'); %>
+    <%- include('./partials/page-header.ejs'); %>
     <div class="content-wrapper content-wrapper--delete-confirmation">
       <main class="content-card delete-confirmation">
         <h1 class="delete-confirmation__heading">Nie można usunąć następującego hotelu</h1>
@@ -21,7 +21,7 @@
         </div>
       </main>
     </div>
-    <%- include('../../partials/footer.ejs'); %>
+    <%- include(utils.root('/partials/footer.ejs')); %>
   </div>
 </body>
 </html>

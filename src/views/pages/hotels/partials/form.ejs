@@ -21,7 +21,7 @@
   ]
 %>
 
-<%- include('../../../partials/inputs.ejs', { inputs }); %>
+<%- include(utils.root('/partials/inputs.ejs'), { inputs }); %>
 
 <div class="form__global-error-message <% if (errors) { %>form__global-error-message--visible<% } %>">
   Formularz zawiera błędy

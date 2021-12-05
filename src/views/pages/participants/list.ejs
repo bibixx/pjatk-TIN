@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include('../../partials/head.ejs', { isHome: false, page: 'Uczestnicy' }); %>
+<%- include(utils.root('/partials/head.ejs'), { page: 'Uczestnicy' }); %>
 <body>
   <div class="page-wrapper">
-    <%- include('partials/page-header.ejs'); %>
+    <%- include('./partials/page-header.ejs'); %>
     <div class="content-wrapper">
       <main class="content-card">
         <% if (participants.length > 0) { %>
@@ -16,26 +16,26 @@
           </header>
 
           <% if (hasSuccess) { %>
-            <%- include('../../partials/success-message.ejs', { message: "Pomyślnie zedytowano uczestnika" }); %>
+            <%- include(utils.root('/partials/success-message.ejs'), { message: "Pomyślnie zedytowano uczestnika" }); %>
           <% } %>
 
           <% if (hasDeleted) { %>
-            <%- include('../../partials/success-message.ejs', { message: "Pomyślnie usunięto uczestnika" }); %>
+            <%- include(utils.root('/partials/success-message.ejs'), { message: "Pomyślnie usunięto uczestnika" }); %>
           <% } %>
 
           <% if (hasAdded) { %>
-            <%- include('../../partials/success-message.ejs', { message: "Pomyślnie dodano uczestnika" }); %>
+            <%- include(utils.root('/partials/success-message.ejs'), { message: "Pomyślnie dodano uczestnika" }); %>
           <% } %>
 
           <% if (hasError) { %>
-            <%- include('../../partials/error-message.ejs', { message: "Wystąpił błąd" }); %>
+            <%- include(utils.root('/partials/error-message.ejs'), { message: "Wystąpił błąd" }); %>
           <% } %>
 
-          <%- include('partials/table.ejs', { participants }); %>
+          <%- include('./partials/table.ejs', { participants }); %>
         <% } else { %>
           <%-
-          include(
-            '../../partials/empty.ejs',
+            include(
+              utils.root('/partials/empty.ejs'),
               {
                 info: 'Brak uczestników',
                 button: 'Dodaj Pierwszego Uczestnika'
@@ -45,7 +45,7 @@
         <% } %>
       </main>
     </div>
-    <%- include('../../partials/footer.ejs'); %>
+    <%- include(utils.root('/partials/footer.ejs')); %>
   </div>
 </body>
 </html>

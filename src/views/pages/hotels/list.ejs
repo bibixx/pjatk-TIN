@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include('../../partials/head.ejs', { isHome: false, page: 'Hotele' }); %>
+<%- include(utils.root('/partials/head.ejs'), { page: 'Hotele' }); %>
 <body>
   <div class="page-wrapper">
-    <%- include('partials/page-header.ejs'); %>
+    <%- include('./partials/page-header.ejs'); %>
     <div class="content-wrapper">
       <main class="content-card">
         <% if (hotels.length > 0) { %>
@@ -34,15 +34,18 @@
           <%- include('./partials/table.ejs', { hotels }); %>
         <% } else { %>
           <%-
-            include(utils.root('/partials/empty.ejs'), {
-              info: 'Brak hoteli',
-              button: 'Dodaj Pierwszy Hotel'
-            });
+            include(
+              utils.root('/partials/empty.ejs'),
+              {
+                info: 'Brak hoteli',
+                button: 'Dodaj Pierwszy Hotel'
+              }
+            );
           %>
         <% } %>
       </main>
     </div>
-    <%- include('../../partials/footer.ejs'); %>
+    <%- include(utils.root('/partials/footer.ejs')); %>
   </div>
 </body>
 </html>

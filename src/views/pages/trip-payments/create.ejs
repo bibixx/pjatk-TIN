@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include('../../partials/head.ejs', { isHome: false, page: 'Płatności za Wycieczki' }); %>
+<%- include(utils.root('/partials/head.ejs'), { page: 'Płatności za Wycieczki' }); %>
 <body>
   <div class="page-wrapper">
-    <%- include('partials/page-header.ejs'); %>
+    <%- include('./partials/page-header.ejs'); %>
     <div class="content-wrapper">
       <main class="content-card">
         <form method="POST" action=".">
@@ -29,7 +29,7 @@
         </form>
       </main>
     </div>
-    <%- include('../../partials/footer.ejs'); %>
+    <%- include(utils.root('/partials/footer.ejs')); %>
   </div>
 
   <script src="/scripts/trip-payments.js"></script>

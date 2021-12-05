@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include('../partials/head.ejs', { isHome: true, page: 'Błąd' }); %>
+<%- include(utils.root('/partials/head.ejs'), { page: 'Błąd' }); %>
 <body>
   <div class="page-wrapper">
-    <%- include('../partials/header.ejs', { isHome: true, selected: '' }); %>
+    <%- include(utils.root('/partials/header.ejs'), { selected: '' }); %>
     <div class="content-wrapper">
       <main class="content-card">
         <header class="content-card__header-container content-card__header-container--error">
@@ -11,7 +11,7 @@
         </header>
       </main>
     </div>
-    <%- include('../partials/footer.ejs'); %>
+    <%- include(utils.root('/partials/footer.ejs')); %>
   </div>
 </body>
 </html>
