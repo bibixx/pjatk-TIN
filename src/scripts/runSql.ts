@@ -1,6 +1,7 @@
 import chalk from 'chalk';
 import { db } from 'core/db';
 import { readFile } from 'fs/promises';
+import dotenv from 'dotenv';
 
 const runSql = async (path?: string) => {
   if (!path) {
@@ -17,6 +18,6 @@ const runSql = async (path?: string) => {
   db.destroy();
 };
 
+dotenv.config();
 const path = process.argv[2];
-
 runSql(path);

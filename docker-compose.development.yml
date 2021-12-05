@@ -12,7 +12,9 @@ services:
       - db:/var/lib/postgresql/data
 
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.development
     ports:
       - "8080:8080"
     depends_on:

@@ -1,3 +1,4 @@
+import dotenv from 'dotenv';
 import { trailingSlash } from 'middlewares/trailingSlash';
 
 import { appRouter } from 'core/routes';
@@ -5,6 +6,7 @@ import { PORT } from 'core/env';
 import { Logger } from 'core/logger';
 import { app } from 'core/app';
 
+dotenv.config();
 app.use(trailingSlash);
 app.use('/', appRouter);
 
