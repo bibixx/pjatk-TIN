@@ -1,5 +1,11 @@
+const NUMERIC_ID_REGEX = /^\d+$/;
+
 export const getNumericId = (id: unknown) => {
   if (typeof id !== 'string') {
+    return null;
+  }
+
+  if (!NUMERIC_ID_REGEX.test(id)) {
     return null;
   }
 
