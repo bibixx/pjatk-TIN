@@ -23,6 +23,8 @@ services:
       PORT: 8080
       PG_CONNECTION_STRING: postgresql://postgres:example@db/postgres
     tty: true
+    volumes:
+      - "./src:/usr/src/app/src"
 
 volumes:
   db:
