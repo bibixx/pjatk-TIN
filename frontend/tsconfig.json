@@ -14,7 +14,14 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noImplicitThis": true,
+    "noUncheckedIndexedAccess": true,
+    "jsx": "react-jsx",
+    "paths" : {
+      "src/*": ["./src/*"]
+    }
   },
   "include": ["./src"]
 }
