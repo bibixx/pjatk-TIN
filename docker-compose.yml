@@ -11,8 +11,8 @@ services:
     volumes:
       - db:/var/lib/postgresql/data
 
-  web:
-    build: .
+  backend:
+    build: ./backend
     ports:
       - "8080:8080"
     depends_on:

@@ -11,9 +11,9 @@ services:
     volumes:
       - db:/var/lib/postgresql/data
 
-  web:
+  backend:
     build:
-      context: .
+      context: ./backend
       dockerfile: Dockerfile.development
     ports:
       - "8080:8080"
@@ -24,7 +24,7 @@ services:
       PG_CONNECTION_STRING: postgresql://postgres:example@db/postgres
     tty: true
     volumes:
-      - "./src:/usr/src/app/src"
+      - "./backend/src:/usr/src/app/src"
 
 volumes:
   db:

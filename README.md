@@ -16,12 +16,12 @@ docker-compose up
 #### SQL
 ##### Tworzenie schematu bazy danych
 ```
-docker-compose exec web npm run sql:create
+docker-compose exec backend npm run sql:create
 ```
 
 ##### Zasilanie bazy danych przykładowymi danymi
 ```
-docker-compose exec web npm run sql:seed
+docker-compose exec backend npm run sql:seed
 ```
 
 #### Development
@@ -33,7 +33,7 @@ docker-compose -f docker-compose.development.yml up
 
 2. Aby włączyć budowanie oraz nasłuchiwanie na zmiany skryptów frontendowych należy wykonać następującą komendę w oddzielnym oknie terminala
 ```
-docker-compose -f docker-compose.development.yml exec web npm run dev:frontend
+docker-compose -f docker-compose.development.yml exec backend npm run dev:frontend
 ```
 
 ### Uruchomienie bezpośrednio na urządzeniu
