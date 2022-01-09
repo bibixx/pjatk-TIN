@@ -11,12 +11,19 @@ services:
     volumes:
       - db:/var/lib/postgresql/data
 
+  proxy:
+    image: nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - "./nginx:/etc/nginx/conf.d"
+    depends_on:
+      - backend
+
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile.development
-    ports:
-      - "8080:8080"
     depends_on:
       - db
     environment:
@@ -25,6 +32,14 @@ services:
     tty: true
     volumes:
       - "./backend/src:/usr/src/app/src"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.development
+    tty: true
+    volumes:
+      - "./frontend/src:/usr/src/app/src"
 
 volumes:
   db:

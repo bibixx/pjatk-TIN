@@ -11,15 +11,26 @@ services:
     volumes:
       - db:/var/lib/postgresql/data
 
+  proxy:
+    image: nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - "./nginx:/etc/nginx/conf.d"
+    depends_on:
+      - backend
+
   backend:
     build: ./backend
-    ports:
-      - "8080:8080"
     depends_on:
       - db
     environment:
       PORT: 8080
       PG_CONNECTION_STRING: postgresql://postgres:example@db/postgres
+    tty: true
+
+  frontend:
+    build: ./frontend
     tty: true
 
 volumes:
