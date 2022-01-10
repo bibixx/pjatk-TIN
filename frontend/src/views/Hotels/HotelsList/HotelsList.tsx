@@ -10,6 +10,7 @@ import { LinkButton } from 'components/LinkButton/LinkButton';
 import { Loader } from 'components/Loader/Loader';
 import { useTranslation } from 'react-i18next';
 import { GetHotelsResponseDTO } from '@s19192/shared';
+import { PageContainer } from 'components/PageContainer/PageContainer';
 import { HotelStars } from './HotelStars/HotelStars';
 
 const NumberOfStarsCell = ({
@@ -50,20 +51,26 @@ export const HotelsList = () => {
   });
 
   if (data === undefined) {
-    return <Loader />;
+    return (
+      <PageContainer>
+        <Loader />
+      </PageContainer>
+    );
   }
 
   if (hotels.length === 0) {
     return (
-      <EmptyState
-        info={t('hotels.list.emptyState.text')}
-        buttonText={t('hotels.list.emptyState.text')}
-      />
+      <PageContainer>
+        <EmptyState
+          info={t('hotels.list.emptyState.text')}
+          buttonText={t('hotels.list.emptyState.text')}
+        />
+      </PageContainer>
     );
   }
 
   return (
-    <>
+    <PageContainer>
       <PageContainerHeader header={t('hotels.list.header.text')}>
         <LinkButton to="./create" icon="add">
           {t('hotels.list.header.button')}
@@ -76,6 +83,6 @@ export const HotelsList = () => {
           columnId === 'actions' ? undefined : String(id)
         }
       />
-    </>
+    </PageContainer>
   );
 };

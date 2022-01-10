@@ -10,6 +10,7 @@ import { PageContainerHeader } from 'components/PageContainerHeader/PageContaine
 import { LinkButton } from 'components/LinkButton/LinkButton';
 import { Loader } from 'components/Loader/Loader';
 import { useTranslation } from 'react-i18next';
+import { PageContainer } from 'components/PageContainer/PageContainer';
 
 export const ParticipantsList = () => {
   const { t } = useTranslation();
@@ -43,20 +44,26 @@ export const ParticipantsList = () => {
   const tableInstance = useTable({ columns, data: participants });
 
   if (data === undefined) {
-    return <Loader />;
+    return (
+      <PageContainer>
+        <Loader />
+      </PageContainer>
+    );
   }
 
   if (participants.length === 0) {
     return (
-      <EmptyState
-        info={t('participants.list.emptyState.text')}
-        buttonText={t('participants.list.emptyState.text')}
-      />
+      <PageContainer>
+        <EmptyState
+          info={t('participants.list.emptyState.text')}
+          buttonText={t('participants.list.emptyState.text')}
+        />
+      </PageContainer>
     );
   }
 
   return (
-    <>
+    <PageContainer>
       <PageContainerHeader header={t('participants.list.header.text')}>
         <LinkButton to="./create" icon="add">
           {t('participants.list.header.button')}
@@ -69,6 +76,6 @@ export const ParticipantsList = () => {
           columnId === 'actions' ? undefined : String(id)
         }
       />
-    </>
+    </PageContainer>
   );
 };

@@ -11,6 +11,7 @@ import { LinkButton } from 'components/LinkButton/LinkButton';
 import { Loader } from 'components/Loader/Loader';
 import { useTranslation } from 'react-i18next';
 import { formatTimestamp } from 'utils/formatTimestamp';
+import { PageContainer } from 'components/PageContainer/PageContainer';
 
 export const TripPaymentsList = () => {
   const { t } = useTranslation();
@@ -35,9 +36,7 @@ export const TripPaymentsList = () => {
       {
         Header: t('tripParticipants.list.table.dateOfPayment'),
         accessor: 'dateofpayment',
-        Cell: ({ value }) =>
-          formatTimestamp(value) ??
-          t('tripParticipants.list.table.emptyDateOfPayment'),
+        Cell: ({ value }) => formatTimestamp(value) ?? t('shared.empty'),
       },
       {
         id: 'actions',
@@ -54,20 +53,26 @@ export const TripPaymentsList = () => {
   });
 
   if (data === undefined) {
-    return <Loader />;
+    return (
+      <PageContainer>
+        <Loader />
+      </PageContainer>
+    );
   }
 
   if (tripParticipants.length === 0) {
     return (
-      <EmptyState
-        info={t('tripParticipants.list.emptyState.text')}
-        buttonText={t('tripParticipants.list.emptyState.text')}
-      />
+      <PageContainer>
+        <EmptyState
+          info={t('tripParticipants.list.emptyState.text')}
+          buttonText={t('tripParticipants.list.emptyState.text')}
+        />
+      </PageContainer>
     );
   }
 
   return (
-    <>
+    <PageContainer>
       <PageContainerHeader header={t('tripParticipants.list.header.text')}>
         <LinkButton to="./create" icon="add">
           {t('tripParticipants.list.header.button')}
@@ -80,6 +85,6 @@ export const TripPaymentsList = () => {
           columnId === 'actions' ? undefined : String(id)
         }
       />
-    </>
+    </PageContainer>
   );
 };

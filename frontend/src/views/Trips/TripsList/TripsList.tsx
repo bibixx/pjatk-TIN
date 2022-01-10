@@ -11,6 +11,7 @@ import { LinkButton } from 'components/LinkButton/LinkButton';
 import { Loader } from 'components/Loader/Loader';
 import { useTranslation } from 'react-i18next';
 import { formatPrice } from 'utils/formatPrice';
+import { PageContainer } from 'components/PageContainer/PageContainer';
 
 export const TripsList = () => {
   const { t } = useTranslation();
@@ -44,20 +45,26 @@ export const TripsList = () => {
   });
 
   if (data === undefined) {
-    return <Loader />;
+    return (
+      <PageContainer>
+        <Loader />
+      </PageContainer>
+    );
   }
 
   if (trips.length === 0) {
     return (
-      <EmptyState
-        info={t('trips.list.emptyState.text')}
-        buttonText={t('trips.list.emptyState.text')}
-      />
+      <PageContainer>
+        <EmptyState
+          info={t('trips.list.emptyState.text')}
+          buttonText={t('trips.list.emptyState.text')}
+        />
+      </PageContainer>
     );
   }
 
   return (
-    <>
+    <PageContainer>
       <PageContainerHeader header={t('trips.list.header.text')}>
         <LinkButton to="./create" icon="add">
           {t('trips.list.header.button')}
@@ -70,6 +77,6 @@ export const TripsList = () => {
           columnId === 'actions' ? undefined : String(id)
         }
       />
-    </>
+    </PageContainer>
   );
 };

@@ -2,6 +2,7 @@ FROM node:16
 
 WORKDIR /usr/src/app/shared
 COPY shared/package*.json .
+RUN npm install
 
 WORKDIR /usr/src/app/backend
 COPY backend/package*.json .

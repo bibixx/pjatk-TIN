@@ -3,9 +3,9 @@ import {
   CreateParticipantRequestDTO,
   CreateParticipantResponseDTO,
   ParticipantTable,
+  participantValidator,
 } from '@s19192/shared';
 import { replaceDateWithTimestamp } from 'utils/replaceDateWithString';
-import { participantValidator } from '../participants.validators';
 import { createParticipant as createParticipantModel } from '../participants.model';
 
 export const createParticipant = withJSON<

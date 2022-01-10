@@ -418,14 +418,9 @@ body {
 
 /* FORM */
 .form__global-error-message {
-  display: none;
   color: var(--text-danger);
   font: var(--font-bold-16);
   margin: 2rem 0;
-}
-
-.form__global-error-message--visible {
-  display: block;
 }
 
 .form__buttons-container {

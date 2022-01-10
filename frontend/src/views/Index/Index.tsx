@@ -1,6 +1,8 @@
+import { PageContainer } from 'components/PageContainer/PageContainer';
+
 export const Index = () => {
   return (
-    <>
+    <PageContainer>
       <header className="content-card__header-container">
         <h1 className="content-card__heading">Strona Główna</h1>
       </header>
@@ -36,6 +38,6 @@ export const Index = () => {
         aspernatur sit. Harum quia est ducimus. Quod corrupti hic. Maiores et
         unde adipisci asperiores occaecati.
       </p>
-    </>
+    </PageContainer>
   );
 };

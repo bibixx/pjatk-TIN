@@ -26,12 +26,21 @@ const fetchParticipantsForTrip = async ({
   };
 };
 
-export const getAllTripParticipants = async (): Promise<
-  TripParticipantPopulated[]
-> => {
-  const tripParticipants = await db
+export const getAllTripParticipants = async ({
+  participantId,
+}: {
+  participantId?: number;
+}): Promise<TripParticipantPopulated[]> => {
+  const tripParticipantsQuery = db
     .from<TripParticipantTable>('tripparticipant')
     .select('*');
+
+  const tripParticipantsQueryWithWhereApplied =
+    participantId === undefined
+      ? tripParticipantsQuery
+      : tripParticipantsQuery.where({ idparticipant: participantId });
+
+  const tripParticipants = await tripParticipantsQueryWithWhereApplied;
 
   const tripParticipantPromises = tripParticipants.map(
     fetchParticipantsForTrip,
