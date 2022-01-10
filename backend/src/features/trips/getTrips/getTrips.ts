@@ -1,28 +1,12 @@
-import { Request, Response } from 'express';
-import { renderEjs } from 'utils/ejs/renderEjs';
-import { ViewArguments, ViewNames } from 'utils/ejs/types';
-import { withView } from 'utils/views/withView';
+import { GetTripsResponseDTO } from '@s19192/shared';
+import { replaceDateWithTimestamp } from 'utils/replaceDateWithString';
+import { withJSON } from 'utils/withJSON/withJSON';
 import { getAllTrips } from '../trips.model';
 
-const getTripsView = (
-  res: Response,
-  data: ViewArguments[ViewNames.TRIP_LIST],
-) => {
-  return renderEjs(res, ViewNames.TRIP_LIST, data);
-};
-
-export const getTrips = withView(getTripsView)(async (req: Request) => {
+export const getTrips = withJSON<GetTripsResponseDTO>()(async () => {
   const trips = await getAllTrips();
-  const hasSuccess = req.query.updated === 'true';
-  const hasDeleted = req.query.deleted === 'true';
-  const hasAdded = req.query.added === 'true';
-  const hasError = req.query.deleteError === 'true';
 
   return {
-    trips,
-    hasSuccess,
-    hasDeleted,
-    hasAdded,
-    hasError,
+    trips: trips.map(replaceDateWithTimestamp),
   };
 });

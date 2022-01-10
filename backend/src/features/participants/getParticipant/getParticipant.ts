@@ -1,61 +1,25 @@
-import { Request, Response } from 'express';
-import { getTripParticipantsByParticipantId } from 'features/tripParticipants/tripParticipants.model';
-import { renderEjs } from 'utils/ejs/renderEjs';
-import { ViewArguments, ViewNames } from 'utils/ejs/types';
+import { GetParticipantResponseDTO } from '@s19192/shared';
 import { getNumericId } from 'utils/getNumericId';
-import { withView } from 'utils/views/withView';
+import { replaceDateWithTimestamp } from 'utils/replaceDateWithString';
+import { APIError, withJSON } from 'utils/withJSON/withJSON';
 import { getParticipantById } from '../participants.model';
 
-type ViewData =
-  | {
-      success: false;
-      error: 'NOT_FOUND';
-    }
-  | {
-      success: false;
-      error: 'INVALID_ID';
-    }
-  | {
-      success: true;
-      data: ViewArguments[ViewNames.PARTICIPANT_DETAILS];
-    };
-
-const getParticipantView = (res: Response, data: ViewData) => {
-  if (data.success) {
-    return renderEjs(res, ViewNames.PARTICIPANT_DETAILS, data.data);
-  }
-
-  return renderEjs(res, ViewNames.PARTICIPANT_NOT_FOUND, {});
-};
-
-export const getParticipant = withView(getParticipantView)(
-  async (req: Request) => {
+export const getParticipant = withJSON<GetParticipantResponseDTO>()(
+  async (_body, req) => {
     const id = getNumericId(req.params.id);
 
     if (id === null) {
-      return {
-        success: false,
-        error: 'INVALID_ID',
-      };
+      throw new APIError('Provided id is invalid', 422);
     }
 
     const participant = await getParticipantById(id);
 
     if (participant === undefined) {
-      return {
-        success: false,
-        error: 'NOT_FOUND',
-      };
+      throw new APIError('Participant not found', 404);
     }
 
-    const tripParticipants = await getTripParticipantsByParticipantId(id);
-
     return {
-      success: true,
-      data: {
-        participant,
-        tripParticipants,
-      },
+      participant: replaceDateWithTimestamp(participant),
     };
   },
 );

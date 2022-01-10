@@ -1,62 +1,23 @@
-import { Request, Response } from 'express';
-import { getHotelById } from 'features/hotels/hotels.model';
-import { getTripParticipantsByTripId } from 'features/tripParticipants/tripParticipants.model';
+import { GetTripResponseDTO } from '@s19192/shared';
 import { getTripById } from 'features/trips/trips.model';
-import { renderEjs } from 'utils/ejs/renderEjs';
-import { ViewArguments, ViewNames } from 'utils/ejs/types';
 import { getNumericId } from 'utils/getNumericId';
-import { withView } from 'utils/views/withView';
+import { replaceDateWithTimestamp } from 'utils/replaceDateWithString';
+import { APIError, withJSON } from 'utils/withJSON/withJSON';
 
-type ViewData =
-  | {
-      success: false;
-      error: 'NOT_FOUND';
-    }
-  | {
-      success: false;
-      error: 'INVALID_ID';
-    }
-  | {
-      success: true;
-      data: ViewArguments[ViewNames.TRIP_DETAILS];
-    };
-
-const getTripView = (res: Response, data: ViewData) => {
-  if (data.success) {
-    return renderEjs(res, ViewNames.TRIP_DETAILS, data.data);
-  }
-
-  return renderEjs(res, ViewNames.TRIP_NOT_FOUND, {});
-};
-
-export const getTrip = withView(getTripView)(async (req: Request) => {
+export const getTrip = withJSON<GetTripResponseDTO>()(async (_body, req) => {
   const id = getNumericId(req.params.id);
 
   if (id === null) {
-    return {
-      success: false,
-      error: 'INVALID_ID',
-    };
+    throw new APIError('Provided id is invalid', 422);
   }
 
   const trip = await getTripById(id);
 
   if (trip === undefined) {
-    return {
-      success: false,
-      error: 'NOT_FOUND',
-    };
+    throw new APIError('Trip not found', 404);
   }
 
-  const hotel = await getHotelById(trip.idhotel);
-  const tripParticipants = await getTripParticipantsByTripId(id);
-
   return {
-    success: true,
-    data: {
-      hotel,
-      tripParticipants,
-      trip,
-    },
+    trip: replaceDateWithTimestamp(trip),
   };
 });

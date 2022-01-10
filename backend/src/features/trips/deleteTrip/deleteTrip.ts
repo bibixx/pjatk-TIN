@@ -1,56 +1,29 @@
+import { DeleteTripResponseDTO } from '@s19192/shared';
 import { db } from 'core/db';
-import { Request, Response } from 'express';
 import { deleteTripParticipantsByTripId } from 'features/tripParticipants/tripParticipants.model';
 import { getNumericId } from 'utils/getNumericId';
-import { withView } from 'utils/views/withView';
+import { APIError, withJSON } from 'utils/withJSON/withJSON';
 import { deleteTrip as deleteTripModel, getTripById } from '../trips.model';
 
-type ViewData =
-  | {
-      success: true;
+export const deleteTrip = withJSON<DeleteTripResponseDTO>()(
+  async (_body, req) => {
+    const id = getNumericId(req.params.id);
+
+    if (id === null) {
+      throw new APIError('Provided id is invalid', 422);
     }
-  | {
-      success: false;
-      error: 'NOT_FOUND';
+
+    const trip = await getTripById(id);
+
+    if (trip === undefined) {
+      throw new APIError('Trip not found', 404);
     }
-  | {
-      success: false;
-      error: 'INVALID_ID';
-    };
 
-const deleteTripView = (res: Response, data: ViewData) => {
-  if (!data.success) {
-    return res.redirect(`/trips/?deleteError=true`);
-  }
+    return db.transaction(async (trx) => {
+      await deleteTripParticipantsByTripId(id);
+      await deleteTripModel(id).transacting(trx);
 
-  return res.redirect('/trips/?deleted=true');
-};
-
-export const deleteTrip = withView(deleteTripView)(async (req: Request) => {
-  const id = getNumericId(req.params.id);
-
-  if (id === null) {
-    return {
-      success: false,
-      error: 'INVALID_ID',
-    };
-  }
-
-  const trip = await getTripById(id);
-
-  if (trip === undefined) {
-    return {
-      success: false,
-      error: 'NOT_FOUND',
-    };
-  }
-
-  return db.transaction(async (trx) => {
-    await deleteTripParticipantsByTripId(id);
-    await deleteTripModel(id).transacting(trx);
-
-    return {
-      success: true,
-    };
-  });
-});
+      return {};
+    });
+  },
+);

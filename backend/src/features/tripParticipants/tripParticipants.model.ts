@@ -6,11 +6,10 @@ import {
   ParticipantTable,
   TripParticipantTable,
   TripTable,
-} from 'types/tables';
-import {
-  NewTripParticipant,
   TripParticipantPopulated,
-} from './tripParticipants.types';
+  NewTripParticipant,
+} from '@s19192/shared';
+import { replaceDateWithTimestamp } from 'utils/replaceDateWithString';
 
 const fetchParticipantsForTrip = async ({
   idparticipant,
@@ -21,9 +20,9 @@ const fetchParticipantsForTrip = async ({
   const trip = await getTripById(idtrip);
 
   return {
-    ...rest,
-    trip: trip as TripTable,
-    participant: participant as ParticipantTable,
+    ...replaceDateWithTimestamp(rest),
+    trip: replaceDateWithTimestamp(trip as TripTable),
+    participant: replaceDateWithTimestamp(participant as ParticipantTable),
   };
 };
 
@@ -119,7 +118,7 @@ export const updateTripParticipant = (
   tripParticipant: Partial<NewTripParticipant>,
 ) => {
   return db<TripParticipantTable>('tripparticipant')
-    .update(tripParticipant)
+    .update(tripParticipant, '*')
     .where({ id: tripParticipantId });
 };
 

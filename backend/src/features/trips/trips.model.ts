@@ -1,6 +1,5 @@
 import { db } from 'core/db';
-import { TripTable } from 'types/tables';
-import { NewTrip } from './trips.types';
+import { NewTrip, TripTable } from '@s19192/shared';
 
 export const getTripById = (id: number) => {
   return db
@@ -25,7 +24,7 @@ export const createTrip = (trip: NewTrip) => {
 };
 
 export const updateTrip = (tripId: number, trip: Partial<NewTrip>) => {
-  return db<TripTable>('trip').update(trip).where({ id: tripId });
+  return db<TripTable>('trip').where({ id: tripId }).update(trip, '*');
 };
 
 export const deleteTrip = (tripId: number) => {

@@ -1,45 +1,33 @@
-import { useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Footer } from 'components/Footer/Footer';
+import { Header } from 'components/Header/Header';
+import { PageContainer } from 'components/PageContainer/PageContainer';
+import { Route, Routes } from 'react-router-dom';
+import { HotelsList } from 'views/Hotels/HotelsList/HotelsList';
+import { Index } from 'views/Index/Index';
+import { ParticipantDetails } from 'views/Participants/ParticipantDetails/ParticipantDetails';
+import { ParticipantsList } from 'views/Participants/ParticipantsList/ParticipantsList';
+import { TripPaymentsList } from 'views/TripPayments/TripPaymentsList/TripPaymentsList';
+import { TripsList } from 'views/Trips/TripsList/TripsList';
 
-function App() {
-  const [count, setCount] = useState(0);
-
+export const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((c) => c + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
-  );
-}
+    <>
+      <Header />
+      <PageContainer>
+        <Routes>
+          <Route path="/" element={<Index />} />
 
-export default App;
+          <Route path="/participants" element={<ParticipantsList />} />
+          <Route path="/participants/:id" element={<ParticipantDetails />} />
+
+          <Route path="/trip-payments" element={<TripPaymentsList />} />
+
+          <Route path="/trips" element={<TripsList />} />
+
+          <Route path="/hotels" element={<HotelsList />} />
+        </Routes>
+      </PageContainer>
+      <Footer />
+    </>
+  );
+};

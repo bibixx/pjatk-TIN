@@ -1,0 +1,87 @@
+{
+  "translation": {
+    "header": {
+      "logo-alt": "Happy Holidays",
+      "participants": "Uczestnicy",
+      "trip-payments": "Płatności za Wycieczki",
+      "trips": "Wycieczki",
+      "hotels": "Hotele"
+    },
+    "footer": {
+      "text": "Bartosz Legięć, s19129"
+    },
+    "participants": {
+      "list": {
+        "emptyState": {
+          "text": "Brak uczestników",
+          "button": "Dodaj Pierwszego Uczestnika"
+        },
+        "header": {
+          "text": "Lista Uczestników",
+          "button": "Nowy Uczestnik"
+        },
+        "table": {
+          "name": "Imię",
+          "surname": "Nazwisko",
+          "email": "Email"
+        }
+      },
+      "details": {
+        "header": {
+          "text": "Szczegóły Uczestnika"
+        }
+      }
+    },
+    "tripParticipants": {
+      "list": {
+        "emptyState": {
+          "text": "Brak Płatności za Wycieczki",
+          "button": "Dodaj Pierwszą Płatność za Wycieczkę"
+        },
+        "header": {
+          "text": "Lista Płatności za Wycieczki",
+          "button": "Nowa Płatność za Wycieczkę"
+        },
+        "table": {
+          "tripName": "Nazwa Wycieczki",
+          "participantName": "Imię",
+          "participantSurname": "Nazwisko",
+          "dateOfPayment": "Data Płatności",
+          "emptyDateOfPayment": "Brak"
+        }
+      }
+    },
+    "trips": {
+      "list": {
+        "emptyState": {
+          "text": "Brak Wycieczek",
+          "button": "Dodaj Pierwszą Wycieczkę"
+        },
+        "header": {
+          "text": "Lista Wycieczek",
+          "button": "Nowa Wycieczka"
+        },
+        "table": {
+          "name": "Nazwa",
+          "price": "Cena"
+        }
+      }
+    },
+    "hotels": {
+      "list": {
+        "emptyState": {
+          "text": "Brak Hoteli",
+          "button": "Dodaj Pierwszy Hotel"
+        },
+        "header": {
+          "text": "Lista Hoteli",
+          "button": "Nowy Hotel"
+        },
+        "table": {
+          "name": "Nazwa Hotelu",
+          "numberOfStars": "Gwiazdki"
+        }
+      }
+    }
+  }
+}

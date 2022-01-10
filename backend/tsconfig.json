@@ -14,5 +14,6 @@
       "src/*": ["./src/*"]
     }
   },
-  "baseUrl": "./src"
+  "baseUrl": "./src",
+  "exclude": ["../shared/*"]
 }

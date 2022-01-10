@@ -1,13 +1,17 @@
 FROM node:16
 
-WORKDIR /usr/src/app
+WORKDIR /usr/src/app/shared
+COPY shared/package*.json .
 
-COPY package*.json ./
+WORKDIR /usr/src/app/backend
+COPY backend/package*.json .
 
 RUN npm install
 
-COPY . .
+WORKDIR /usr/src/app/shared
+COPY shared .
 
-RUN npm run build:frontend
+WORKDIR /usr/src/app/backend
+COPY backend .
 
 CMD ["npm", "run" , "start"]

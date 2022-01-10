@@ -1,6 +1,5 @@
+import { HotelTable, NewHotel } from '@s19192/shared';
 import { db } from 'core/db';
-import { HotelTable } from 'types/tables';
-import { NewHotel } from './hotels.types';
 
 export const getAllHotels = () => {
   return db.select('*').from<HotelTable>('hotel').orderBy('id');
@@ -29,5 +28,5 @@ export const deleteHotel = (hotelId: number) => {
 };
 
 export const updateHotel = (hotelId: number, hotel: Partial<NewHotel>) => {
-  return db<HotelTable>('hotel').update(hotel).where({ id: hotelId });
+  return db<HotelTable>('hotel').where({ id: hotelId }).update(hotel, '*');
 };

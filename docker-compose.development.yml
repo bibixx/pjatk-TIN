@@ -22,8 +22,8 @@ services:
 
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile.development
+      context: .
+      dockerfile: backend/Dockerfile.development
     depends_on:
       - db
     environment:
@@ -31,15 +31,17 @@ services:
       PG_CONNECTION_STRING: postgresql://postgres:example@db/postgres
     tty: true
     volumes:
-      - "./backend/src:/usr/src/app/src"
+      - "./backend/src:/usr/src/app/backend/src"
+      - "./shared:/usr/src/app/shared"
 
   frontend:
     build:
-      context: ./frontend
-      dockerfile: Dockerfile.development
+      context: .
+      dockerfile: frontend/Dockerfile.development
     tty: true
     volumes:
-      - "./frontend/src:/usr/src/app/src"
+      - "./frontend/src:/usr/src/app/frontend/src"
+      - "./shared:/usr/src/app/shared"
 
 volumes:
   db:

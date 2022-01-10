@@ -1,6 +1,5 @@
 import { db } from 'core/db';
-import { ParticipantTable } from 'types/tables';
-import { NewParticipant } from './participants.types';
+import { NewParticipant, ParticipantTable } from '@s19192/shared';
 
 export const getAllParticipants = () => {
   return db.select('*').from<ParticipantTable>('participant').orderBy('id');

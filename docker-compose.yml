@@ -21,7 +21,9 @@ services:
       - backend
 
   backend:
-    build: ./backend
+    build:
+      context: .
+      dockerfile: backend/Dockerfile.development
     depends_on:
       - db
     environment:
@@ -30,7 +32,9 @@ services:
     tty: true
 
   frontend:
-    build: ./frontend
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile.development
     tty: true
 
 volumes:

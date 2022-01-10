@@ -1,0 +1,12 @@
+{
+  "name": "@s19192/shared",
+  "version": "1.0.0",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "typesVersions": {
+    "*": {
+      "index.ts": ["./index.ts"]
+    }
+  },
+  "type": "module"
+}
