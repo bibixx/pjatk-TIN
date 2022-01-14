@@ -1,7 +1,4 @@
-import {
-  GetParticipantResponseDTO,
-  GetTripParticipantsResponseDTO,
-} from '@s19192/shared';
+import { GetHotelResponseDTO, GetTripsResponseDTO } from '@s19192/shared';
 import { BackButton } from 'components/BackButton/BackButton';
 import { LinkButton } from 'components/LinkButton/LinkButton';
 import { Loader } from 'components/Loader/Loader';
@@ -16,33 +13,33 @@ import { useTable } from 'react-table';
 import useSWR from 'swr';
 import { fetcher } from 'utils/fetcher';
 import { getTripPaymentsColumns } from '../constants/getTripPaymentsColumns';
-import { ParticipantsFormInputs } from '../ParticipantsFormInputs/ParticipantsFormInputs';
+import { HotelsFormInputs } from '../HotelFormInputs/HotelFormInputs';
 
-export const ParticipantDetails = () => {
+export const HotelDetails = () => {
   const { id } = useParams<'id'>();
   const { t } = useTranslation();
 
-  const { data: participantData } = useSWR<GetParticipantResponseDTO>(
-    `/api/participants/${id}`,
+  const { data: hotelData } = useSWR<GetHotelResponseDTO>(
+    `/api/hotels/${id}`,
     fetcher,
   );
 
-  const { data: tripPaymentsData } = useSWR<GetTripParticipantsResponseDTO>(
-    `/api/trip-payments?idparticipant=${id}`,
+  const { data: tripsData } = useSWR<GetTripsResponseDTO>(
+    `/api/trips?idhotel=${id}`,
     fetcher,
   );
 
-  const participant = participantData?.participant;
-  const tripPayments = tripPaymentsData?.tripParticipants ?? [];
+  const hotel = hotelData?.hotel;
+  const trips = tripsData?.trips ?? [];
 
   const columns = useMemo(() => getTripPaymentsColumns(t), [t]);
 
   const tableInstance = useTable({
     columns,
-    data: tripPayments,
+    data: trips,
   });
 
-  if (participant === undefined || tripPayments === undefined) {
+  if (hotel === undefined) {
     return (
       <PageContainer>
         <Loader />
@@ -52,31 +49,25 @@ export const ParticipantDetails = () => {
 
   return (
     <PageContainer>
-      <PageContainerHeader header={t('participants.details.header.text')} />
-      <Form onSubmit={() => undefined} initialValues={participant}>
-        {() => <ParticipantsFormInputs disabled />}
+      <PageContainerHeader header={t('hotels.details.header.text')} />
+      <Form onSubmit={() => undefined} initialValues={hotel}>
+        {() => <HotelsFormInputs disabled />}
       </Form>
       <div className="form__buttons-container">
-        <LinkButton to={`/participants/${id}/update`} icon="edit">
+        <LinkButton to={`/hotels/${id}/update`} icon="edit">
           {t('shared.edit')}
         </LinkButton>
         <BackButton muted>{t('shared.back')}</BackButton>
       </div>
-      <h2 className="details__subheader">
-        {t('participants.details.tripParticipantsHeader')}
-      </h2>
+      <h2 className="details__subheader">{t('hotels.details.tripsHeader')}</h2>
 
-      {tripPayments.length === 0 && (
-        <p>{t('participants.details.tripParticipantsEmpty')}</p>
-      )}
-      {tripPayments.length > 0 && (
+      {trips.length === 0 && <p>{t('hotels.details.tripsEmpty')}</p>}
+      {trips.length > 0 && (
         <Table
           tableInstance={tableInstance}
           getIsActionsCell={(columnId) => columnId === 'actions'}
           getUrl={({ id: tripPaymentId }, columnId) =>
-            columnId === 'actions'
-              ? undefined
-              : `/trip-payments/${tripPaymentId}`
+            columnId === 'actions' ? undefined : `/trips/${tripPaymentId}`
           }
         />
       )}

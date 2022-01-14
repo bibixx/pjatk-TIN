@@ -1,12 +1,12 @@
 import {
   HotelTable,
+  hotelValidator,
   UpdateHotelRequestDTO,
   UpdateHotelResponseDTO,
 } from '@s19192/shared';
 import { getNumericId } from 'utils/getNumericId';
 import { APIError, withJSON } from 'utils/withJSON/withJSON';
 import { getHotelById, updateHotel as updateHotelModel } from '../hotels.model';
-import { hotelValidator } from '../hotels.validators';
 
 export const updateHotel = withJSON<
   UpdateHotelResponseDTO,

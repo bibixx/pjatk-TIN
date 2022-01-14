@@ -3,8 +3,8 @@ import {
   CreateHotelRequestDTO,
   CreateHotelResponseDTO,
   HotelTable,
+  hotelValidator,
 } from '@s19192/shared';
-import { hotelValidator } from '../hotels.validators';
 import { createHotel as createHotelModel } from '../hotels.model';
 
 export const createHotel = withJSON<

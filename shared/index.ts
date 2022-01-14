@@ -10,3 +10,4 @@ export * from './types/trips'
 export * from './types/ReplaceDateWithNumber'
 
 export * from './validators/participants'
+export * from './validators/hotels'

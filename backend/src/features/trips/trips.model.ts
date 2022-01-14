@@ -15,8 +15,14 @@ export const getTripsByHotelId = (hotelId: number) => {
   return db.from<TripTable>('trip').select('*').where({ idhotel: hotelId });
 };
 
-export const getAllTrips = () => {
-  return db.select('*').from<TripTable>('trip').orderBy('id');
+export const getAllTrips = ({ hotelId }: { hotelId?: number }) => {
+  const query = db.select('*').from<TripTable>('trip').orderBy('id');
+
+  if (hotelId === undefined) {
+    return query;
+  }
+
+  return query.where({ idhotel: hotelId });
 };
 
 export const createTrip = (trip: NewTrip) => {

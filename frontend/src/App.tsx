@@ -1,17 +1,20 @@
 import { Footer } from 'components/Footer/Footer';
 import { Header } from 'components/Header/Header';
-import { PageContainer } from 'components/PageContainer/PageContainer';
 import { Toaster } from 'react-hot-toast';
 import { Route, Routes } from 'react-router-dom';
+import { HotelCreate } from 'views/Hotels/HotelCreate/HotelCreate';
+import { HotelDetails } from 'views/Hotels/HotelDetails/HotelDetails';
+import { HotelEditDetails } from 'views/Hotels/HotelEditDetails/HotelEditDetails';
 import { HotelsList } from 'views/Hotels/HotelsList/HotelsList';
 import { Index } from 'views/Index/Index';
 import { ParticipantCreate } from 'views/Participants/ParticipantCreate/ParticipantCreate';
 import { ParticipantDetails } from 'views/Participants/ParticipantDetails/ParticipantDetails';
-import { ParticipantDelete } from 'views/Participants/ParticipantDetailsDelete/ParticipantDetailsDelete';
+import { ParticipantDelete } from 'views/Participants/ParticipantDelete/ParticipantDelete';
 import { ParticipantEditDetails } from 'views/Participants/ParticipantEditDetails/ParticipantEditDetails';
 import { ParticipantsList } from 'views/Participants/ParticipantsList/ParticipantsList';
 import { TripPaymentsList } from 'views/TripPayments/TripPaymentsList/TripPaymentsList';
 import { TripsList } from 'views/Trips/TripsList/TripsList';
+import { HotelDelete } from 'views/Hotels/HotelDelete/HotelDelete';
 
 export const App = () => {
   return (
@@ -37,6 +40,10 @@ export const App = () => {
         <Route path="/trips" element={<TripsList />} />
 
         <Route path="/hotels" element={<HotelsList />} />
+        <Route path="/hotels/create" element={<HotelCreate />} />
+        <Route path="/hotels/:id" element={<HotelDetails />} />
+        <Route path="/hotels/:id/delete" element={<HotelDelete />} />
+        <Route path="/hotels/:id/update" element={<HotelEditDetails />} />
       </Routes>
       <Footer />
       <Toaster />

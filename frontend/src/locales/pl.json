@@ -44,6 +44,11 @@
       "create": {
         "header": "Dodaj Uczestnika"
       },
+      "delete": {
+        "heading": "Czy na pewno chcesz usunąć tego uczestnika?",
+        "subtext": "Zostanie on usunięty natychmiastowo. Akcja ta jest nieodwracalna.",
+        "tableSubtext": "Następujące Płatności za Wycieczki również zostaną usunięte"
+      },
       "toasts": {
         "editSuccess": "Pomyślnie zedytowano uczestnika",
         "deleteSuccess": "Pomyślnie usunięto uczestnika",
@@ -100,6 +105,34 @@
           "name": "Nazwa Hotelu",
           "numberOfStars": "Gwiazdki"
         }
+      },
+      "details": {
+        "header": {
+          "text": "Szczegóły Hotelu"
+        },
+        "fields": {
+          "name": "Nazwa Hotelu",
+          "numberOfStars": "Gwiazdki"
+        },
+        "tripsHeader": "Wycieczki",
+        "tripsEmpty": "Brak wycieczek"
+      },
+      "create": {
+        "header": "Dodaj Hotel"
+      },
+      "delete": {
+        "cantDelete": {
+          "heading": "Nie można usunąć następującego hotelu",
+          "subtext": "Podany hotel jest przypisany do następujących wycieczek"
+        },
+        "heading": "Czy na pewno chcesz usunąć ten hotel?",
+        "subtext": "Zostanie on usunięty natychmiastowo. Akcja ta jest nieodwracalna."
+      },
+      "toasts": {
+        "editSuccess": "Pomyślnie zedytowano hotel",
+        "deleteSuccess": "Pomyślnie usunięto hotel",
+        "addSuccess": "Pomyślnie dodano hotel",
+        "error": "Wystąpił błąd"
       }
     },
     "shared": {
@@ -110,6 +143,7 @@
       "delete": "Usuń",
       "cancel": "Anuluj",
       "empty": "Brak",
+      "back": "Wróć",
       "formError": "Formularz zawiera błędy"
     }
   }

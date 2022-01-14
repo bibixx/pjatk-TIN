@@ -1,7 +1,5 @@
 const translateMap: Record<string, string> = {
   'Expecting value not to be empty': 'To pole jest wymagane',
-  "Expecting type 'string'. Got type 'undefined'": 'To pole jest wymagane',
-  "Expecting type 'date'. Got type 'undefined'": 'To pole jest wymagane',
   "Expecting value to be a valid 'date'": 'To pole nie jest poprawną datą',
   "Expecting value to be a finite 'number'": 'To pole nie jest poprawną liczbą',
   'Expected value to be greater or equal to 1':
@@ -18,4 +16,10 @@ const translateMap: Record<string, string> = {
     'To pole nie jest poprawnym adresem email',
 };
 
-export const translateError = (error: string) => translateMap[error] ?? error;
+export const translateError = (error: string) => {
+  if (error.endsWith("Got type 'undefined'")) {
+    return 'To pole jest wymagane';
+  }
+
+  return translateMap[error] ?? error;
+};
