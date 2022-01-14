@@ -8,7 +8,7 @@ export const getTripParticipant = withJSON<GetTripParticipantResponseDTO>()(
     const id = getNumericId(req.params.id);
 
     if (id === null) {
-      throw new APIError('Provided id is invalid', 422);
+      throw new APIError('TripParticipant not found', 404);
     }
 
     const tripParticipant = await getTripParticipantById(id);

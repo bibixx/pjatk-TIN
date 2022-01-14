@@ -2,19 +2,19 @@ import classNames from 'classnames';
 
 interface Props {
   children: React.ReactNode;
-  isDeleteScreen?: boolean;
+  isCentered?: boolean;
 }
 
-export const PageContainer = ({ children, isDeleteScreen = false }: Props) => {
+export const PageContainer = ({ children, isCentered = false }: Props) => {
   return (
     <div
       className={classNames('content-wrapper', {
-        'content-wrapper--delete-confirmation': isDeleteScreen,
+        'content-wrapper--delete-confirmation': isCentered,
       })}
     >
       <main
         className={classNames('content-card', {
-          'delete-confirmation': isDeleteScreen,
+          'delete-confirmation': isCentered,
         })}
       >
         {children}

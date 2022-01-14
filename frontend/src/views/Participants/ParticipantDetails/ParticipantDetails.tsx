@@ -3,6 +3,7 @@ import {
   GetTripParticipantsResponseDTO,
 } from '@s19192/shared';
 import { BackButton } from 'components/BackButton/BackButton';
+import { EntityError } from 'components/EntityError/EntityError';
 import { LinkButton } from 'components/LinkButton/LinkButton';
 import { Loader } from 'components/Loader/Loader';
 import { PageContainer } from 'components/PageContainer/PageContainer';
@@ -14,7 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { useTable } from 'react-table';
 import useSWR from 'swr';
-import { fetcher } from 'utils/fetcher';
+import { APIError } from 'utils/ApiError';
 import { getTripPaymentsColumns } from '../constants/getTripPaymentsColumns';
 import { ParticipantsFormInputs } from '../ParticipantsFormInputs/ParticipantsFormInputs';
 
@@ -22,15 +23,15 @@ export const ParticipantDetails = () => {
   const { id } = useParams<'id'>();
   const { t } = useTranslation();
 
-  const { data: participantData } = useSWR<GetParticipantResponseDTO>(
-    `/api/participants/${id}`,
-    fetcher,
-  );
+  const { data: participantData, error: participantError } = useSWR<
+    GetParticipantResponseDTO,
+    APIError
+  >(`/api/participants/${id}`);
 
-  const { data: tripPaymentsData } = useSWR<GetTripParticipantsResponseDTO>(
-    `/api/trip-payments?idparticipant=${id}`,
-    fetcher,
-  );
+  const { data: tripPaymentsData, error: tripPaymentsError } = useSWR<
+    GetTripParticipantsResponseDTO,
+    APIError
+  >(`/api/trip-payments?idparticipant=${id}`);
 
   const participant = participantData?.participant;
   const tripPayments = tripPaymentsData?.tripParticipants ?? [];
@@ -41,6 +42,16 @@ export const ParticipantDetails = () => {
     columns,
     data: tripPayments,
   });
+
+  // TODO: handle errors
+  if (participantError || tripPaymentsError) {
+    return (
+      <EntityError
+        errors={[participantError, tripPaymentsError]}
+        page="participants"
+      />
+    );
+  }
 
   if (participant === undefined || tripPayments === undefined) {
     return (

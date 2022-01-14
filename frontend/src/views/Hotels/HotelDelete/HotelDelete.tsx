@@ -51,7 +51,7 @@ export const HotelDelete = () => {
 
   if (hotel === undefined) {
     return (
-      <PageContainer>
+      <PageContainer isCentered>
         <Loader />
       </PageContainer>
     );

@@ -49,7 +49,7 @@ export const TripsDelete = () => {
 
   if (trip === undefined || tripPayments === undefined) {
     return (
-      <PageContainer isDeleteScreen>
+      <PageContainer isCentered>
         <Loader />
       </PageContainer>
     );

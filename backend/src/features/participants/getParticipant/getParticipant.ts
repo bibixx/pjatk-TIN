@@ -9,7 +9,7 @@ export const getParticipant = withJSON<GetParticipantResponseDTO>()(
     const id = getNumericId(req.params.id);
 
     if (id === null) {
-      throw new APIError('Provided id is invalid', 422);
+      throw new APIError('Participant not found', 404);
     }
 
     const participant = await getParticipantById(id);

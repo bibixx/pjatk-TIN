@@ -34,7 +34,7 @@ export const TripPaymentsDelete = () => {
 
   if (tripPayment === undefined) {
     return (
-      <PageContainer isDeleteScreen>
+      <PageContainer isCentered>
         <Loader />
       </PageContainer>
     );

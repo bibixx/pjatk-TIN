@@ -55,7 +55,8 @@
         "deleteSuccess": "Pomyślnie usunięto uczestnika",
         "addSuccess": "Pomyślnie dodano uczestnika",
         "error": "Wystąpił błąd"
-      }
+      },
+      "notFound": "Podany uczestnik nie istnieje"
     },
     "tripParticipants": {
       "list": {
@@ -104,7 +105,8 @@
         "deleteSuccess": "Pomyślnie usunięto płatność za wycieczkę",
         "addSuccess": "Pomyślnie dodano płatność za wycieczkę",
         "error": "Wystąpił błąd"
-      }
+      },
+      "notFound": "Podana płatność nie istnieje"
     },
     "trips": {
       "list": {
@@ -150,7 +152,8 @@
         "deleteSuccess": "Pomyślnie usunięto wycieczkę",
         "addSuccess": "Pomyślnie dodano wycieczkę",
         "error": "Wystąpił błąd"
-      }
+      },
+      "notFound": "Podana wycieczka nie istnieje"
     },
     "hotels": {
       "list": {
@@ -195,7 +198,8 @@
         "deleteSuccess": "Pomyślnie usunięto hotel",
         "addSuccess": "Pomyślnie dodano hotel",
         "error": "Wystąpił błąd"
-      }
+      },
+      "notFound": "Podany hotel nie istnieje"
     },
     "shared": {
       "optional": "opcjonalne",
@@ -206,7 +210,8 @@
       "cancel": "Anuluj",
       "empty": "Brak",
       "back": "Wróć",
-      "formError": "Formularz zawiera błędy"
+      "formError": "Formularz zawiera błędy",
+      "unexpectedError": "Ups... Wystąpił nieoczekiwany błąd."
     }
   }
 }

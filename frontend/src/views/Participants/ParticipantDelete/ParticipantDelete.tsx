@@ -54,7 +54,7 @@ export const ParticipantDelete = () => {
 
   if (participant === undefined || tripPayments === undefined) {
     return (
-      <PageContainer isDeleteScreen>
+      <PageContainer isCentered>
         <Loader />
       </PageContainer>
     );

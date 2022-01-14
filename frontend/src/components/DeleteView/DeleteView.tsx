@@ -23,7 +23,7 @@ export const DeleteView = ({
   const { t } = useTranslation();
 
   return (
-    <PageContainer isDeleteScreen>
+    <PageContainer isCentered>
       {heading && <h1 className="delete-confirmation__heading">{heading}</h1>}
       {subject && <p className="delete-confirmation__subject">{subject}</p>}
       {subtext && <p className="delete-confirmation__subtext">{subtext}</p>}

@@ -7,7 +7,7 @@ export const getHotel = withJSON<GetHotelResponseDTO>()(async (_body, req) => {
   const id = getNumericId(req.params.id);
 
   if (id === null) {
-    throw new APIError('Provided id is invalid', 422);
+    throw new APIError('Hotel not found', 404);
   }
 
   const hotel = await getHotelById(id);
