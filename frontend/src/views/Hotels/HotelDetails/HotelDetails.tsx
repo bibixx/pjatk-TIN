@@ -12,7 +12,7 @@ import { useParams } from 'react-router-dom';
 import { useTable } from 'react-table';
 import useSWR from 'swr';
 import { fetcher } from 'utils/fetcher';
-import { getTripPaymentsColumns } from '../constants/getTripPaymentsColumns';
+import { getTripsColumns } from '../constants/getTripsColumns';
 import { HotelsFormInputs } from '../HotelFormInputs/HotelFormInputs';
 
 export const HotelDetails = () => {
@@ -32,7 +32,7 @@ export const HotelDetails = () => {
   const hotel = hotelData?.hotel;
   const trips = tripsData?.trips ?? [];
 
-  const columns = useMemo(() => getTripPaymentsColumns(t), [t]);
+  const columns = useMemo(() => getTripsColumns(t), [t]);
 
   const tableInstance = useTable({
     columns,
@@ -49,7 +49,7 @@ export const HotelDetails = () => {
 
   return (
     <PageContainer>
-      <PageContainerHeader header={t('hotels.details.header.text')} />
+      <PageContainerHeader header={t('hotels.details.header.details')} />
       <Form onSubmit={() => undefined} initialValues={hotel}>
         {() => <HotelsFormInputs disabled />}
       </Form>

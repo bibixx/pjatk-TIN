@@ -11,3 +11,4 @@ export * from './types/ReplaceDateWithNumber'
 
 export * from './validators/participants'
 export * from './validators/hotels'
+export * from './validators/tripParticipants'

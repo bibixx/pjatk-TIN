@@ -21,6 +21,8 @@ const fetchParticipantsForTrip = async ({
 
   return {
     ...replaceDateWithTimestamp(rest),
+    idparticipant,
+    idtrip,
     trip: replaceDateWithTimestamp(trip as TripTable),
     participant: replaceDateWithTimestamp(participant as ParticipantTable),
   };
@@ -33,6 +35,7 @@ export const getAllTripParticipants = async ({
 }): Promise<TripParticipantPopulated[]> => {
   const tripParticipantsQuery = db
     .from<TripParticipantTable>('tripparticipant')
+    .orderBy('id')
     .select('*');
 
   const tripParticipantsQueryWithWhereApplied =

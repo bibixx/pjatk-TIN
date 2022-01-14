@@ -28,7 +28,8 @@
       },
       "details": {
         "header": {
-          "text": "Szczegóły Uczestnika"
+          "details": "Szczegóły Uczestnika",
+          "edit": "Edytuj Uczestnika"
         },
         "fields": {
           "name": "Imię",
@@ -73,6 +74,36 @@
           "dateOfPayment": "Data Płatności",
           "discount": "Zniżka"
         }
+      },
+      "details": {
+        "header": {
+          "details": "Szczegóły Płatności za Wycieczkę",
+          "edit": "Edytuj Płatności za Wycieczkę"
+        },
+        "fields": {
+          "dateofpayment": "Data Płatności",
+          "discount": "Zniżka (%)",
+          "idparticipant": "Uczestnik",
+          "defaultIdparticipant": "-- Wybierz Użytkownika --",
+          "idtrip": "Wycieczka",
+          "defaultIdtrip": "-- Wybierz Wycieczkę --"
+        },
+        "participantHeader": "Uczestnik",
+        "tripHeader": "Wycieczka"
+      },
+      "create": {
+        "header": "Dodaj Płatność za Wycieczkę"
+      },
+      "delete": {
+        "heading": "Czy na pewno chcesz usunąć tę płatność za wycieczkę?",
+        "subject": "Do: {{destination}}; Przez: {{by}}",
+        "subtext": "Zostanie ona usunięta natychmiastowo. Akcja ta jest nieodwracalna."
+      },
+      "toasts": {
+        "editSuccess": "Pomyślnie zedytowano płatność za wycieczkę",
+        "deleteSuccess": "Pomyślnie usunięto płatność za wycieczkę",
+        "addSuccess": "Pomyślnie dodano płatność za wycieczkę",
+        "error": "Wystąpił błąd"
       }
     },
     "trips": {
@@ -108,7 +139,8 @@
       },
       "details": {
         "header": {
-          "text": "Szczegóły Hotelu"
+          "details": "Szczegóły Hotelu",
+          "edit": "Edytuj Hotel"
         },
         "fields": {
           "name": "Nazwa Hotelu",

@@ -1,12 +1,18 @@
-import { Column } from 'react-table';
+import { CellProps, Column } from 'react-table';
 import { GetTripsResponseDTO } from '@s19192/shared';
 import { TableActions } from 'components/TableActions/TableActions';
 import { TFunction } from 'react-i18next';
 import { formatPrice } from 'utils/formatPrice';
 
-export const getTripPaymentsColumns = (
+type Data = GetTripsResponseDTO['trips'][number];
+
+const getTableActions = ({ row }: CellProps<Data>) => {
+  return <TableActions pathBase={`/trips/${row.original.id}`} />;
+};
+
+export const getTripsColumns = (
   t: TFunction<'translation', undefined>,
-): ReadonlyArray<Column<GetTripsResponseDTO['trips'][number]>> => [
+): ReadonlyArray<Column<Data>> => [
   {
     Header: t('trips.list.table.name'),
     accessor: 'name',
@@ -19,6 +25,6 @@ export const getTripPaymentsColumns = (
   {
     id: 'actions',
     Header: '',
-    Cell: TableActions,
+    Cell: getTableActions,
   },
 ];

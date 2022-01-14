@@ -2,6 +2,7 @@ import { getNumericId } from 'utils/getNumericId';
 import { APIError, withJSON } from 'utils/withJSON/withJSON';
 import {
   TripParticipantTable,
+  tripParticipantValidator,
   UpdateTripParticipantRequestDTO,
   UpdateTripParticipantResponseDTO,
 } from '@s19192/shared';
@@ -10,7 +11,6 @@ import {
   getTripParticipantById,
   updateTripParticipant as updateTripParticipantModel,
 } from '../tripParticipants.model';
-import { tripParticipantValidator } from '../tripParticipants.validators';
 
 export const updateTripParticipant = withJSON<
   UpdateTripParticipantResponseDTO,

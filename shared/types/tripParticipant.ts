@@ -1,10 +1,7 @@
 import { ReplaceDateWithNumber } from "..";
 import { ParticipantTable, TripParticipantTable, TripTable } from "./tables";
 
-type TripParticipantPrePopulated = ReplaceDateWithNumber<Omit<
-  Omit<TripParticipantTable, 'idtrip'>,
-  'idparticipant'
->>;
+type TripParticipantPrePopulated = ReplaceDateWithNumber<TripParticipantTable>;
 
 export type TripParticipantPopulated = TripParticipantPrePopulated & {
   trip: ReplaceDateWithNumber<TripTable>;

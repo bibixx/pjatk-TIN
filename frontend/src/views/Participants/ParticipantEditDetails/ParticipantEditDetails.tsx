@@ -52,7 +52,7 @@ export const ParticipantEditDetails = () => {
 
   return (
     <PageContainer>
-      <PageContainerHeader header={t('participants.details.header.text')} />
+      <PageContainerHeader header={t('participants.details.header.edit')} />
       <Form onSubmit={onSubmit} initialValues={participant}>
         {(props) => (
           <form onSubmit={props.handleSubmit}>

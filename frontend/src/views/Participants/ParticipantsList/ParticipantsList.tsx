@@ -2,15 +2,15 @@ import useSWR from 'swr';
 
 import { Table } from 'components/Table/Table';
 import { useMemo } from 'react';
-import { Column, useTable } from 'react-table';
+import { useTable } from 'react-table';
 import { GetParticipantsResponseDTO } from '@s19192/shared';
-import { TableActions } from 'components/TableActions/TableActions';
 import { EmptyState } from 'components/EmptyState/EmptyState';
 import { PageContainerHeader } from 'components/PageContainerHeader/PageContainerHeader';
 import { LinkButton } from 'components/LinkButton/LinkButton';
 import { Loader } from 'components/Loader/Loader';
 import { useTranslation } from 'react-i18next';
 import { PageContainer } from 'components/PageContainer/PageContainer';
+import { getParticipantsColumns } from '../constants/getParticipantsColumns';
 
 export const ParticipantsList = () => {
   const { t } = useTranslation();
@@ -18,28 +18,7 @@ export const ParticipantsList = () => {
   const { data } = useSWR<GetParticipantsResponseDTO>('/api/participants');
   const participants = data?.participants ?? [];
 
-  const columns = useMemo(
-    (): ReadonlyArray<Column<typeof participants[number]>> => [
-      {
-        Header: t('participants.list.table.name'),
-        accessor: 'name',
-      },
-      {
-        Header: t('participants.list.table.surname'),
-        accessor: 'surname',
-      },
-      {
-        Header: t('participants.list.table.email'),
-        accessor: 'email',
-      },
-      {
-        id: 'actions',
-        Header: '',
-        Cell: TableActions,
-      },
-    ],
-    [t],
-  );
+  const columns = useMemo(() => getParticipantsColumns(t), [t]);
 
   const tableInstance = useTable({ columns, data: participants });
 

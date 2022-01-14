@@ -2,16 +2,15 @@ import useSWR from 'swr';
 
 import { Table } from 'components/Table/Table';
 import { useMemo } from 'react';
-import { Column, useTable } from 'react-table';
+import { useTable } from 'react-table';
 import { GetTripsResponseDTO } from '@s19192/shared';
-import { TableActions } from 'components/TableActions/TableActions';
 import { EmptyState } from 'components/EmptyState/EmptyState';
 import { PageContainerHeader } from 'components/PageContainerHeader/PageContainerHeader';
 import { LinkButton } from 'components/LinkButton/LinkButton';
 import { Loader } from 'components/Loader/Loader';
 import { useTranslation } from 'react-i18next';
-import { formatPrice } from 'utils/formatPrice';
 import { PageContainer } from 'components/PageContainer/PageContainer';
+import { getTripsColumns } from '../constants/getTripsColumns';
 
 export const TripsList = () => {
   const { t } = useTranslation();
@@ -19,25 +18,7 @@ export const TripsList = () => {
   const { data } = useSWR<GetTripsResponseDTO>('/api/trips');
   const trips = data?.trips ?? [];
 
-  const columns = useMemo(
-    (): ReadonlyArray<Column<typeof trips[number]>> => [
-      {
-        Header: t('trips.list.table.name'),
-        accessor: 'name',
-      },
-      {
-        Header: t('trips.list.table.price'),
-        accessor: 'price',
-        Cell: ({ value }) => formatPrice(value),
-      },
-      {
-        id: 'actions',
-        Header: '',
-        Cell: TableActions,
-      },
-    ],
-    [t],
-  );
+  const columns = useMemo(() => getTripsColumns(t), [t]);
 
   const tableInstance = useTable({
     columns,

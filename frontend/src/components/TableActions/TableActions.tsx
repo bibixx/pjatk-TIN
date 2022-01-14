@@ -1,18 +1,17 @@
 import { Link } from 'react-router-dom';
-import { CellProps } from 'react-table';
 
-interface ActionableData {
-  id: string;
+interface Props {
+  pathBase: string;
 }
 
-export function TableActions<T extends ActionableData>({ row }: CellProps<T>) {
+export function TableActions({ pathBase }: Props) {
   return (
     <div className="table__actions-container">
-      <Link to={`./${row.original.id}/update/`} className="action-button">
+      <Link to={`${pathBase}/update/`} className="action-button">
         <span className="material-icons">edit</span>
       </Link>
       <Link
-        to={`./${row.original.id}/delete/`}
+        to={`${pathBase}/delete/`}
         className="action-button action-button--danger"
       >
         <span className="material-icons">delete</span>

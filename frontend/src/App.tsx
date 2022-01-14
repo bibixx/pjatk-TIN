@@ -15,6 +15,10 @@ import { ParticipantsList } from 'views/Participants/ParticipantsList/Participan
 import { TripPaymentsList } from 'views/TripPayments/TripPaymentsList/TripPaymentsList';
 import { TripsList } from 'views/Trips/TripsList/TripsList';
 import { HotelDelete } from 'views/Hotels/HotelDelete/HotelDelete';
+import { TripPaymentsDetails } from 'views/TripPayments/TripPaymentsDetails/TripPaymentsDetails';
+import { TripPaymentsEditDetails } from 'views/TripPayments/TripPaymentsEditDetails/TripPaymentsEditDetails';
+import { TripPaymentsCreate } from 'views/TripPayments/TripPaymentsCreate/TripPaymentsCreate';
+import { TripPaymentsDelete } from 'views/TripPayments/TripPaymentsDelete/TripPaymentsDelete';
 
 export const App = () => {
   return (
@@ -36,6 +40,16 @@ export const App = () => {
         />
 
         <Route path="/trip-payments" element={<TripPaymentsList />} />
+        <Route path="/trip-payments/create" element={<TripPaymentsCreate />} />
+        <Route path="/trip-payments/:id" element={<TripPaymentsDetails />} />
+        <Route
+          path="/trip-payments/:id/delete"
+          element={<TripPaymentsDelete />}
+        />
+        <Route
+          path="/trip-payments/:id/update"
+          element={<TripPaymentsEditDetails />}
+        />
 
         <Route path="/trips" element={<TripsList />} />
 

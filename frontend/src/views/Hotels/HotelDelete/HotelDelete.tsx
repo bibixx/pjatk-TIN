@@ -11,7 +11,7 @@ import { useTable } from 'react-table';
 import useSWR from 'swr';
 import { fetcher } from 'utils/fetcher';
 import { makeRequest } from 'utils/makeRequest';
-import { getTripPaymentsColumns } from '../constants/getTripPaymentsColumns';
+import { getTripsColumns } from '../constants/getTripsColumns';
 
 export const HotelDelete = () => {
   const { id } = useParams<'id'>();
@@ -31,7 +31,7 @@ export const HotelDelete = () => {
   const hotel = hotelData?.hotel;
   const trips = tripsData?.trips ?? [];
 
-  const columns = useMemo(() => getTripPaymentsColumns(t), [t]);
+  const columns = useMemo(() => getTripsColumns(t), [t]);
 
   const tableInstance = useTable({
     columns,

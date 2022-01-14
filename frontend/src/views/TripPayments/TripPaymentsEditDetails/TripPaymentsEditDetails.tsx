@@ -1,7 +1,9 @@
 import {
-  GetHotelResponseDTO,
-  ReplaceDateWithNumber,
-  UpdateHotelRequestDTO,
+  GetParticipantsResponseDTO,
+  GetTripParticipantResponseDTO,
+  GetTripsResponseDTO,
+  tripParticipantValidator,
+  UpdateTripParticipantRequestDTO,
 } from '@s19192/shared';
 import { BackButton } from 'components/BackButton/BackButton';
 import { Button } from 'components/Button/Button';
@@ -15,34 +17,48 @@ import { useNavigate, useParams } from 'react-router-dom';
 import useSWR from 'swr';
 import { fetcher } from 'utils/fetcher';
 import { makeRequest } from 'utils/makeRequest';
-import { HotelsFormInputs } from '../HotelFormInputs/HotelFormInputs';
+import { Infer } from 'typed';
+import { TripPaymentsFormInputs } from '../TripPaymentsFormInputs/TripPaymentsFormInputs';
 
-export const HotelEditDetails = () => {
+export const TripPaymentsEditDetails = () => {
   const { id } = useParams<'id'>();
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const { data: hotelData } = useSWR<GetHotelResponseDTO>(
-    `/api/hotels/${id}`,
+  const { data: tripPaymentData } = useSWR<GetTripParticipantResponseDTO>(
+    `/api/trip-payments/${id}`,
     fetcher,
   );
 
-  const onSubmit = async (
-    values: ReplaceDateWithNumber<UpdateHotelRequestDTO>,
-  ) => {
-    try {
-      await makeRequest(`/api/hotels/${id}`, 'PUT', values);
+  const { data: participantsData } =
+    useSWR<GetParticipantsResponseDTO>('/api/participants');
 
-      toast.success(t('hotels.toasts.editSuccess'));
-      navigate('/hotels');
+  const { data: tripsData } = useSWR<GetTripsResponseDTO>('/api/trips');
+
+  const tripPayment = tripPaymentData?.tripParticipant;
+  const participants = participantsData?.participants;
+  const trips = tripsData?.trips;
+
+  const onSubmit = async (values: Infer<typeof tripParticipantValidator>) => {
+    try {
+      await makeRequest<UpdateTripParticipantRequestDTO>(
+        `/api/trip-payments/${id}`,
+        'PUT',
+        values,
+      );
+
+      toast.success(t('tripParticipants.toasts.editSuccess'));
+      navigate('/trip-payments');
     } catch (error) {
-      toast.error(t('hotels.toasts.error'));
+      toast.error(t('tripParticipants.toasts.error'));
     }
   };
 
-  const hotel = hotelData?.hotel;
-
-  if (hotel === undefined) {
+  if (
+    tripPayment === undefined ||
+    participants === undefined ||
+    trips === undefined
+  ) {
     return (
       <PageContainer>
         <Loader />
@@ -52,11 +68,11 @@ export const HotelEditDetails = () => {
 
   return (
     <PageContainer>
-      <PageContainerHeader header={t('hotels.details.header.edit')} />
-      <Form onSubmit={onSubmit} initialValues={hotel}>
+      <PageContainerHeader header={t('tripParticipants.details.header.edit')} />
+      <Form onSubmit={onSubmit} initialValues={tripPayment}>
         {(props) => (
           <form onSubmit={props.handleSubmit}>
-            <HotelsFormInputs />
+            <TripPaymentsFormInputs participants={participants} trips={trips} />
             {props.submitFailed && props.hasValidationErrors && (
               <div className="form__global-error-message">
                 {t('shared.formError')}

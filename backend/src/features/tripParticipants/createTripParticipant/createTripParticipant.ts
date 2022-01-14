@@ -3,9 +3,9 @@ import {
   CreateTripParticipantRequestDTO,
   CreateTripParticipantResponseDTO,
   TripParticipantTable,
+  tripParticipantValidator,
 } from '@s19192/shared';
 import { replaceDateWithTimestamp } from 'utils/replaceDateWithString';
-import { tripParticipantValidator } from '../tripParticipants.validators';
 import { createTripParticipant as createTripParticipantModel } from '../tripParticipants.model';
 
 export const createTripParticipant = withJSON<

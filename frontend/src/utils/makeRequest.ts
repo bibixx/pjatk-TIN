@@ -1,12 +1,23 @@
-export const makeRequest = (
+export const makeRequest = async <T, U = void>(
   endpoint: string,
   method: 'PUT' | 'POST' | 'DELETE',
-  data?: any = {},
-) =>
-  fetch(endpoint, {
+  data?: T,
+): Promise<U> => {
+  const response = await fetch(endpoint, {
     method,
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(data),
+    ...(data
+      ? {
+          body: JSON.stringify(data),
+        }
+      : {}),
   });
+
+  if (!response.ok) {
+    throw new Error(`Request failed with status: ${response.status}`);
+  }
+
+  return response.json();
+};

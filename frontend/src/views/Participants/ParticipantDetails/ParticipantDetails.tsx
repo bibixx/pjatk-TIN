@@ -52,7 +52,7 @@ export const ParticipantDetails = () => {
 
   return (
     <PageContainer>
-      <PageContainerHeader header={t('participants.details.header.text')} />
+      <PageContainerHeader header={t('participants.details.header.details')} />
       <Form onSubmit={() => undefined} initialValues={participant}>
         {() => <ParticipantsFormInputs disabled />}
       </Form>
