@@ -5,7 +5,9 @@
       "participants": "Uczestnicy",
       "trip-payments": "Płatności za Wycieczki",
       "trips": "Wycieczki",
-      "hotels": "Hotele"
+      "hotels": "Hotele",
+      "login": "Zaloguj się",
+      "logout": "Wyloguj się"
     },
     "footer": {
       "text": "Bartosz Legięć, s19129"

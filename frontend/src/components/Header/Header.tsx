@@ -3,7 +3,13 @@ import logoPath from 'images/logo.png';
 import { useTranslation } from 'react-i18next';
 import { Link, NavLink } from 'react-router-dom';
 
-const ids = ['participants', 'trip-payments', 'trips', 'hotels'] as const;
+const ids = [
+  'participants',
+  'trip-payments',
+  'trips',
+  'hotels',
+  'login',
+] as const;
 
 export const Header = () => {
   const { t } = useTranslation();

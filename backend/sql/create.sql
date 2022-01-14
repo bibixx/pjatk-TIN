@@ -1,70 +1,66 @@
--- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2021-10-10 17:12:22.536
-
--- tables
--- Table: Hotel
-CREATE TABLE Hotel (
-    id SERIAL NOT NULL,
-    numberOfStars float  NOT NULL,
-    name varchar(255)  NOT NULL,
-    CONSTRAINT Hotel_pk PRIMARY KEY (id)
+create table hotel
+(
+    id            serial           not null
+        constraint hotel_pk
+            primary key,
+    numberofstars double precision not null,
+    name          varchar(255)     not null
 );
 
--- Table: Participant
-CREATE TABLE Participant (
-    id SERIAL NOT NULL,
-    name varchar(255)  NOT NULL,
-    surname varchar(255)  NOT NULL,
-    dob date  NOT NULL,
-    email varchar(255)  NOT NULL,
-    phoneNumber varchar(255)  NULL,
-    CONSTRAINT Participant_pk PRIMARY KEY (id)
+create table participant
+(
+    id          serial       not null
+        constraint participant_pk
+            primary key,
+    name        varchar(255) not null,
+    surname     varchar(255) not null,
+    dob         date         not null,
+    email       varchar(255) not null,
+    phonenumber varchar(255)
 );
 
--- Table: Trip
-CREATE TABLE Trip (
-    id SERIAL NOT NULL,
-    name varchar(255)  NOT NULL,
-    idHotel int  NOT NULL,
-    price float  NOT NULL,
-    startOfTripDate date  NOT NULL,
-    CONSTRAINT Trip_pk PRIMARY KEY (id)
+create table trip
+(
+    id              serial           not null
+        constraint trip_pk
+            primary key,
+    name            varchar(255)     not null,
+    idhotel         integer          not null
+        constraint table_3_table_2
+            references hotel,
+    price           double precision not null,
+    startoftripdate date             not null
 );
 
--- Table: TripParticipant
-CREATE TABLE TripParticipant (
-    id SERIAL NOT NULL,
-    idTrip int  NOT NULL,
-    idParticipant int  NOT NULL,
-    dateOfPayment date  NULL,
-    discount float  NULL,
-    CONSTRAINT TripParticipant_pk PRIMARY KEY (id)
+create table tripparticipant
+(
+    id            serial  not null
+        constraint tripparticipant_pk
+            primary key,
+    idtrip        integer not null
+        constraint tripparticipant_trip
+            references trip,
+    idparticipant integer not null
+        constraint tripparticipant_participant
+            references participant,
+    dateofpayment date,
+    discount      double precision
 );
 
--- foreign keys
--- Reference: Table_3_Table_2 (table: Trip)
-ALTER TABLE Trip ADD CONSTRAINT Table_3_Table_2
-    FOREIGN KEY (idHotel)
-    REFERENCES Hotel (id)
-    NOT DEFERRABLE
-    INITIALLY IMMEDIATE
-;
+create table "user"
+(
+    id            serial       not null
+        constraint user_pk
+            primary key,
+    username      varchar(255) not null,
+    password      varchar(255) not null,
+    "userType"    varchar(255) not null,
+    idparticipant integer
+);
 
--- Reference: TripParticipant_Participant (table: TripParticipant)
-ALTER TABLE TripParticipant ADD CONSTRAINT TripParticipant_Participant
-    FOREIGN KEY (idParticipant)
-    REFERENCES Participant (id)
-    NOT DEFERRABLE
-    INITIALLY IMMEDIATE
-;
+create unique index user_id_uindex
+    on "user" (id);
 
--- Reference: TripParticipant_Trip (table: TripParticipant)
-ALTER TABLE TripParticipant ADD CONSTRAINT TripParticipant_Trip
-    FOREIGN KEY (idTrip)
-    REFERENCES Trip (id)
-    NOT DEFERRABLE
-    INITIALLY IMMEDIATE
-;
-
--- End of file.
+create unique index user_username_uindex
+    on "user" (username);
 
