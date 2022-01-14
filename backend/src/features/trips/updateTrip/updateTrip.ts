@@ -1,5 +1,6 @@
 import {
   TripTable,
+  tripValidator,
   UpdateTripRequestDTO,
   UpdateTripResponseDTO,
 } from '@s19192/shared';
@@ -7,7 +8,6 @@ import { getNumericId } from 'utils/getNumericId';
 import { replaceDateWithTimestamp } from 'utils/replaceDateWithString';
 import { APIError, withJSON } from 'utils/withJSON/withJSON';
 import { getTripById, updateTrip as updateTripModel } from '../trips.model';
-import { tripValidator } from '../trips.validators';
 
 export const updateTrip = withJSON<UpdateTripResponseDTO, UpdateTripRequestDTO>(
   tripValidator,

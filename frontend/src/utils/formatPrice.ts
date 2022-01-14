@@ -3,7 +3,7 @@ export const formatPrice = (value: number, currency: string = 'PLN') => {
   const rest = value - thousands * 1000;
 
   if (thousands === 0) {
-    return rest.toFixed(2).replace('.', ',');
+    return [rest.toFixed(2).replace('.', ','), ...[currency]].join(' ');
   }
 
   const restAsString = rest

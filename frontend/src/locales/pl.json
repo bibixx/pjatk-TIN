@@ -120,6 +120,36 @@
           "name": "Nazwa",
           "price": "Cena"
         }
+      },
+      "details": {
+        "header": {
+          "details": "Szczegóły Wycieczki",
+          "edit": "Edytuj Wycieczkę"
+        },
+        "fields": {
+          "name": "Nazwa Wycieczki",
+          "idhotel": "Hotel",
+          "defaultIdhotel": "-- Wybierz Hotel --",
+          "price": "Cena",
+          "startoftripdate": "Data Startu Wycieczki"
+        },
+        "hotelHeader": "Hotel",
+        "tripParticipantsHeader": "Płatności za Wycieczkę",
+        "tripParticipantsEmpty": "Brak płatności za wycieczkę"
+      },
+      "create": {
+        "header": "Dodaj Wycieczkę"
+      },
+      "delete": {
+        "heading": "Czy na pewno chcesz usunąć tę wycieczkę?",
+        "subtext": "Zostanie ona usunięta natychmiastowo. Akcja ta jest nieodwracalna.",
+        "tableSubtext": "Następujące Płatności za Wycieczki również zostaną usunięte"
+      },
+      "toasts": {
+        "editSuccess": "Pomyślnie zedytowano wycieczkę",
+        "deleteSuccess": "Pomyślnie usunięto wycieczkę",
+        "addSuccess": "Pomyślnie dodano wycieczkę",
+        "error": "Wystąpił błąd"
       }
     },
     "hotels": {

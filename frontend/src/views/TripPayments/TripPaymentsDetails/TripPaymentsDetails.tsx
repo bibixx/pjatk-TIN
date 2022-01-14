@@ -10,6 +10,7 @@ import { useParams } from 'react-router-dom';
 import useSWR from 'swr';
 import { fetcher } from 'utils/fetcher';
 import { ParticipantsFormInputs } from 'views/Participants/ParticipantsFormInputs/ParticipantsFormInputs';
+import { TripsFormInputs } from 'views/Trips/TripsFormInputs/TripsFormInputs';
 import { TripPaymentsFormInputs } from '../TripPaymentsFormInputs/TripPaymentsFormInputs';
 
 export const TripPaymentsDetails = () => {
@@ -54,10 +55,9 @@ export const TripPaymentsDetails = () => {
       <h2 className="details__subheader">
         {t('tripParticipants.details.tripHeader')}
       </h2>
-      {/* TODO: trip data */}
-      {/* <Form onSubmit={() => undefined} initialValues={tripPayment.trip}>
+      <Form onSubmit={() => undefined} initialValues={tripPayment.trip}>
         {() => <TripsFormInputs disabled />}
-      </Form> */}
+      </Form>
     </PageContainer>
   );
 };

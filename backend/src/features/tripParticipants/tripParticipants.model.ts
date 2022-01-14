@@ -30,20 +30,29 @@ const fetchParticipantsForTrip = async ({
 
 export const getAllTripParticipants = async ({
   participantId,
+  tripId,
 }: {
   participantId?: number;
+  tripId?: number;
 }): Promise<TripParticipantPopulated[]> => {
   const tripParticipantsQuery = db
     .from<TripParticipantTable>('tripparticipant')
     .orderBy('id')
     .select('*');
 
-  const tripParticipantsQueryWithWhereApplied =
+  const tripParticipantsQueryWithParticipantWhereApplied =
     participantId === undefined
       ? tripParticipantsQuery
       : tripParticipantsQuery.where({ idparticipant: participantId });
 
-  const tripParticipants = await tripParticipantsQueryWithWhereApplied;
+  const tripParticipantsQueryWithTripWhereApplied =
+    tripId === undefined
+      ? tripParticipantsQueryWithParticipantWhereApplied
+      : tripParticipantsQueryWithParticipantWhereApplied.where({
+          idtrip: tripId,
+        });
+
+  const tripParticipants = await tripParticipantsQueryWithTripWhereApplied;
 
   const tripParticipantPromises = tripParticipants.map(
     fetchParticipantsForTrip,

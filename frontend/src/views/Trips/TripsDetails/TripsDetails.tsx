@@ -1,6 +1,7 @@
 import {
-  GetParticipantResponseDTO,
+  GetHotelResponseDTO,
   GetTripParticipantsResponseDTO,
+  GetTripResponseDTO,
 } from '@s19192/shared';
 import { BackButton } from 'components/BackButton/BackButton';
 import { LinkButton } from 'components/LinkButton/LinkButton';
@@ -14,26 +15,27 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { useTable } from 'react-table';
 import useSWR from 'swr';
-import { fetcher } from 'utils/fetcher';
+import { HotelsFormInputs } from 'views/Hotels/HotelFormInputs/HotelFormInputs';
 import { getTripPaymentsColumns } from '../constants/getTripPaymentsColumns';
-import { ParticipantsFormInputs } from '../ParticipantsFormInputs/ParticipantsFormInputs';
+import { TripsFormInputs } from '../TripsFormInputs/TripsFormInputs';
 
-export const ParticipantDetails = () => {
+export const TripsDetails = () => {
   const { id } = useParams<'id'>();
   const { t } = useTranslation();
 
-  const { data: participantData } = useSWR<GetParticipantResponseDTO>(
-    `/api/participants/${id}`,
-    fetcher,
+  const { data: tripData } = useSWR<GetTripResponseDTO>(`/api/trips/${id}`);
+
+  const { data: hotelData } = useSWR<GetHotelResponseDTO>(
+    tripData ? `/api/hotels/${tripData.trip.idhotel}` : null,
   );
 
   const { data: tripPaymentsData } = useSWR<GetTripParticipantsResponseDTO>(
-    `/api/trip-payments?idparticipant=${id}`,
-    fetcher,
+    `/api/trip-payments?idtrip=${id}`,
   );
 
-  const participant = participantData?.participant;
   const tripPayments = tripPaymentsData?.tripParticipants ?? [];
+  const trip = tripData?.trip;
+  const hotel = hotelData?.hotel;
 
   const columns = useMemo(() => getTripPaymentsColumns(t), [t]);
 
@@ -42,7 +44,7 @@ export const ParticipantDetails = () => {
     data: tripPayments,
   });
 
-  if (participant === undefined || tripPayments === undefined) {
+  if (trip === undefined || hotel === undefined) {
     return (
       <PageContainer>
         <Loader />
@@ -52,21 +54,25 @@ export const ParticipantDetails = () => {
 
   return (
     <PageContainer>
-      <PageContainerHeader header={t('participants.details.header.details')} />
-      <Form onSubmit={() => undefined} initialValues={participant}>
-        {() => <ParticipantsFormInputs disabled />}
+      <PageContainerHeader header={t('trips.details.header.details')} />
+      <Form onSubmit={() => undefined} initialValues={trip}>
+        {() => <TripsFormInputs disabled />}
       </Form>
       <div className="form__buttons-container">
-        <LinkButton to={`/participants/${id}/update`} icon="edit">
+        <LinkButton to={`/trips/${id}/update`} icon="edit">
           {t('shared.edit')}
         </LinkButton>
         <BackButton muted>{t('shared.back')}</BackButton>
       </div>
+      <h2 className="details__subheader">{t('trips.details.hotelHeader')}</h2>
+      <Form onSubmit={() => undefined} initialValues={hotel}>
+        {() => <HotelsFormInputs disabled />}
+      </Form>
       <h2 className="details__subheader">
-        {t('participants.details.tripParticipantsHeader')}
+        {t('trips.details.tripParticipantsHeader')}
       </h2>
       {tripPayments.length === 0 && (
-        <p>{t('participants.details.tripParticipantsEmpty')}</p>
+        <p>{t('trips.details.tripParticipantsEmpty')}</p>
       )}
       {tripPayments.length > 0 && (
         <Table
