@@ -1,5 +1,6 @@
 import { DeleteParticipantResponseDTO } from '@s19192/shared';
 import { db } from 'core/db';
+import { deleteUserByParticipantId } from 'features/auth/auth.models';
 import { deleteTripParticipantsByParticipantId } from 'features/tripParticipants/tripParticipants.model';
 import { getNumericId } from 'utils/getNumericId';
 import { APIError, withJSON } from 'utils/withJSON/withJSON';
@@ -15,6 +16,7 @@ export const deleteParticipant = withJSON<DeleteParticipantResponseDTO>()(
 
     const deletedCount = await db.transaction(async (trx) => {
       await deleteTripParticipantsByParticipantId(id).transacting(trx);
+      await deleteUserByParticipantId(id).transacting(trx);
 
       return deleteParticipantById(id).transacting(trx);
     });

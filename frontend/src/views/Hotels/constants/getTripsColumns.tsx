@@ -12,6 +12,7 @@ const getTableActions = ({ row }: CellProps<Data>) => {
 
 export const getTripsColumns = (
   t: TFunction<'translation', undefined>,
+  isAdmin: boolean,
 ): ReadonlyArray<Column<Data>> => [
   {
     Header: t('trips.list.table.name'),
@@ -22,9 +23,13 @@ export const getTripsColumns = (
     accessor: 'price',
     Cell: ({ value }) => formatPrice(value),
   },
-  {
-    id: 'actions',
-    Header: '',
-    Cell: getTableActions,
-  },
+  ...(isAdmin
+    ? [
+        {
+          id: 'actions',
+          Header: '',
+          Cell: getTableActions,
+        },
+      ]
+    : []),
 ];

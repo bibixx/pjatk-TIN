@@ -10,15 +10,17 @@ import { LinkButton } from 'components/LinkButton/LinkButton';
 import { Loader } from 'components/Loader/Loader';
 import { useTranslation } from 'react-i18next';
 import { PageContainer } from 'components/PageContainer/PageContainer';
+import { useAuth } from 'hooks/useAuth/useAuth';
 import { getTripsColumns } from '../constants/getTripsColumns';
 
 export const TripsList = () => {
   const { t } = useTranslation();
+  const { isAdmin } = useAuth();
 
   const { data } = useSWR<GetTripsResponseDTO>('/api/trips');
   const trips = data?.trips ?? [];
 
-  const columns = useMemo(() => getTripsColumns(t), [t]);
+  const columns = useMemo(() => getTripsColumns(t, isAdmin), [isAdmin, t]);
 
   const tableInstance = useTable({
     columns,
@@ -47,9 +49,11 @@ export const TripsList = () => {
   return (
     <PageContainer>
       <PageContainerHeader header={t('trips.list.header.text')}>
-        <LinkButton to="./create" icon="add">
-          {t('trips.list.header.button')}
-        </LinkButton>
+        {isAdmin && (
+          <LinkButton to="./create" icon="add">
+            {t('trips.list.header.button')}
+          </LinkButton>
+        )}
       </PageContainerHeader>
       <Table
         tableInstance={tableInstance}

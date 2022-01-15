@@ -1,4 +1,4 @@
-import { UserTable } from '@s19192/shared';
+import { UserTable, UserType } from '@s19192/shared';
 import { db } from 'core/db';
 
 export const getUserById = (id: number) => {
@@ -24,17 +24,22 @@ export const getUserByUsername = (username: string) => {
 export const createUser = (
   username: string,
   hashedPassword: string,
-  userType: 'admin' | 'participant',
+  userType: UserType,
   participantId: number | null,
 ) => {
   return db<UserTable>('user').insert(
     {
       username,
       password: hashedPassword,
-      userType,
-      // TODO: Remove as any
+      userType: userType as any,
       idparticipant: participantId as any,
     },
     '*',
   );
+};
+
+export const deleteUserByParticipantId = (participantId: number) => {
+  return db.delete().from<UserTable>('user').where({
+    idparticipant: participantId,
+  });
 };

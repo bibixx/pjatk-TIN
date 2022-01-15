@@ -12,6 +12,7 @@ const getTableActions = ({ row }: CellProps<Data>) => {
 
 export const getHotelsColumns = (
   t: TFunction<'translation', undefined>,
+  isAdmin: boolean,
 ): ReadonlyArray<Column<Data>> => [
   {
     Header: t('hotels.list.table.name'),
@@ -22,9 +23,13 @@ export const getHotelsColumns = (
     accessor: 'numberofstars',
     Cell: ({ value }) => <HotelStars numberOfStars={value} />,
   },
-  {
-    id: 'actions',
-    Header: '',
-    Cell: getTableActions,
-  },
+  ...(isAdmin
+    ? [
+        {
+          id: 'actions',
+          Header: '',
+          Cell: getTableActions,
+        },
+      ]
+    : []),
 ];

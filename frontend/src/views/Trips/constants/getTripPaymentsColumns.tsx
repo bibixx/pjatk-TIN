@@ -12,6 +12,7 @@ const getTableActions = ({ row }: CellProps<Data>) => {
 
 export const getTripPaymentsColumns = (
   t: TFunction<'translation', undefined>,
+  isAdmin: boolean,
 ): ReadonlyArray<Column<Data>> => [
   {
     Header: t('tripParticipants.list.table.participantName'),
@@ -26,9 +27,13 @@ export const getTripPaymentsColumns = (
     accessor: 'dateofpayment',
     Cell: ({ value }) => formatTimestamp(value) ?? t('shared.empty'),
   },
-  {
-    id: 'actions',
-    Header: '',
-    Cell: getTableActions,
-  },
+  ...(isAdmin
+    ? [
+        {
+          id: 'actions',
+          Header: '',
+          Cell: getTableActions,
+        },
+      ]
+    : []),
 ];

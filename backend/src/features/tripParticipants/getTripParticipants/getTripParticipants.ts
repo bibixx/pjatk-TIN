@@ -1,11 +1,15 @@
 import { GetTripParticipantsResponseDTO } from '@s19192/shared';
 import { getNumericId } from 'utils/getNumericId';
+import { isParticipant, withAuth } from 'utils/withAuth/withAuth';
 import { withJSON } from 'utils/withJSON/withJSON';
 import { getAllTripParticipants } from '../tripParticipants.model';
 
-export const getTripParticipants = withJSON<GetTripParticipantsResponseDTO>()(
-  async (body, req) => {
-    const participantId = getNumericId(req.query.idparticipant) ?? undefined;
+export const getTripParticipants = withAuth()((user) =>
+  withJSON<GetTripParticipantsResponseDTO>()(async (body, req) => {
+    const participantId = isParticipant(user)
+      ? user.idparticipant
+      : getNumericId(req.query.idparticipant) ?? undefined;
+
     const tripId = getNumericId(req.query.idtrip) ?? undefined;
 
     const tripParticipants = await getAllTripParticipants({
@@ -16,5 +20,5 @@ export const getTripParticipants = withJSON<GetTripParticipantsResponseDTO>()(
     return {
       tripParticipants,
     };
-  },
+  }),
 );

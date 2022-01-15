@@ -23,49 +23,62 @@ import { TripsCreate } from 'views/Trips/TripsCreate/TripsCreate';
 import { TripsDetails } from 'views/Trips/TripsDetails/TripsDetails';
 import { TripsDetailsEdit } from 'views/Trips/TripsDetailsEdit/TripsDetailsEdit';
 import { TripsDelete } from 'views/Trips/TripsDelete/TripsDelete';
+import { ProtectedWrapper } from 'components/ProtectedWrapper/ProtectedWrapper';
+import { Login } from 'views/Auth/Login/Login';
+import { Logout } from 'views/Auth/Logout/Logout';
+import { Register } from 'views/Auth/Register/Register';
 
 export const App = () => {
   return (
     <>
       <Header />
       <Routes>
-        <Route path="/" element={<Index />} />
+        <Route index element={<Index />} />
 
-        <Route path="/participants" element={<ParticipantsList />} />
-        <Route path="/participants/create" element={<ParticipantCreate />} />
-        <Route path="/participants/:id" element={<ParticipantDetails />} />
-        <Route
-          path="/participants/:id/delete"
-          element={<ParticipantDelete />}
-        />
-        <Route
-          path="/participants/:id/update"
-          element={<ParticipantEditDetails />}
-        />
+        <Route path="/login" element={<Login />} />
+        <Route path="/logout" element={<Logout />} />
+        <Route path="/register" element={<Register />} />
 
-        <Route path="/trip-payments" element={<TripPaymentsList />} />
-        <Route path="/trip-payments/create" element={<TripPaymentsCreate />} />
-        <Route path="/trip-payments/:id" element={<TripPaymentsDetails />} />
         <Route
-          path="/trip-payments/:id/delete"
-          element={<TripPaymentsDelete />}
-        />
-        <Route
-          path="/trip-payments/:id/update"
-          element={<TripPaymentsEditDetails />}
-        />
+          path="/participants"
+          element={<ProtectedWrapper userGroups={['admin']} />}
+        >
+          <Route index element={<ParticipantsList />} />
+          <Route path="create" element={<ParticipantCreate />} />
+          <Route path=":id" element={<ParticipantDetails />} />
+          <Route path=":id/delete" element={<ParticipantDelete />} />
+          <Route path=":id/update" element={<ParticipantEditDetails />} />
+        </Route>
 
-        <Route path="/trips" element={<TripsList />} />
-        <Route path="/trips/create" element={<TripsCreate />} />
-        <Route path="/trips/:id" element={<TripsDetails />} />
-        <Route path="/trips/:id/delete" element={<TripsDelete />} />
-        <Route path="/trips/:id/update" element={<TripsDetailsEdit />} />
+        <Route path="/trip-payments" element={<ProtectedWrapper />}>
+          <Route index element={<TripPaymentsList />} />
+          <Route path=":id" element={<TripPaymentsDetails />} />
+          <Route element={<ProtectedWrapper userGroups={['admin']} />}>
+            <Route path="create" element={<TripPaymentsCreate />} />
+            <Route path=":id/delete" element={<TripPaymentsDelete />} />
+            <Route path=":id/update" element={<TripPaymentsEditDetails />} />
+          </Route>
+        </Route>
 
-        <Route path="/hotels" element={<HotelsList />} />
-        <Route path="/hotels/create" element={<HotelCreate />} />
-        <Route path="/hotels/:id" element={<HotelDetails />} />
-        <Route path="/hotels/:id/delete" element={<HotelDelete />} />
-        <Route path="/hotels/:id/update" element={<HotelEditDetails />} />
+        <Route path="/trips">
+          <Route index element={<TripsList />} />
+          <Route path=":id" element={<TripsDetails />} />
+          <Route element={<ProtectedWrapper userGroups={['admin']} />}>
+            <Route path="create" element={<TripsCreate />} />
+            <Route path=":id/delete" element={<TripsDelete />} />
+            <Route path=":id/update" element={<TripsDetailsEdit />} />
+          </Route>
+        </Route>
+
+        <Route path="/hotels">
+          <Route index element={<HotelsList />} />
+          <Route path=":id" element={<HotelDetails />} />
+          <Route element={<ProtectedWrapper userGroups={['admin']} />}>
+            <Route path="create" element={<HotelCreate />} />
+            <Route path=":id/delete" element={<HotelDelete />} />
+            <Route path=":id/update" element={<HotelEditDetails />} />
+          </Route>
+        </Route>
       </Routes>
       <Footer />
       <Toaster />

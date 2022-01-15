@@ -10,15 +10,17 @@ import { Loader } from 'components/Loader/Loader';
 import { useTranslation } from 'react-i18next';
 import { GetHotelsResponseDTO } from '@s19192/shared';
 import { PageContainer } from 'components/PageContainer/PageContainer';
+import { useAuth } from 'hooks/useAuth/useAuth';
 import { getHotelsColumns } from '../constants/getHotelsColumns';
 
 export const HotelsList = () => {
   const { t } = useTranslation();
+  const { isAdmin } = useAuth();
 
   const { data } = useSWR<GetHotelsResponseDTO>('/api/hotels');
   const hotels = data?.hotels ?? [];
 
-  const columns = useMemo(() => getHotelsColumns(t), [t]);
+  const columns = useMemo(() => getHotelsColumns(t, isAdmin), [t, isAdmin]);
 
   const tableInstance = useTable({
     columns,
@@ -47,9 +49,11 @@ export const HotelsList = () => {
   return (
     <PageContainer>
       <PageContainerHeader header={t('hotels.list.header.text')}>
-        <LinkButton to="./create" icon="add">
-          {t('hotels.list.header.button')}
-        </LinkButton>
+        {isAdmin && (
+          <LinkButton to="./create" icon="add">
+            {t('hotels.list.header.button')}
+          </LinkButton>
+        )}
       </PageContainerHeader>
       <Table
         tableInstance={tableInstance}

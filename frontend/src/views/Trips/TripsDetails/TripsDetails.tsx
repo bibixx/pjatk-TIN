@@ -9,6 +9,7 @@ import { Loader } from 'components/Loader/Loader';
 import { PageContainer } from 'components/PageContainer/PageContainer';
 import { PageContainerHeader } from 'components/PageContainerHeader/PageContainerHeader';
 import { Table } from 'components/Table/Table';
+import { useAuth } from 'hooks/useAuth/useAuth';
 import { useMemo } from 'react';
 import { Form } from 'react-final-form';
 import { useTranslation } from 'react-i18next';
@@ -22,6 +23,7 @@ import { TripsFormInputs } from '../TripsFormInputs/TripsFormInputs';
 export const TripsDetails = () => {
   const { id } = useParams<'id'>();
   const { t } = useTranslation();
+  const { isAdmin, isLoggedIn } = useAuth();
 
   const { data: tripData } = useSWR<GetTripResponseDTO>(`/api/trips/${id}`);
 
@@ -37,7 +39,10 @@ export const TripsDetails = () => {
   const trip = tripData?.trip;
   const hotel = hotelData?.hotel;
 
-  const columns = useMemo(() => getTripPaymentsColumns(t), [t]);
+  const columns = useMemo(
+    () => getTripPaymentsColumns(t, isAdmin),
+    [isAdmin, t],
+  );
 
   const tableInstance = useTable({
     columns,
@@ -59,31 +64,37 @@ export const TripsDetails = () => {
         {() => <TripsFormInputs disabled />}
       </Form>
       <div className="form__buttons-container">
-        <LinkButton to={`/trips/${id}/update`} icon="edit">
-          {t('shared.edit')}
-        </LinkButton>
+        {isAdmin && (
+          <LinkButton to={`/trips/${id}/update`} icon="edit">
+            {t('shared.edit')}
+          </LinkButton>
+        )}
         <BackButton muted>{t('shared.back')}</BackButton>
       </div>
       <h2 className="details__subheader">{t('trips.details.hotelHeader')}</h2>
       <Form onSubmit={() => undefined} initialValues={hotel}>
         {() => <HotelsFormInputs disabled />}
       </Form>
-      <h2 className="details__subheader">
-        {t('trips.details.tripParticipantsHeader')}
-      </h2>
-      {tripPayments.length === 0 && (
-        <p>{t('trips.details.tripParticipantsEmpty')}</p>
-      )}
-      {tripPayments.length > 0 && (
-        <Table
-          tableInstance={tableInstance}
-          getIsActionsCell={(columnId) => columnId === 'actions'}
-          getUrl={({ id: tripPaymentId }, columnId) =>
-            columnId === 'actions'
-              ? undefined
-              : `/trip-payments/${tripPaymentId}`
-          }
-        />
+      {isLoggedIn && (
+        <>
+          <h2 className="details__subheader">
+            {t('trips.details.tripParticipantsHeader')}
+          </h2>
+          {tripPayments.length === 0 && (
+            <p>{t('trips.details.tripParticipantsEmpty')}</p>
+          )}
+          {tripPayments.length > 0 && (
+            <Table
+              tableInstance={tableInstance}
+              getIsActionsCell={(columnId) => columnId === 'actions'}
+              getUrl={({ id: tripPaymentId }, columnId) =>
+                columnId === 'actions'
+                  ? undefined
+                  : `/trip-payments/${tripPaymentId}`
+              }
+            />
+          )}
+        </>
       )}
     </PageContainer>
   );

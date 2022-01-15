@@ -1,11 +1,30 @@
-import { UserTable } from '@s19192/shared';
-import { Request, Response } from 'express';
+import {
+  AdminUser,
+  ParticipantUser,
+  UserTable,
+  UserType,
+} from '@s19192/shared';
+import { NextFunction, Request, Response } from 'express';
 import { getUserById } from 'features/auth/auth.models';
 import { getSessionElement } from 'utils/session/session';
 
+export const isAdmin = (user: UserTable): user is AdminUser =>
+  user.userType === 'admin';
+export const isParticipant = (user: UserTable): user is ParticipantUser =>
+  user.userType === 'participant';
+
 export const withAuth =
-  <T>(userConsumer: (user: UserTable) => (req: Request, res: Response) => T) =>
-  async (req: Request, res: Response): Promise<T | undefined> => {
+  <T>(userGroups: UserType[] = []) =>
+  (
+    userConsumer: (
+      user: UserTable,
+    ) => (req: Request, res: Response, next: NextFunction) => T,
+  ) =>
+  async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<T | undefined> => {
     const userId = getSessionElement(req, 'userId');
 
     if (userId === undefined) {
@@ -22,5 +41,13 @@ export const withAuth =
       return undefined;
     }
 
-    return userConsumer(user)(req, res);
+    const isUserInGroup = userGroups.some((group) => user.userType === group);
+
+    if (userGroups.length > 0 && !isUserInGroup) {
+      res.status(401);
+      res.json({ message: 'Forbidden' });
+      return undefined;
+    }
+
+    return userConsumer(user)(req, res, next);
   };

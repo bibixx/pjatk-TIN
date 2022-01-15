@@ -1,4 +1,4 @@
-import { APIError } from './ApiError';
+import { APIError } from './APIError';
 
 export const fetcher = async <T>(
   input: RequestInfo,

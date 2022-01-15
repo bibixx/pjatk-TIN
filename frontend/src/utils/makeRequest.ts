@@ -1,23 +1,27 @@
+import { APIError } from './APIError';
+
 export const makeRequest = async <T, U = void>(
   endpoint: string,
   method: 'PUT' | 'POST' | 'DELETE',
-  data?: T,
+  body?: T,
 ): Promise<U> => {
   const response = await fetch(endpoint, {
     method,
     headers: {
       'Content-Type': 'application/json',
     },
-    ...(data
+    ...(body
       ? {
-          body: JSON.stringify(data),
+          body: JSON.stringify(body),
         }
       : {}),
   });
 
+  const data = await response.json();
+
   if (!response.ok) {
-    throw new Error(`Request failed with status: ${response.status}`);
+    throw new APIError(data.message, response.status);
   }
 
-  return response.json();
+  return data;
 };

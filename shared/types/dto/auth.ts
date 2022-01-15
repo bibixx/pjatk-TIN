@@ -1,3 +1,5 @@
+import { Infer } from "typed";
+import { registerValidator } from "../..";
 import { SafeUserTable } from "../auth";
 
 export interface LoginRequestDTO {
@@ -9,10 +11,7 @@ export interface LoginResponseDTO {
   user: SafeUserTable
 }
 
-export interface RegisterRequestDTO {
-  username: string
-  password: string
-}
+export type RegisterRequestDTO = Infer<typeof registerValidator>
 
 export interface RegisterResponseDTO {
   user: SafeUserTable

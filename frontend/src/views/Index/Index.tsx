@@ -1,10 +1,12 @@
 import { PageContainer } from 'components/PageContainer/PageContainer';
+import { useTranslation } from 'react-i18next';
 
 export const Index = () => {
+  const { t } = useTranslation();
   return (
     <PageContainer>
       <header className="content-card__header-container">
-        <h1 className="content-card__heading">Strona Główna</h1>
+        <h1 className="content-card__heading">{t('index.header')}</h1>
       </header>
       <p>
         Veniam ad illo a quis qui veritatis impedit earum. Sequi dolorem saepe

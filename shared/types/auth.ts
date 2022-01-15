@@ -1,17 +1,18 @@
+export type UserType = 'participant' | 'admin'
+
 interface SharedUser {
   id: number
   username: string
   password: string
-  userType: string
 }
 
 export interface ParticipantUser extends SharedUser {
-  type: 'participant'
+  userType: 'participant'
   idparticipant: number
 }
 
 export interface AdminUser extends SharedUser {
-  type: 'admin'
+  userType: 'admin'
   idparticipant: null
 }
 

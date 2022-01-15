@@ -3,6 +3,7 @@ TRUNCATE public.tripparticipant CASCADE;
 TRUNCATE public.trip CASCADE;
 TRUNCATE public.hotel CASCADE;
 TRUNCATE public.participant CASCADE;
+TRUNCATE public.user CASCADE;
 
 -- Hotel
 INSERT INTO public.hotel (id, numberofstars, name) VALUES (1, 5, 'Sunrise Mountain Hotel');
@@ -39,3 +40,8 @@ INSERT INTO public.tripparticipant (id, idtrip, idparticipant, dateofpayment, di
 INSERT INTO public.tripparticipant (id, idtrip, idparticipant, dateofpayment, discount) VALUES (2, 1, 2, null, null);
 INSERT INTO public.tripparticipant (id, idtrip, idparticipant, dateofpayment, discount) VALUES (3, 2, 1, '2020-12-10', 50);
 ALTER SEQUENCE tripparticipant_id_seq RESTART WITH 4;
+
+-- User
+INSERT INTO public.user (id, username, password, "userType", idparticipant) VALUES (1, 'admin', '$2b$10$Rz7jlNW23zetE3Pbxd3v9eaoOGOVsMEkbgnUaTbklxAMDVuYWrqFC', 'admin', null);
+INSERT INTO public.user (id, username, password, "userType", idparticipant) VALUES (2, 'user', '$2b$10$q7/KioP7noxK8lRsXsaqpeHKtqrdpQsnJUYuvuP5lQ3eYSjX6BdDu', 'participant', 1);
+ALTER SEQUENCE user_id_seq RESTART WITH 3;

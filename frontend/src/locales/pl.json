@@ -9,6 +9,28 @@
       "login": "Zaloguj się",
       "logout": "Wyloguj się"
     },
+    "index": {
+      "header": "Strona Główna"
+    },
+    "auth": {
+      "login": {
+        "header": "Zaloguj się",
+        "button": "Zaloguj się",
+        "registerButton": "Zarejestruj się",
+        "form": {
+          "username": "Nazwa użytkownika",
+          "password": "Hasło"
+        }
+      },
+      "register": {
+        "header": "Zarejestruj się",
+        "button": "Zarejestruj się",
+        "form": {
+          "username": "Nazwa użytkownika",
+          "password": "Hasło"
+        }
+      }
+    },
     "footer": {
       "text": "Bartosz Legięć, s19129"
     },

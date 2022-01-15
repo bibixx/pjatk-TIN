@@ -4,6 +4,7 @@ import { LinkButton } from 'components/LinkButton/LinkButton';
 import { Loader } from 'components/Loader/Loader';
 import { PageContainer } from 'components/PageContainer/PageContainer';
 import { PageContainerHeader } from 'components/PageContainerHeader/PageContainerHeader';
+import { useAuth } from 'hooks/useAuth/useAuth';
 import { Form } from 'react-final-form';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
@@ -16,6 +17,7 @@ import { TripPaymentsFormInputs } from '../TripPaymentsFormInputs/TripPaymentsFo
 export const TripPaymentsDetails = () => {
   const { id } = useParams<'id'>();
   const { t } = useTranslation();
+  const { isAdmin } = useAuth();
 
   const { data: tripPaymentData } = useSWR<GetTripParticipantResponseDTO>(
     `/api/trip-payments/${id}`,
@@ -41,9 +43,11 @@ export const TripPaymentsDetails = () => {
         {() => <TripPaymentsFormInputs disabled />}
       </Form>
       <div className="form__buttons-container">
-        <LinkButton to={`/trip-payments/${id}/update`} icon="edit">
-          {t('shared.edit')}
-        </LinkButton>
+        {isAdmin && (
+          <LinkButton to={`/trip-payments/${id}/update`} icon="edit">
+            {t('shared.edit')}
+          </LinkButton>
+        )}
         <BackButton muted>{t('shared.back')}</BackButton>
       </div>
       <h2 className="details__subheader">

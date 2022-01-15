@@ -1,6 +1,6 @@
 import { NotFound } from 'components/NotFound/NotFound';
 import { UnexpectedError } from 'components/UnexpectedError/UnexpectedError';
-import { APIError } from 'utils/ApiError';
+import { APIError } from 'utils/APIError';
 
 interface Props extends React.ComponentProps<typeof NotFound> {
   errors: (APIError | undefined)[];

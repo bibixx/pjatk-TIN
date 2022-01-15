@@ -5,6 +5,7 @@ import { Loader } from 'components/Loader/Loader';
 import { PageContainer } from 'components/PageContainer/PageContainer';
 import { PageContainerHeader } from 'components/PageContainerHeader/PageContainerHeader';
 import { Table } from 'components/Table/Table';
+import { useAuth } from 'hooks/useAuth/useAuth';
 import { useMemo } from 'react';
 import { Form } from 'react-final-form';
 import { useTranslation } from 'react-i18next';
@@ -18,6 +19,7 @@ import { HotelsFormInputs } from '../HotelFormInputs/HotelFormInputs';
 export const HotelDetails = () => {
   const { id } = useParams<'id'>();
   const { t } = useTranslation();
+  const { isAdmin } = useAuth();
 
   const { data: hotelData } = useSWR<GetHotelResponseDTO>(
     `/api/hotels/${id}`,
@@ -32,7 +34,7 @@ export const HotelDetails = () => {
   const hotel = hotelData?.hotel;
   const trips = tripsData?.trips ?? [];
 
-  const columns = useMemo(() => getTripsColumns(t), [t]);
+  const columns = useMemo(() => getTripsColumns(t, isAdmin), [t, isAdmin]);
 
   const tableInstance = useTable({
     columns,
@@ -54,9 +56,11 @@ export const HotelDetails = () => {
         {() => <HotelsFormInputs disabled />}
       </Form>
       <div className="form__buttons-container">
-        <LinkButton to={`/hotels/${id}/update`} icon="edit">
-          {t('shared.edit')}
-        </LinkButton>
+        {isAdmin && (
+          <LinkButton to={`/hotels/${id}/update`} icon="edit">
+            {t('shared.edit')}
+          </LinkButton>
+        )}
         <BackButton muted>{t('shared.back')}</BackButton>
       </div>
       <h2 className="details__subheader">{t('hotels.details.tripsHeader')}</h2>

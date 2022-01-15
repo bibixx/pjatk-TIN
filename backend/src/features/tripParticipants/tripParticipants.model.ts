@@ -63,14 +63,21 @@ export const getAllTripParticipants = async ({
 
 export const getTripParticipantById = async (
   tripId: number,
+  participantId?: number | null,
 ): Promise<TripParticipantPopulated | undefined> => {
-  const result = await db
+  const tripParticipantQuery = db
     .where({
       id: tripId,
     })
     .from<TripParticipantTable>('tripparticipant')
     .select('*')
     .first();
+
+  const tripParticipantQueryWithParticipantIdApplied = participantId
+    ? tripParticipantQuery.where({ idparticipant: participantId })
+    : tripParticipantQuery;
+
+  const result = await tripParticipantQueryWithParticipantIdApplied;
 
   if (result === undefined) {
     return undefined;
