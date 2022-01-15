@@ -6,6 +6,7 @@ import {
 } from '@s19192/shared';
 import { BackButton } from 'components/BackButton/BackButton';
 import { Button } from 'components/Button/Button';
+import { EntityError } from 'components/EntityError/EntityError';
 import { Loader } from 'components/Loader/Loader';
 import { PageContainer } from 'components/PageContainer/PageContainer';
 import { PageContainerHeader } from 'components/PageContainerHeader/PageContainerHeader';
@@ -22,7 +23,9 @@ export const TripsDetailsEdit = () => {
   const { id } = useParams<'id'>();
   const { t } = useTranslation();
 
-  const { data: tripData } = useSWR<GetTripResponseDTO>(`/api/trips/${id}`);
+  const { data: tripData, error: tripError } = useSWR<GetTripResponseDTO>(
+    `/api/trips/${id}`,
+  );
 
   const { data: participantsData } =
     useSWR<GetParticipantsResponseDTO>('/api/participants');
@@ -47,6 +50,10 @@ export const TripsDetailsEdit = () => {
       toast.error(t('trips.toasts.error'));
     }
   };
+
+  if (tripError) {
+    return <EntityError errors={[tripError]} page="trips" />;
+  }
 
   if (
     trip === undefined ||

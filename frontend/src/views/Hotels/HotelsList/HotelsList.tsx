@@ -40,7 +40,7 @@ export const HotelsList = () => {
       <PageContainer>
         <EmptyState
           info={t('hotels.list.emptyState.text')}
-          buttonText={t('hotels.list.emptyState.text')}
+          buttonText={t('hotels.list.emptyState.button')}
         />
       </PageContainer>
     );

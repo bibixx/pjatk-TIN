@@ -5,6 +5,7 @@ import {
 } from '@s19192/shared';
 import { BackButton } from 'components/BackButton/BackButton';
 import { Button } from 'components/Button/Button';
+import { EntityError } from 'components/EntityError/EntityError';
 import { Loader } from 'components/Loader/Loader';
 import { PageContainer } from 'components/PageContainer/PageContainer';
 import { PageContainerHeader } from 'components/PageContainerHeader/PageContainerHeader';
@@ -13,7 +14,6 @@ import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import useSWR from 'swr';
-import { fetcher } from 'utils/fetcher';
 import { makeRequest } from 'utils/makeRequest';
 import { HotelsFormInputs } from '../HotelFormInputs/HotelFormInputs';
 
@@ -22,9 +22,8 @@ export const HotelEditDetails = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const { data: hotelData } = useSWR<GetHotelResponseDTO>(
+  const { data: hotelData, error: hotelError } = useSWR<GetHotelResponseDTO>(
     `/api/hotels/${id}`,
-    fetcher,
   );
 
   const onSubmit = async (
@@ -41,6 +40,10 @@ export const HotelEditDetails = () => {
   };
 
   const hotel = hotelData?.hotel;
+
+  if (hotelError) {
+    return <EntityError errors={[hotelError]} page="hotels" />;
+  }
 
   if (hotel === undefined) {
     return (

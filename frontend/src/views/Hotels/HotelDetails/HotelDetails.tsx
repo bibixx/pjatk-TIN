@@ -1,5 +1,6 @@
 import { GetHotelResponseDTO, GetTripsResponseDTO } from '@s19192/shared';
 import { BackButton } from 'components/BackButton/BackButton';
+import { EntityError } from 'components/EntityError/EntityError';
 import { LinkButton } from 'components/LinkButton/LinkButton';
 import { Loader } from 'components/Loader/Loader';
 import { PageContainer } from 'components/PageContainer/PageContainer';
@@ -12,7 +13,6 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { useTable } from 'react-table';
 import useSWR from 'swr';
-import { fetcher } from 'utils/fetcher';
 import { getTripsColumns } from '../constants/getTripsColumns';
 import { HotelsFormInputs } from '../HotelFormInputs/HotelFormInputs';
 
@@ -21,14 +21,12 @@ export const HotelDetails = () => {
   const { t } = useTranslation();
   const { isAdmin } = useAuth();
 
-  const { data: hotelData } = useSWR<GetHotelResponseDTO>(
+  const { data: hotelData, error: hotelError } = useSWR<GetHotelResponseDTO>(
     `/api/hotels/${id}`,
-    fetcher,
   );
 
   const { data: tripsData } = useSWR<GetTripsResponseDTO>(
     `/api/trips?idhotel=${id}`,
-    fetcher,
   );
 
   const hotel = hotelData?.hotel;
@@ -40,6 +38,10 @@ export const HotelDetails = () => {
     columns,
     data: trips,
   });
+
+  if (hotelError) {
+    return <EntityError errors={[hotelError]} page="hotels" />;
+  }
 
   if (hotel === undefined) {
     return (

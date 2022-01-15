@@ -12,7 +12,7 @@ export type UpdateTripParticipantRequestDTO = Infer<typeof tripParticipantValida
 export interface CreateTripParticipantResponseDTO {
   tripParticipant: ReplaceDateWithNumber<TripParticipantTable>,
 }
-export type CreateTripParticipantRequestDTO = NewTripParticipant
+export type CreateTripParticipantRequestDTO = Infer<typeof tripParticipantValidator>
 
 export interface DeleteTripParticipantRequestDTO {}
 

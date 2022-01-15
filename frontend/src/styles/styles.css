@@ -169,6 +169,15 @@ body {
   justify-content: center;
 }
 
+.footer__select {
+  margin-left: 0.5rem;
+  background: none;
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  font-size: 1rem;
+  background: var(--common-content-background);
+}
+
 /* COMMON CONTENT */
 .content-card {
   padding: 2rem;

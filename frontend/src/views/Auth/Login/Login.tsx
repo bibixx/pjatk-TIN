@@ -1,7 +1,6 @@
 import {
   LoginRequestDTO,
   LoginResponseDTO,
-  loginValidator,
   loginValidatorFields,
 } from '@s19192/shared';
 import { Button } from 'components/Button/Button';
@@ -11,7 +10,6 @@ import { Form } from 'react-final-form';
 import { useTranslation } from 'react-i18next';
 import { makeRequest } from 'utils/makeRequest';
 import { validateField } from 'utils/validateField';
-import { Infer } from 'typed';
 import { APIError } from 'utils/APIError';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from 'hooks/useAuth/useAuth';
@@ -22,7 +20,7 @@ export const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const onSubmit = async (values: Infer<typeof loginValidator>) => {
+  const onSubmit = async (values: LoginRequestDTO) => {
     try {
       const { user } = await makeRequest<LoginRequestDTO, LoginResponseDTO>(
         '/api/auth/login',
@@ -34,7 +32,7 @@ export const Login = () => {
       navigate('/');
     } catch (error) {
       if (error instanceof APIError) {
-        return error.message;
+        return t('auth.login.error');
       }
     }
 
@@ -54,6 +52,7 @@ export const Login = () => {
               label={t('auth.login.form.username')}
               required
               validate={validateField(loginValidatorFields.username)}
+              autoComplete="username"
             />
             <Input
               name="password"
@@ -61,6 +60,7 @@ export const Login = () => {
               required
               type="password"
               validate={validateField(loginValidatorFields.password)}
+              autoComplete="current-password"
             />
             {props.submitFailed &&
               (props.hasValidationErrors || props.hasSubmitErrors) && (

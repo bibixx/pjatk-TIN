@@ -1,0 +1,243 @@
+{
+  "translation": {
+    "header": {
+      "logo-alt": "Happy Holidays",
+      "participants": "Participants",
+      "trip-payments": "Trip Payments",
+      "trips": "Trips",
+      "hotels": "Hotels",
+      "login": "Log in",
+      "logout": "Log out"
+    },
+    "index": {
+      "header": "Homepage"
+    },
+    "auth": {
+      "login": {
+        "header": "Log in",
+        "button": "Log in",
+        "registerButton": "Sign up",
+        "form": {
+          "username": "Username",
+          "password": "Password"
+        },
+        "error": "An invalid username or password was submitted"
+      },
+      "register": {
+        "header": "Sign up",
+        "button": "Sign up",
+        "form": {
+          "username": "Username",
+          "password": "Password"
+        },
+        "userExistsError": "User with given username already exists"
+      }
+    },
+    "footer": {
+      "text": "Bartosz Legięć, s19129"
+    },
+    "participants": {
+      "list": {
+        "emptyState": {
+          "text": "No Participants",
+          "button": "Add first Participant"
+        },
+        "header": {
+          "text": "Participants List",
+          "button": "New Participant"
+        },
+        "table": {
+          "name": "Name",
+          "surname": "Surname",
+          "email": "Email"
+        }
+      },
+      "details": {
+        "header": {
+          "details": "Participant Details",
+          "edit": "Edit Participant"
+        },
+        "fields": {
+          "name": "Name",
+          "surname": "Surname",
+          "dob": "Date of birth",
+          "email": "Email",
+          "phonenumber": "Phone Number",
+          "phonenumberFormat": "Format: 555 555 555"
+        },
+        "tripParticipantsHeader": "Trip Payments",
+        "tripParticipantsEmpty": "No Trip Payments"
+      },
+      "create": {
+        "header": "Add Participant"
+      },
+      "delete": {
+        "heading": "Are you sure you want to delete this participant?",
+        "subtext": "They'll be remove immediately. This action is irreversible.",
+        "tableSubtext": "The following Trip Payments will be removed as well"
+      },
+      "toasts": {
+        "editSuccess": "Successfully edit uczestnika",
+        "deleteSuccess": "Successfully delete uczestnika",
+        "addSuccess": "Successfully added uczestnika",
+        "error": "An error occurred"
+      },
+      "notFound": "This Participant doesn't exist"
+    },
+    "tripParticipants": {
+      "list": {
+        "emptyState": {
+          "text": "No Trip Payments",
+          "button": "Add first Trip Payment"
+        },
+        "header": {
+          "text": "Trip Payments List",
+          "button": "New Trip Payment"
+        },
+        "table": {
+          "tripName": "Trip Name",
+          "participantName": "Name",
+          "participantSurname": "Surname",
+          "dateOfPayment": "Date of birth",
+          "discount": "Discount"
+        }
+      },
+      "details": {
+        "header": {
+          "details": "Trip Payment Details",
+          "edit": "Edit Trip Payment"
+        },
+        "fields": {
+          "dateofpayment": "Date of Payment",
+          "discount": "Discount (%)",
+          "idparticipant": "Participant",
+          "defaultIdparticipant": "-- Pick Participant --",
+          "idtrip": "Trip",
+          "defaultIdtrip": "-- Pick Trip --"
+        },
+        "participantHeader": "Participant",
+        "tripHeader": "Trip"
+      },
+      "create": {
+        "header": "Add Trip Payment"
+      },
+      "delete": {
+        "heading": "Are you sure you want to delete this Trip Payment?",
+        "subject": "To: {{destination}}; By: {{by}}",
+        "subtext": "It'll be remove immediately. This action is irreversible."
+      },
+      "toasts": {
+        "editSuccess": "Successfully edited Trip Payment",
+        "deleteSuccess": "Successfully deleted Trip Payment",
+        "addSuccess": "Successfully added Trip Payment",
+        "error": "An error occurred"
+      },
+      "notFound": "This Trip Payment doesn't exist"
+    },
+    "trips": {
+      "list": {
+        "emptyState": {
+          "text": "No Trips",
+          "button": "Add first Trip"
+        },
+        "header": {
+          "text": "Trips List",
+          "button": "New Trip"
+        },
+        "table": {
+          "name": "Name",
+          "price": "Price"
+        }
+      },
+      "details": {
+        "header": {
+          "details": "Trip Details",
+          "edit": "Edit Trip"
+        },
+        "fields": {
+          "name": "Trip Name",
+          "idhotel": "Hotel",
+          "defaultIdhotel": "-- Pick Hotel --",
+          "price": "Price",
+          "startoftripdate": "Start of Trip Date"
+        },
+        "hotelHeader": "Hotel",
+        "tripParticipantsHeader": "Trip Payments",
+        "tripParticipantsEmpty": "No Trip Payments"
+      },
+      "create": {
+        "header": "Add Trip"
+      },
+      "delete": {
+        "heading": "Are you sure you want to delete this Trip?",
+        "subtext": "They'll be remove immediately. This action is irreversible.",
+        "tableSubtext": "The following Trip Payments will be removed as well"
+      },
+      "toasts": {
+        "editSuccess": "Successfully edited Trip",
+        "deleteSuccess": "Successfully deleted Trip",
+        "addSuccess": "Successfully added Trip",
+        "error": "An error occurred"
+      },
+      "notFound": "This Trip doesn't exist"
+    },
+    "hotels": {
+      "list": {
+        "emptyState": {
+          "text": "No Hotels",
+          "button": "Add first Hotel"
+        },
+        "header": {
+          "text": "Hotels List",
+          "button": "New Hotel"
+        },
+        "table": {
+          "name": "Hotel Name",
+          "numberOfStars": "Stars"
+        }
+      },
+      "details": {
+        "header": {
+          "details": "Hotel Details",
+          "edit": "Edit Hotel"
+        },
+        "fields": {
+          "name": "Hotel Name",
+          "numberOfStars": "Stars"
+        },
+        "tripsHeader": "Trips",
+        "tripsEmpty": "No Trips"
+      },
+      "create": {
+        "header": "Add Hotel"
+      },
+      "delete": {
+        "cantDelete": {
+          "heading": "Can't delete the following hotel",
+          "subtext": "The following hotel is assigned to those trips"
+        },
+        "heading": "Are you sure you want to delete this Hotel?",
+        "subtext": "It'll be remove immediately. This action is irreversible."
+      },
+      "toasts": {
+        "editSuccess": "Successfully edited Hotel",
+        "deleteSuccess": "Successfully deleted Hotel",
+        "addSuccess": "Successfully added Hotel",
+        "error": "An error occurred"
+      },
+      "notFound": "This Hotel doesn't exist"
+    },
+    "shared": {
+      "optional": "optional",
+      "save": "Save",
+      "edit": "Edit",
+      "add": "Add",
+      "delete": "Delete",
+      "cancel": "Cancel",
+      "empty": "N/A",
+      "back": "Back",
+      "formError": "The form has some errors",
+      "unexpectedError": "Oops... An unexpected error occurred."
+    }
+  }
+}

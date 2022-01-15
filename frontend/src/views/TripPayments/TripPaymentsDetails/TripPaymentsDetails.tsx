@@ -1,5 +1,6 @@
 import { GetTripParticipantResponseDTO } from '@s19192/shared';
 import { BackButton } from 'components/BackButton/BackButton';
+import { EntityError } from 'components/EntityError/EntityError';
 import { LinkButton } from 'components/LinkButton/LinkButton';
 import { Loader } from 'components/Loader/Loader';
 import { PageContainer } from 'components/PageContainer/PageContainer';
@@ -9,7 +10,6 @@ import { Form } from 'react-final-form';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import useSWR from 'swr';
-import { fetcher } from 'utils/fetcher';
 import { ParticipantsFormInputs } from 'views/Participants/ParticipantsFormInputs/ParticipantsFormInputs';
 import { TripsFormInputs } from 'views/Trips/TripsFormInputs/TripsFormInputs';
 import { TripPaymentsFormInputs } from '../TripPaymentsFormInputs/TripPaymentsFormInputs';
@@ -19,12 +19,14 @@ export const TripPaymentsDetails = () => {
   const { t } = useTranslation();
   const { isAdmin } = useAuth();
 
-  const { data: tripPaymentData } = useSWR<GetTripParticipantResponseDTO>(
-    `/api/trip-payments/${id}`,
-    fetcher,
-  );
+  const { data: tripPaymentData, error: tripPaymentError } =
+    useSWR<GetTripParticipantResponseDTO>(`/api/trip-payments/${id}`);
 
   const tripPayment = tripPaymentData?.tripParticipant;
+
+  if (tripPaymentError) {
+    return <EntityError errors={[tripPaymentError]} page="tripParticipants" />;
+  }
 
   if (tripPayment === undefined) {
     return (

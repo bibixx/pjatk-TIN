@@ -4,6 +4,7 @@ import {
   GetTripResponseDTO,
 } from '@s19192/shared';
 import { BackButton } from 'components/BackButton/BackButton';
+import { EntityError } from 'components/EntityError/EntityError';
 import { LinkButton } from 'components/LinkButton/LinkButton';
 import { Loader } from 'components/Loader/Loader';
 import { PageContainer } from 'components/PageContainer/PageContainer';
@@ -25,7 +26,9 @@ export const TripsDetails = () => {
   const { t } = useTranslation();
   const { isAdmin, isLoggedIn } = useAuth();
 
-  const { data: tripData } = useSWR<GetTripResponseDTO>(`/api/trips/${id}`);
+  const { data: tripData, error: tripError } = useSWR<GetTripResponseDTO>(
+    `/api/trips/${id}`,
+  );
 
   const { data: hotelData } = useSWR<GetHotelResponseDTO>(
     tripData ? `/api/hotels/${tripData.trip.idhotel}` : null,
@@ -48,6 +51,10 @@ export const TripsDetails = () => {
     columns,
     data: tripPayments,
   });
+
+  if (tripError) {
+    return <EntityError errors={[tripError]} page="trips" />;
+  }
 
   if (trip === undefined || hotel === undefined) {
     return (

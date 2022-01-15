@@ -2,7 +2,6 @@ import {
   GetParticipantsResponseDTO,
   GetTripParticipantResponseDTO,
   GetTripsResponseDTO,
-  tripParticipantValidator,
   UpdateTripParticipantRequestDTO,
 } from '@s19192/shared';
 import { BackButton } from 'components/BackButton/BackButton';
@@ -15,9 +14,8 @@ import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import useSWR from 'swr';
-import { fetcher } from 'utils/fetcher';
 import { makeRequest } from 'utils/makeRequest';
-import { Infer } from 'typed';
+import { EntityError } from 'components/EntityError/EntityError';
 import { TripPaymentsFormInputs } from '../TripPaymentsFormInputs/TripPaymentsFormInputs';
 
 export const TripPaymentsEditDetails = () => {
@@ -25,10 +23,8 @@ export const TripPaymentsEditDetails = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const { data: tripPaymentData } = useSWR<GetTripParticipantResponseDTO>(
-    `/api/trip-payments/${id}`,
-    fetcher,
-  );
+  const { data: tripPaymentData, error: tripPaymentError } =
+    useSWR<GetTripParticipantResponseDTO>(`/api/trip-payments/${id}`);
 
   const { data: participantsData } =
     useSWR<GetParticipantsResponseDTO>('/api/participants');
@@ -39,7 +35,7 @@ export const TripPaymentsEditDetails = () => {
   const participants = participantsData?.participants;
   const trips = tripsData?.trips;
 
-  const onSubmit = async (values: Infer<typeof tripParticipantValidator>) => {
+  const onSubmit = async (values: UpdateTripParticipantRequestDTO) => {
     try {
       await makeRequest<UpdateTripParticipantRequestDTO>(
         `/api/trip-payments/${id}`,
@@ -53,6 +49,10 @@ export const TripPaymentsEditDetails = () => {
       toast.error(t('tripParticipants.toasts.error'));
     }
   };
+
+  if (tripPaymentError) {
+    return <EntityError errors={[tripPaymentError]} page="tripParticipants" />;
+  }
 
   if (
     tripPayment === undefined ||

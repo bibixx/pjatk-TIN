@@ -40,7 +40,7 @@ export const TripsList = () => {
       <PageContainer>
         <EmptyState
           info={t('trips.list.emptyState.text')}
-          buttonText={t('trips.list.emptyState.text')}
+          buttonText={t('trips.list.emptyState.button')}
         />
       </PageContainer>
     );

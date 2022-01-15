@@ -1,10 +1,11 @@
-import { NewHotel } from "../hotels";
+import { Infer } from "typed";
+import { hotelValidator } from "../..";
 import { HotelTable } from "../tables";
 
 export interface CreateHotelResponseDTO {
   hotel: HotelTable
 }
-export type CreateHotelRequestDTO = NewHotel
+export type CreateHotelRequestDTO = Infer<typeof hotelValidator>
 
 export interface DeleteHotelResponseDTO {}
 
@@ -19,4 +20,4 @@ export interface GetHotelsResponseDTO {
 export interface UpdateHotelResponseDTO {
   hotel: HotelTable
 }
-export type UpdateHotelRequestDTO = NewHotel
+export type UpdateHotelRequestDTO = Infer<typeof hotelValidator>

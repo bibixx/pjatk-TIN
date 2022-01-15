@@ -20,7 +20,8 @@
         "form": {
           "username": "Nazwa użytkownika",
           "password": "Hasło"
-        }
+        },
+        "error": "Podano niepoprawny login lub hasło"
       },
       "register": {
         "header": "Zarejestruj się",
@@ -28,7 +29,8 @@
         "form": {
           "username": "Nazwa użytkownika",
           "password": "Hasło"
-        }
+        },
+        "userExistsError": "Użytkownik o podanej nazwie użytkownika już istnieje"
       }
     },
     "footer": {

@@ -10,7 +10,6 @@
       ]
     }
   },
-  "type": "module",
   "dependencies": {
     "typed": "^1.3.0"
   }

@@ -3,9 +3,11 @@ import {
   GetTripResponseDTO,
 } from '@s19192/shared';
 import { DeleteView } from 'components/DeleteView/DeleteView';
+import { EntityError } from 'components/EntityError/EntityError';
 import { Loader } from 'components/Loader/Loader';
 import { PageContainer } from 'components/PageContainer/PageContainer';
 import { Table } from 'components/Table/Table';
+import { useAuth } from 'hooks/useAuth/useAuth';
 import { useMemo } from 'react';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
@@ -19,8 +21,11 @@ export const TripsDelete = () => {
   const { id } = useParams<'id'>();
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { isAdmin } = useAuth();
 
-  const { data: tripData } = useSWR<GetTripResponseDTO>(`/api/trips/${id}`);
+  const { data: tripData, error: tripError } = useSWR<GetTripResponseDTO>(
+    `/api/trips/${id}`,
+  );
 
   const { data: tripPaymentsData } = useSWR<GetTripParticipantsResponseDTO>(
     `/api/trip-payments?idtrip=${id}`,
@@ -29,7 +34,10 @@ export const TripsDelete = () => {
   const trip = tripData?.trip;
   const tripPayments = tripPaymentsData?.tripParticipants ?? [];
 
-  const columns = useMemo(() => getTripPaymentsColumns(t), [t]);
+  const columns = useMemo(
+    () => getTripPaymentsColumns(t, isAdmin),
+    [isAdmin, t],
+  );
 
   const onDelete = async () => {
     try {
@@ -46,6 +54,10 @@ export const TripsDelete = () => {
     columns,
     data: tripPayments,
   });
+
+  if (tripError) {
+    return <EntityError errors={[tripError]} page="trips" />;
+  }
 
   if (trip === undefined || tripPayments === undefined) {
     return (

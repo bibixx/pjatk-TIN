@@ -35,7 +35,7 @@ export const ParticipantsList = () => {
       <PageContainer>
         <EmptyState
           info={t('participants.list.emptyState.text')}
-          buttonText={t('participants.list.emptyState.text')}
+          buttonText={t('participants.list.emptyState.button')}
         />
       </PageContainer>
     );

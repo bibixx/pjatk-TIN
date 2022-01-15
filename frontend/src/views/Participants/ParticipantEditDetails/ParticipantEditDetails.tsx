@@ -5,6 +5,7 @@ import {
 } from '@s19192/shared';
 import { BackButton } from 'components/BackButton/BackButton';
 import { Button } from 'components/Button/Button';
+import { EntityError } from 'components/EntityError/EntityError';
 import { Loader } from 'components/Loader/Loader';
 import { PageContainer } from 'components/PageContainer/PageContainer';
 import { PageContainerHeader } from 'components/PageContainerHeader/PageContainerHeader';
@@ -13,7 +14,6 @@ import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import useSWR from 'swr';
-import { fetcher } from 'utils/fetcher';
 import { makeRequest } from 'utils/makeRequest';
 import { ParticipantsFormInputs } from '../ParticipantsFormInputs/ParticipantsFormInputs';
 
@@ -22,10 +22,8 @@ export const ParticipantEditDetails = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const { data: participantData } = useSWR<GetParticipantResponseDTO>(
-    `/api/participants/${id}`,
-    fetcher,
-  );
+  const { data: participantData, error: participantError } =
+    useSWR<GetParticipantResponseDTO>(`/api/participants/${id}`);
 
   const onSubmit = async (
     values: ReplaceDateWithNumber<UpdateParticipantRequestDTO>,
@@ -41,6 +39,10 @@ export const ParticipantEditDetails = () => {
   };
 
   const participant = participantData?.participant;
+
+  if (participantError) {
+    return <EntityError errors={[participantError]} page="participants" />;
+  }
 
   if (participant === undefined) {
     return (

@@ -3,6 +3,7 @@ import {
   GetTripParticipantsResponseDTO,
 } from '@s19192/shared';
 import { DeleteView } from 'components/DeleteView/DeleteView';
+import { EntityError } from 'components/EntityError/EntityError';
 import { Loader } from 'components/Loader/Loader';
 import { PageContainer } from 'components/PageContainer/PageContainer';
 import { Table } from 'components/Table/Table';
@@ -12,7 +13,6 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useTable } from 'react-table';
 import useSWR from 'swr';
-import { fetcher } from 'utils/fetcher';
 import { makeRequest } from 'utils/makeRequest';
 import { getTripPaymentsColumns } from '../constants/getTripPaymentsColumns';
 
@@ -21,14 +21,11 @@ export const ParticipantDelete = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const { data: participantData } = useSWR<GetParticipantResponseDTO>(
-    `/api/participants/${id}`,
-    fetcher,
-  );
+  const { data: participantData, error: participantError } =
+    useSWR<GetParticipantResponseDTO>(`/api/participants/${id}`);
 
   const { data: tripPaymentsData } = useSWR<GetTripParticipantsResponseDTO>(
     `/api/trip-payments?idparticipant=${id}`,
-    fetcher,
   );
 
   const participant = participantData?.participant;
@@ -51,6 +48,10 @@ export const ParticipantDelete = () => {
     columns,
     data: tripPayments,
   });
+
+  if (participantError) {
+    return <EntityError errors={[participantError]} page="participants" />;
+  }
 
   if (participant === undefined || tripPayments === undefined) {
     return (

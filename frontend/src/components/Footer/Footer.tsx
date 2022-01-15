@@ -15,8 +15,13 @@ export const Footer = () => {
   return (
     <footer className="footer">
       <span>{t('footer.text')}</span>
-      <select onChange={onLanguageChange} value={i18n.language}>
+      <select
+        onChange={onLanguageChange}
+        value={i18n.language}
+        className="footer__select"
+      >
         <option value="pl">🇵🇱</option>
+        <option value="en-GB">🇬🇧</option>
         <option value="cimode">🧑‍💻</option>
       </select>
     </footer>

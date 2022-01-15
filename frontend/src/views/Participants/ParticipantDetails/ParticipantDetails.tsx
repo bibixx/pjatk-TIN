@@ -15,7 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { useTable } from 'react-table';
 import useSWR from 'swr';
-import { APIError } from 'utils/ApiError';
+import { APIError } from 'utils/APIError';
 import { getTripPaymentsColumns } from '../constants/getTripPaymentsColumns';
 import { ParticipantsFormInputs } from '../ParticipantsFormInputs/ParticipantsFormInputs';
 
@@ -28,7 +28,7 @@ export const ParticipantDetails = () => {
     APIError
   >(`/api/participants/${id}`);
 
-  const { data: tripPaymentsData, error: tripPaymentsError } = useSWR<
+  const { data: tripPaymentsData } = useSWR<
     GetTripParticipantsResponseDTO,
     APIError
   >(`/api/trip-payments?idparticipant=${id}`);
@@ -43,14 +43,8 @@ export const ParticipantDetails = () => {
     data: tripPayments,
   });
 
-  // TODO: handle errors
-  if (participantError || tripPaymentsError) {
-    return (
-      <EntityError
-        errors={[participantError, tripPaymentsError]}
-        page="participants"
-      />
-    );
+  if (participantError) {
+    return <EntityError errors={[participantError]} page="participants" />;
   }
 
   if (participant === undefined || tripPayments === undefined) {

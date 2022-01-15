@@ -1,3 +1,9 @@
+drop table hotel
+drop table participant
+drop table trip
+drop table tripparticipant
+drop table user
+
 create table hotel
 (
     id            serial           not null

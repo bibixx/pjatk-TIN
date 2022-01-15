@@ -35,23 +35,23 @@ export const register = withJSON<RegisterResponseDTO, RegisterRequestDTO>(
       }).transacting(trx);
 
       const hashedPassword = await hash(password, 10);
-      const createdUsers = await createUser(
+      const createdUsers = await createUser({
         username,
-        hashedPassword,
-        'participant',
-        (newParticipant as ParticipantTable).id,
-      ).transacting(trx);
+        password: hashedPassword,
+        userType: 'participant',
+        idparticipant: (newParticipant as ParticipantTable).id,
+      }).transacting(trx);
 
       return createdUsers[0] as UserTable;
     });
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    const { password: _password, ...newUser } = newRawUser;
+    const { password: _password, ...safeUser } = newRawUser;
 
-    setSessionElement(req, 'userId', newUser.id);
+    setSessionElement(req, 'userId', safeUser.id);
 
     return {
-      user: newUser,
+      user: safeUser,
     };
   },
 );

@@ -1,15 +1,16 @@
 import { GetHotelResponseDTO, GetTripsResponseDTO } from '@s19192/shared';
 import { DeleteView } from 'components/DeleteView/DeleteView';
+import { EntityError } from 'components/EntityError/EntityError';
 import { Loader } from 'components/Loader/Loader';
 import { PageContainer } from 'components/PageContainer/PageContainer';
 import { Table } from 'components/Table/Table';
+import { useAuth } from 'hooks/useAuth/useAuth';
 import { useMemo } from 'react';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useTable } from 'react-table';
 import useSWR from 'swr';
-import { fetcher } from 'utils/fetcher';
 import { makeRequest } from 'utils/makeRequest';
 import { getTripsColumns } from '../constants/getTripsColumns';
 
@@ -17,21 +18,20 @@ export const HotelDelete = () => {
   const { id } = useParams<'id'>();
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { isAdmin } = useAuth();
 
-  const { data: hotelData } = useSWR<GetHotelResponseDTO>(
+  const { data: hotelData, error: hotelError } = useSWR<GetHotelResponseDTO>(
     `/api/hotels/${id}`,
-    fetcher,
   );
 
   const { data: tripsData } = useSWR<GetTripsResponseDTO>(
     `/api/trips?idhotel=${id}`,
-    fetcher,
   );
 
   const hotel = hotelData?.hotel;
   const trips = tripsData?.trips ?? [];
 
-  const columns = useMemo(() => getTripsColumns(t), [t]);
+  const columns = useMemo(() => getTripsColumns(t, isAdmin), [isAdmin, t]);
 
   const tableInstance = useTable({
     columns,
@@ -48,6 +48,10 @@ export const HotelDelete = () => {
       toast.error(t('participants.toasts.error'));
     }
   };
+
+  if (hotelError) {
+    return <EntityError errors={[hotelError]} page="hotels" />;
+  }
 
   if (hotel === undefined) {
     return (

@@ -6,6 +6,7 @@ import {
   useMemo,
   useState,
 } from 'react';
+import Cookies from 'cookies-js';
 
 export const AuthContext = createContext<{
   user: SafeUserTable | null;
@@ -23,7 +24,7 @@ interface Props {
 
 const USER_STORAGE_KEY = 'USER';
 const getUserFromStorage = () => {
-  const rawItem = localStorage.getItem(USER_STORAGE_KEY);
+  const rawItem = Cookies.get(USER_STORAGE_KEY);
 
   if (!rawItem) {
     return null;
@@ -34,11 +35,11 @@ const getUserFromStorage = () => {
 
 const saveUserToStorage = (user: SafeUserTable | null) => {
   if (!user) {
-    localStorage.removeItem(USER_STORAGE_KEY);
+    Cookies.expire(USER_STORAGE_KEY);
     return;
   }
 
-  localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user));
+  Cookies.set(USER_STORAGE_KEY, JSON.stringify(user));
 };
 
 export const AuthContextWrapper = ({ children }: Props) => {

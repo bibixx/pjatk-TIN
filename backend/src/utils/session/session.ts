@@ -17,5 +17,5 @@ export const setSessionElement = <Key extends keyof CustomSessionFields>(
   key: Key,
   value: CustomSessionFields[Key],
 ) => {
-  (req.session as CustomSession)[key] = value;
+  (req.session as CustomSessionFields)[key] = value;
 };
