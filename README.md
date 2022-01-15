@@ -1,4 +1,4 @@
-<h1 align="center">TIN Mini Projekt #2</h1>
+<h1 align="center">TIN Mini Projekt #3</h1>
 
 ## Uruchomienie projektu
 ### Docker (Rekomendowane)
@@ -31,11 +31,6 @@ docker-compose exec backend npm run sql:seed
 docker-compose -f docker-compose.development.yml up
 ```
 
-2. Aby włączyć budowanie oraz nasłuchiwanie na zmiany skryptów frontendowych należy wykonać następującą komendę w oddzielnym oknie terminala
-```
-docker-compose -f docker-compose.development.yml exec backend npm run dev:frontend
-```
-
 ### Uruchomienie bezpośrednio na urządzeniu
 #### Wymagania
 | Zależność      | Wymagana Wersja |
@@ -45,24 +40,39 @@ docker-compose -f docker-compose.development.yml exec backend npm run dev:fronte
 #### Uruchomienie aplikacji
 1. Zainstaluj zależności przy użyciu npm
 ```bash
+cd backend
+npm install
+cd ../frontend
+npm install
+cd ../shared
 npm install
 ```
 
 2. Zdefiniuj zmienne środowiskowe przy użyciu pliku `.env` (przykładowa zawartość znajduje się w pliku `.env.example`)
 
-3. Uruchom aplikację za pomocą następującej komendy
+3. Uruchom backend za pomocą następującej komendy
 ```bash
+cd backend
 npm run start
+```
+
+4. Uruchom frontend za pomocą następującej komendy
+```bash
+cd frontend
+npm run build
+npm run preview
 ```
 
 #### SQL
 ##### Tworzenie schematu bazy danych
 ```
+cd backend
 npm run sql:create
 ```
 
 ##### Zasilanie bazy danych przykładowymi danymi
 ```
+cd backend
 npm run sql:seed
 ```
 

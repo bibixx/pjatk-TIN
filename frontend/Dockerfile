@@ -14,4 +14,6 @@ COPY shared .
 WORKDIR /usr/src/app/frontend
 COPY frontend .
 
+RUN npm run build
+
 CMD ["npm", "run" , "preview", "--", "--port", "3000", "--host"]
