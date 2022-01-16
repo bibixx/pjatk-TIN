@@ -1,3 +1,9 @@
+import loaderPath from 'images/loader.svg';
+
 export const Loader = () => {
-  return <span>Loading...</span>;
+  return (
+    <div className="loader-wrapper">
+      <img src={loaderPath} alt="Loading..." />
+    </div>
+  );
 };
