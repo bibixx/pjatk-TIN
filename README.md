@@ -4,10 +4,10 @@ This repository contains solutions to the exercises for the TIN (Internet Techno
 The following code is distributed under the [CC BY-NC](./LICENSE.md)
 
 Solutions for the mini-projects:
-* [MP0](./tree/mp0)
-* [MP1](./tree/mp1)
-* [MP2](./tree/mp2)
-* [MP3](./tree/mp3)
+* [MP0](https://github.com/bibixx/pjatk-TIN/tree/mp0)
+* [MP1](https://github.com/bibixx/pjatk-TIN/tree/mp1)
+* [MP2](https://github.com/bibixx/pjatk-TIN/tree/mp2)
+* [MP3](https://github.com/bibixx/pjatk-TIN/tree/mp3)
 
 ---
 
