@@ -76,25 +76,3 @@ export function Select<FieldValue extends string | number | Date | undefined>({
     </div>
   );
 }
-
-// <select
-// name="<%= name %>"
-// id="<%= name %>"
-// class="input__element"
-// <% if (disabled) {%> disabled <%}%>
-// >
-// <option value="" disabled selected><%= placeholder %></option>
-// <% for (let i = 0; i < elements.length; i++) {
-//   const element = elements[i]
-//   const value = getValue(element)
-//   const text = getOptionText(element)
-//   const isSelected = getIsSelected(element)
-// %>
-//   <option
-//     value="<%= value %>"
-//     <% if (isSelected) { %> selected <% } %>
-//   >
-//     <%= text %>
-//   </option>
-// <% } %>
-// </select>
